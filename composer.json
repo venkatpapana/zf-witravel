@@ -1,0 +1,15 @@
+{
+    "name": "witravel/witravel",
+    "require": {
+        "zendframework/zendframework1": "^1.12"
+    },
+    "require-dev": {
+        
+    },
+    "authors": [
+        {
+            "name": "Venkat Papana",
+            "email": "venkatnehatha@gmail.com"
+        }
+    ]
+}

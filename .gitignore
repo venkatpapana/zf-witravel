@@ -1,0 +1,7 @@
+/vendor
+/composer.lock
+/public/node_modules
+/public/dist
+/public/.tmp
+/public/.sass-cache
+/public/bower_components
