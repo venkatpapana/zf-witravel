@@ -8,10 +8,19 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('MainCtrl', ['$http', 'wiConfig', 'TestService', function ($http, wiConfig, TestService) {
+
+    var vm = this;
+
+    vm.user = {name: 'guest'};
+    function successFunction(response) {
+      console.log('successFunction', response)
+      vm.user = response.data;
+    }
+    function failureFunction(response) {
+      console.log('failureFunction', response)
+    }
+    TestService.getUserDetails().then(successFunction,failureFunction);
+
+
+  }]);
