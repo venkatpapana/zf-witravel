@@ -1,7 +1,8 @@
 {
     "name": "witravel/witravel",
     "require": {
-        "zendframework/zendframework1": "^1.12"
+        "zendframework/zendframework1": "^1.12",
+        "nusphere/nusoap": "dev-master"
     },
     "require-dev": {
         

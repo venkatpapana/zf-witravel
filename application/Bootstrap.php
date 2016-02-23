@@ -1,4 +1,7 @@
 <?php
+require_once dirname(__FILE__) .'/../vendor/autoload.php';
+
+require_once('controllers/WiTravelBaseController.php'); //TODO: autoload
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {

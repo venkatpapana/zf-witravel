@@ -1,6 +1,6 @@
 <?php
 
-class TestController extends Zend_Controller_Action
+class TestController extends WiTravelBaseController
 {
 
     public function init()

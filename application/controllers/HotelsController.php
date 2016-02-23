@@ -1,5 +1,5 @@
 <?php
-class HotelsController extends Zend_Controller_Action
+class HotelsController extends WiTravelBaseController
 {
 
     public function init()
