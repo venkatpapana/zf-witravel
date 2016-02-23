@@ -4,7 +4,7 @@ class WiTravelBaseController extends Zend_Controller_Action {
 
 
 
-  public funtion getTemplateConfig() {
+  public function getTemplateConfig() {
 
 
   }

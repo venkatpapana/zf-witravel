@@ -3,33 +3,33 @@
   abstract class GdsProvider {
     protected $request, $response;
 
-    public funtion setRequest($request) {
+    public function setRequest($request) {
       $this->request = $request;
     }
 
-    public funtion setResponse($response) {
+    public function setResponse($response) {
       $this->response = $response;
     }
 
-    public funtion getResponse() {
+    public function getResponse() {
       return $this->response;
     }
 
 
-    public function prepareRequest();
-    public function sendRequest();
-    public function parseResponse();
+    public abstract function prepareRequest();
+    public abstract function sendRequest();
+    public abstract function parseResponse();
 
-    public function getFlightResults();
-    public function getHotelResults();
+    public abstract function getFlightResults();
+    public abstract function getHotelResults();
 
-    public function getFlightDetails();
-    public function getHotelDetails();
+    public abstract function getFlightDetails();
+    public abstract function getHotelDetails();
 
-    public function bookFlight();
-    public function bookHotel();
+    public abstract function bookFlight();
+    public abstract function bookHotel();
 
-    public static funciton getGdsObj($source = 'TRAVELPORT') {
+    public static function getGdsObj($source = 'TRAVELPORT') {
         if(strtoupper($source) == 'TRAVELPORT') {
           require_once __DIR__ . '/travelport/TravelportProvider.php';
             $gds = new TravelportProvider();
