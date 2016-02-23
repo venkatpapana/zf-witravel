@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+<soapenv:Body>
+	<HotelSearchAvailabilityReq AuthorizedBy="{AUTHORIZED_BY}" TargetBranch="{TARGET_BRANCH}" xmlns="http://www.travelport.com/schema/hotel_v19_0">
+	  <BillingPointOfSaleInfo OriginApplication="UAPI" xmlns="http://www.travelport.com/schema/common_v17_0" ></BillingPointOfSaleInfo>
+	  <HotelLocation Location="{LOCATION}" ></HotelLocation>
+	  <HotelSearchModifiers NumberOfAdults="{NUM_ADULTS}" ></HotelSearchModifiers>
+	  <HotelStay>
+		<CheckinDate>{CHECKIN_DATE}</CheckinDate>
+		<CheckoutDate>{CHECKOUT_DATE}</CheckoutDate>
+	  </HotelStay>
+	</HotelSearchAvailabilityReq>
+</soapenv:Body>
+</soapenv:Envelope>
