@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-16"?>
+<AirCreateReservationReq xmlns="http://www.travelport.com/schema/universal_v33_0" TraceId="53fd748c-f6a7-443e-9685-56cdbfcebfe8" AuthorizedBy="Chetan" TargetBranch="P7030029" ProviderCode="1G" RetainReservation="Both">
+  <BillingPointOfSaleInfo xmlns="http://www.travelport.com/schema/common_v33_0" OriginApplication="UAPI" />
+  <BookingTraveler xmlns="http://www.travelport.com/schema/common_v33_0" Key="WVNaRlJJQzVtUlUyNmw3eQ==" TravelerType="ADT" Age="40" DOB="1976-01-11" Gender="M" Nationality="US">
+    <BookingTravelerName Prefix="Mr" First="Venkat" Last="P" />
+    <DeliveryInfo>
+      <ShippingAddress Key="WVNaRlJJQzVtUlUyNmw3eQ==">
+        <Street>Via Augusta 59 5</Street>
+        <City>Madrid</City>
+        <State>IA</State>
+        <PostalCode>50156</PostalCode>
+        <Country>US</Country>
+      </ShippingAddress>
+    </DeliveryInfo>
+    <PhoneNumber Location="DEN" CountryCode="1" AreaCode="303" Number="123456789" />
+    <Email EmailID="venkat@gmail.com" />
+    <Address>
+      <AddressName>Address2</AddressName>
+      <Street>Via Augusta 59 5</Street>
+      <City>Madrid</City>
+      <State>IA</State>
+      <PostalCode>50156</PostalCode>
+      <Country>US</Country>
+    </Address>
+  </BookingTraveler>
+  <FormOfPayment xmlns="http://www.travelport.com/schema/common_v33_0" Type="Credit" Key="1">
+    <CreditCard Type="VI" Number="4444333322221111" ExpDate="2016-12" Name="John Smith" CVV="123" Key="1">
+      <BillingAddress Key="952b306d-6a05-4cb4-bfab-9b06f546d166">
+        <AddressName>DemoSiteAddress</AddressName>
+        <Street>Via Augusta 59 5</Street>
+        <City>Madrid</City>
+        <State>IA</State>
+        <PostalCode>50156</PostalCode>
+        <Country>US</Country>
+      </BillingAddress>
+    </CreditCard>
+  </FormOfPayment>
+  <AirPricingSolution xmlns="http://www.travelport.com/schema/air_v33_0" Key="jAVK7yMXRka1mFPHrp3VGw==" TotalPrice="GBP91.26" BasePrice="EUR64.00" ApproximateTotalPrice="GBP91.26" ApproximateBasePrice="GBP46.00" EquivalentBasePrice="GBP46.00" Taxes="GBP45.26">
+    <AirSegment Key="lXZvJjFRSP60Fb1NikXcoA==" OptionalServicesIndicator="false" AvailabilityDisplayType="Fare Specific Fare Quote Unbooked" Group="0" Carrier="BA" FlightNumber="2759" Origin="AMS" Destination="LGW" DepartureTime="2016-01-21T10:50:00.000+01:00" ArrivalTime="2016-01-21T11:05:00.000+00:00" FlightTime="75" TravelTime="75" Distance="211" ProviderCode="1G" ClassOfService="O" />
+    <AirSegment Key="9XQqT7kORwOwg2F7MNEr3g==" OptionalServicesIndicator="false" AvailabilityDisplayType="Fare Specific Fare Quote Unbooked" Group="1" Carrier="BA" FlightNumber="2764" Origin="LGW" Destination="AMS" DepartureTime="2016-01-23T17:40:00.000+00:00" ArrivalTime="2016-01-23T19:55:00.000+01:00" FlightTime="75" TravelTime="75" Distance="211" ProviderCode="1G" ClassOfService="O" />
+    <AirPricingInfo PricingMethod="Auto" Taxes="GBP45.26" Key="TrWp2IfGSOmXRquWCp2p9w==" TotalPrice="GBP91.26" BasePrice="EUR64.00" ApproximateTotalPrice="GBP91.26" ApproximateBasePrice="GBP46.00" ProviderCode="1G">
+      <FareInfo PromotionalFare="false" FareFamily="Economy" Amount="" DepartureDate="2016-01-21" EffectiveDate="2016-01-11T15:20:00.000+00:00" Destination="LGW" Origin="AMS" PassengerTypeCode="ADT" FareBasis="OV1WO" Key="y4kUx16CRbWwD/n3H3M73g==">
+        <FareRuleKey FareInfoRef="y4kUx16CRbWwD/n3H3M73g==" ProviderCode="1G">6UUVoSldxwiIe/38RmBvvsbKj3F8T9EyxsqPcXxP0TIjSPOlaHfQe5cuasWd6i8Dly5qxZ3qLwOXLmrFneovA5cuasWd6i8Dly5qxZ3qLwOXLmrFneovA+AuvJxoI2WTM3ExqSoG052l+I8CYW5AicFC+Ey0yF7hVCulqMwbpNasTsU9/OBUclD+Zqy1lXNNkQKXLoN+n+rq/20RpEmAXlby9IE1rxlSp7GoYpQef1jkFTBfI0oSAbhHOJ4mOxpTFVHsNy1BaPCAdcY0m0a4yk4nKb2G5mOFzxa1NF1CGc6dwA9tVe1DAL+F729rtUMfv4Xvb2u1Qx+/he9va7VDH7+F729rtUMfv4Xvb2u1Qx80GqQ2wgDK/01BlpTwyo+r9GjARZYw7j/TROTkGAG0MckOd+xc8l3uMVpbxs3B+fbcF7TvWtaxD45yzlpSDq4S</FareRuleKey>
+        <Brand Key="1" BrandID="7812" Name="Economy" Carrier="BA">
+          <Title Type="External">Economy</Title>
+          <Title Type="Short">Economy</Title>
+          <Text Type="MarketingAgent">•1 piece of hand baggage
+
+•1 x 23kg of checked baggage allowance
+
+•Complimentary onboard food and bar service
+
+•Airport, online or mobile check-in
+
+•Free seat selection 24hrs in advance
+
+•Complimentary newspapers before you board
+
+•Flights to and from centrally located airports
+
+•Non refundable</Text>
+          <Text Type="Strapline">Economy</Text>
+        </Brand>
+      </FareInfo>
+      <FareInfo PromotionalFare="false" FareFamily="Economy" Amount="GBP23.00" DepartureDate="2016-01-23" EffectiveDate="2016-01-11T15:20:00.000+00:00" Destination="AMS" Origin="LGW" PassengerTypeCode="ADT" FareBasis="OV1WO" Key="H1gEZv28RxOn/1hGlvU1DQ==">
+        <FareRuleKey FareInfoRef="H1gEZv28RxOn/1hGlvU1DQ==" ProviderCode="1G">6UUVoSldxwiIe/38RmBvvsbKj3F8T9EyxsqPcXxP0TIjSPOlaHfQe5cuasWd6i8Dly5qxZ3qLwOXLmrFneovA5cuasWd6i8Dly5qxZ3qLwOXLmrFneovA+AuvJxoI2WTM3ExqSoG050WS9l+4/GFk1p1wpGyX3WAffAIozri2ACsTsU9/OBUclD+Zqy1lXNNFTa6IPaP2BLq/20RpEmAXlby9IE1rxlSp7GoYpQef1jkFTBfI0oSAbhHOJ4mOxpTFVHsNy1BaPA8sv0OdkDoiE4nKb2G5mOFbclfE2ricN2dwA9tVe1DAL+F729rtUMfv4Xvb2u1Qx+/he9va7VDH7+F729rtUMfv4Xvb2u1Qx80GqQ2wgDK/01BlpTwyo+r9GjARZYw7j/TROTkGAG0MckOd+xc8l3uMVpbxs3B+fbcF7TvWtaxD45yzlpSDq4S</FareRuleKey>
+        <Brand Key="2" BrandID="7812" Name="Economy" Carrier="BA">
+          <Title Type="External">Economy</Title>
+          <Title Type="Short">Economy</Title>
+          <Text Type="MarketingAgent">•1 piece of hand baggage
+
+•1 x 23kg of checked baggage allowance
+
+•Complimentary onboard food and bar service
+
+•Airport, online or mobile check-in
+
+•Free seat selection 24hrs in advance
+
+•Complimentary newspapers before you board
+
+•Flights to and from centrally located airports
+
+•Non refundable</Text>
+          <Text Type="Strapline">Economy</Text>
+        </Brand>
+      </FareInfo>
+      <BookingInfo BookingCode="O" CabinClass="Economy" FareInfoRef="y4kUx16CRbWwD/n3H3M73g==" SegmentRef="lXZvJjFRSP60Fb1NikXcoA==" />
+      <BookingInfo BookingCode="O" CabinClass="Economy" FareInfoRef="H1gEZv28RxOn/1hGlvU1DQ==" SegmentRef="9XQqT7kORwOwg2F7MNEr3g==" />
+      <TaxInfo Key="maUnYWE3T9eetBOAjLeuxg==" Category="GB" Amount="GBP13.00" />
+      <TaxInfo Key="SAvPd9AwQHeA6lEswcS4xw==" Category="UB" Amount="GBP12.66" />
+      <TaxInfo Key="ikOV0ZPNS9KbeVd7//KFGA==" Category="CJ" Amount="GBP8.80" />
+      <TaxInfo Key="+Jvta4tcT2S9h4MQqWDVow==" Category="RN" Amount="GBP10.40" />
+      <TaxInfo Key="4vEbOHngTBuHDw33SMbcsQ==" Category="VV" Amount="GBP0.40" />
+      <PassengerType Code="ADT" Age="40" BookingTravelerRef="WVNaRlJJQzVtUlUyNmw3eQ==" />
+    </AirPricingInfo>
+  </AirPricingSolution>
+  <ActionStatus xmlns="http://www.travelport.com/schema/common_v33_0" Type="ACTIVE" TicketDate="T*" ProviderCode="1G" />
+</AirCreateReservationReq>
