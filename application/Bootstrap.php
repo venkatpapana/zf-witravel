@@ -35,6 +35,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			$request = new Zend_Controller_Request_Http();
 			$front->setRequest($request);
 		}
+
 		return $request;
 	}
 

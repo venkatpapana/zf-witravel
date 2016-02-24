@@ -1,7 +1,10 @@
 <?php
 
-  abstract class GdsProvider {
+   class GdsProvider {
     protected $request, $response;
+
+    public function __construct() {
+    }
 
     public function setRequest($request) {
       $this->request = $request;
@@ -11,23 +14,27 @@
       $this->response = $response;
     }
 
+    public function getRequest() {
+      return $this->request;
+    }
+
     public function getResponse() {
       return $this->response;
     }
 
 
-    public abstract function prepareRequest();
-    public abstract function sendRequest();
-    public abstract function parseResponse();
+    public function prepareRequest($requestType) {}
+    public function sendRequest() {}
+    public function parseResponse() {}
 
-    public abstract function getFlightResults();
-    public abstract function getHotelResults();
+    public function getFlightResults() {}
+    public function getHotelResults() {}
 
-    public abstract function getFlightDetails();
-    public abstract function getHotelDetails();
+    public function getFlightDetails() {}
+    public function getHotelDetails() {}
 
-    public abstract function bookFlight();
-    public abstract function bookHotel();
+    public function bookFlight() {}
+    public function bookHotel() {}
 
     public static function getGdsObj($source = 'TRAVELPORT') {
         if(strtoupper($source) == 'TRAVELPORT') {
