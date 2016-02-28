@@ -220,7 +220,7 @@ module.exports = function (grunt) {
             }
           }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -392,7 +392,17 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
-        }]
+        }, {
+          expand: true,
+          cwd: 'bower_components/font-awesome-min',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }/*, {
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }*/]
       },
       styles: {
         expand: true,
