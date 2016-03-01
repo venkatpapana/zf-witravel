@@ -22,17 +22,32 @@ angular
     /**
      *  Routes
      */
-    // For any unmatched url, redirect to /state1
-      $urlRouterProvider.otherwise("/home");
+    // For any unmatched url, redirect to /home
+      $urlRouterProvider.otherwise("/");
 
       $stateProvider
           .state('home', {
             url: "/",
-            templateUrl: "views/main.html",
-            controller: 'MainCtrl',
-            controllerAs: 'main'
-          })
-          .state('about', {
+            templateUrl: "views/home.html",
+            controller: 'HomeCtrl',
+            controllerAs: 'home'
+          }).state('destinations', {
+            url: "/destinations",
+            templateUrl: "views/destinations.html",
+            controllerAs: 'destinations'
+          }).state('flightResults', {
+            url: "/flight_results",
+            templateUrl: "views/flight_results.html",
+            controllerAs: 'f_results'
+          }).state('hotelResults', {
+            url: "/hotel_results",
+            templateUrl: "views/hotel_results.html",
+            controllerAs: 'f_results'
+          }).state('payment', {
+            url: "/payment",
+            templateUrl: "views/payment.html",
+            controllerAs: 'f_results'
+          }).state('about', {
             url: "/about",
             templateUrl: "views/about.html",
 
