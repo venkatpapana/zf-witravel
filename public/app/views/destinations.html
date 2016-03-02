@@ -120,13 +120,10 @@
     <div class="col-md-9 col-sm-8 col-xs-12 bann_imgs_outr pad_none">
     	<div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
          <div id="mainwrapper">
+           <div ng-repeat="segment in destinations.airSegments  track by $index">
+             <destination-tile dest=segment></destination-tile>
+           </div>
 
-           <destination-tile></destination-tile>
-           <destination-tile></destination-tile>
-           <destination-tile></destination-tile>
-           <destination-tile></destination-tile>
-           <destination-tile></destination-tile>
-           <destination-tile></destination-tile>
 
 
         </div>

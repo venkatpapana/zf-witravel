@@ -52,13 +52,9 @@
         $placeholders = $arrPlaceholders[$requestType];
         switch ($requestType) {
           case 'LowFareSearch':
-            $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
-
-
-
             $request = $this->getRequest();
-            $strReqXml = str_replace("{TARGET_BRANCH}", $wiconfig['Travelport']['TARGET_BRANCH'], $strReqXml);
-            $strReqXml = str_replace("{AUTHORIZED_BY}", $wiconfig['Travelport']['AUTHORIZED_BY'], $strReqXml);
+            $strReqXml = str_replace("{TARGET_BRANCH}", $this->wiconfig['Travelport']['TARGET_BRANCH'], $strReqXml);
+            $strReqXml = str_replace("{AUTHORIZED_BY}", $this->wiconfig['Travelport']['AUTHORIZED_BY'], $strReqXml);
             $strReqXml = str_replace("{FROM_PLACE}", $request->getFromPlace(), $strReqXml);
             $strReqXml = str_replace("{FROM_DATE}", $request->getFromDate(), $strReqXml);
 
@@ -94,11 +90,11 @@
       $template = $this->fillReqXmlTemplate($requestType);
     }
     public function sendRequest() {
-      $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
 
-      $client = new nusoap_client($wiconfig['Travelport']['ENDPOINT'], false);
-      $client->setCredentials($wiconfig['Travelport']['USERNAME'], $wiconfig['Travelport']['PASSWORD']);
-      $result = $client->send($this->reqXML, $wiconfig['Travelport']['ENDPOINT']);
+
+      $client = new nusoap_client($this->wiconfig['Travelport']['ENDPOINT'], false);
+      $client->setCredentials($this->wiconfig['Travelport']['USERNAME'], $this->wiconfig['Travelport']['PASSWORD']);
+      $result = $client->send($this->reqXML, $this->wiconfig['Travelport']['ENDPOINT']);
 
       if(!empty($result) && is_array($result)) {
         $this->responseJson = Zend_Json::encode($result);
@@ -112,6 +108,10 @@
 
     public function getFlightResults() {
 
+      if($this->wiconfig['Travelport']['USE_CACHE'] == 'true') {
+        return file_get_contents(__DIR__ . '/cache/api_responses/LowFareSearchResp.json');
+      }
+
       //prepare req. xml
       $this->prepareRequest('LowFareSearch');
 
@@ -121,6 +121,7 @@
       //parse resp
       $this->parseResponse();
 
+      //file_put_contents(__DIR__ . '/cache/api_responses/LowFareSearchResp.json', $this->responseJson);
       //return result
       return $this->responseJson;
     }

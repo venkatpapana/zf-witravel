@@ -1,9 +1,11 @@
 <?php
 
    class GdsProvider {
+    protected $wiconfig;
     protected $request, $response;
 
     public function __construct() {
+      $this->wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
     }
 
     public function setRequest($request) {

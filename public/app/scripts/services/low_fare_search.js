@@ -9,8 +9,9 @@
  */
 angular.module('ngWitravelApp')
   .service('lowFareSearchService', ['$http', 'wiConfig', function ($http, wiConfig) {
-    var budget = 200, numTravellers=2;
-    var searchStatus = false, searchResults=[];
+    var budget = 200, numTravellers=2, twoWay = false;
+    var searchStatus = false, searchResults=null;
+    var respResults = [];
 
     var  setBudget = function(b) {
       budget = b;
@@ -46,13 +47,62 @@ angular.module('ngWitravelApp')
       return searchResults;
     };
 
+
+    var getAirSegment = function(segKey) {
+      var airSegment = null;
+      if(searchResults != null) {
+        var arrAirSegments = searchResults['AirSegmentList']['AirSegment'];
+        for (var i = 0; i < arrAirSegments.length; i++) {
+          if(arrAirSegments[i]['!Key'] == segKey) {
+            airSegment = arrAirSegments[i];
+            break;
+          }
+        }
+      }
+      return airSegment;
+    }
+
+
+    var getFlights = function() {
+      return respResults;
+    }
+
+    var parseFlights = function() {
+      var resAirSegments = [];
+
+      if(searchResults != null) {
+        var airPricingSolutions = searchResults['AirPricingSolution'];
+
+        if(airPricingSolutions.length > 0) {
+          for (var i = 0; i < airPricingSolutions.length; i++) {
+            var thisAirPricing = airPricingSolutions[i];
+            if(twoWay) {
+              var airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef'][0]['!Key'];
+              //var airSegmentKey2 = thisAirPricing['Journey']['AirSegmentRef'][1]['!Key'];
+            }else{
+              var airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef']['!Key'];
+            }
+
+            var airSegment = getAirSegment(airSegmentKey1);
+
+            if(airSegment != null) {
+                resAirSegments.push(airSegment);
+            }
+          }//for
+        } //have AirPricingSolutions
+      } //have SearchResults
+      respResults = resAirSegments;
+    }
+
     return {
       setBudget: setBudget,
       getBudget: getBudget,
       setNumTravellers: setNumTravellers,
       getNumTravellers: getNumTravellers,
       getLowFareSearchResults: getLowFareSearchResults,
-      getSavedResults: getSavedResults
+      getSavedResults: getSavedResults,
+      parseFlights: parseFlights,
+      getFlights: getFlights
     };
 
   }]);
