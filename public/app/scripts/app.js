@@ -34,6 +34,7 @@ angular
           }).state('destinations', {
             url: "/destinations",
             templateUrl: "views/destinations.html",
+            controller: 'DestinationsCtrl',
             controllerAs: 'destinations'
           }).state('flightResults', {
             url: "/flight_results",

@@ -13,28 +13,28 @@ angular.module('ngWitravelApp')
 
     var vm = this;
 
-    //default
-    vm.budget = 100;
-    vm.numPassengers = 2;
+
 
     function lowFareSearch() {
-      //console.log('lowFareSearch')
+      console.log('LowFareSearchCriteria')
 
-      //lowFareSearchService.getLowFareSearchResults().then(successFunction,failureFunction);
-      $state.go("destinations");
+      lowFareSearchService.getLowFareSearchResults().then(successFunction,failureFunction);
+      // $state.go("destinations");
     }
-
-    vm.lowFareSearch = lowFareSearch;
 
     // vm.user = {name: 'guest'};
     function successFunction(response) {
       console.log('successFunction', response)
-      // vm.results = response.data;
+      if(response === true) {
+        $state.go("destinations");
+      }
     }
     function failureFunction(response) {
       console.log('failureFunction', response)
     }
 
-
+    vm.budget = lowFareSearchService.getBudget();
+    vm.numTravellers = lowFareSearchService.getNumTravellers();
+    vm.lowFareSearch = lowFareSearch;
 
   }]);

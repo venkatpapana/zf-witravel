@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_WARNING);
+
 require_once dirname(__FILE__) .'/../vendor/autoload.php';
 
 //TODO: autoload
