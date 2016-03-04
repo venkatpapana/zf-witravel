@@ -41,4 +41,30 @@ class FlightsController extends WiTravelBaseController
 
 
     }
+
+    public function flightReservationAction() {
+        // $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
+        //
+        // //TODO: read the req params
+        $search = new FlightSearchCriteria();
+        // $search->setFromPlace('AMS');
+        // $search->setFromDate('2016-04-20');
+        // $search->setToDate('2016-04-22');
+        // $search->setToPlaces($wiconfig['Destinations']);
+        // $search->setBudget('500');
+        // $search->setNumPassengers(2);
+
+
+        //send request
+        $gds = GdsProvider::getGdsObj();
+        $gds->setRequest($search);
+        $results = $gds->bookFlight();
+
+        echo $results;
+
+
+
+    }
+
+
 }

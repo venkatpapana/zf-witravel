@@ -7,6 +7,9 @@ require_once dirname(__FILE__) .'/../vendor/autoload.php';
 require_once('controllers/WiTravelBaseController.php');
 require_once('gds/GdsProvider.php');
 require_once('models/FlightSearchCriteria.php');
+require_once('models/HotelSearchCriteria.php');
+require_once('models/HotelDetailsCriteria.php');
+require_once('models/HotelMediaLinksCriteria.php');
 
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
