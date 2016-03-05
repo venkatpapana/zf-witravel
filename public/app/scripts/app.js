@@ -39,11 +39,13 @@ angular
           }).state('flightResults', {
             url: "/flight_results",
             templateUrl: "views/flight_results.html",
-            controllerAs: 'f_results'
+            controller: 'FlightsCtrl',
+            controllerAs: 'flights'
           }).state('hotelResults', {
             url: "/hotel_results",
             templateUrl: "views/hotel_results.html",
-            controllerAs: 'f_results'
+            controller: "HotelsCtrl",
+            controllerAs: 'hotels'
           }).state('payment', {
             url: "/payment",
             templateUrl: "views/payment.html",

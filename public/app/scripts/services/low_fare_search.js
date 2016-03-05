@@ -60,12 +60,12 @@ angular.module('ngWitravelApp')
         }
       }
       return airSegment;
-    }
+    };
 
 
     var getFlights = function() {
       return respResults;
-    }
+    };
 
     var parseFlights = function() {
       var resAirSegments = [];
@@ -92,7 +92,7 @@ angular.module('ngWitravelApp')
         } //have AirPricingSolutions
       } //have SearchResults
       respResults = resAirSegments;
-    }
+    };
 
     return {
       setBudget: setBudget,
