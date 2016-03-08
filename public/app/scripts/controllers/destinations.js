@@ -17,7 +17,7 @@ angular.module('ngWitravelApp')
     //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());
 
     lowFareSearchService.parseFlights();
-    //console.log('DestinationsCtrl, getFlights', lowFareSearchService.getFlights());
+    console.log('DestinationsCtrl, getFlights', lowFareSearchService.getFlights());
     vm.airSegments = lowFareSearchService.getFlights()
 
     // vm.user = {name: 'guest'};

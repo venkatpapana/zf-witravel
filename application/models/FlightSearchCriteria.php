@@ -1,6 +1,6 @@
 <?php
 class FlightSearchCriteria {
-  protected $fromPlace, $toPlaces, $fromDate, $toDate, $numPassengers, $budget;
+  protected $fromPlace, $toPlaces, $fromDate, $toDate, $numPassengers, $budget, $is2Way = true;
 
   public function setFromPlace($fromPlace){
     $this->fromPlace = $fromPlace;
@@ -25,6 +25,11 @@ class FlightSearchCriteria {
     $this->budget = $budget;
   }
 
+  public function setIs2Way($twoWay) {
+    $this->is2Way = $twoWay;
+  }
+
+
   public function getFromPlace(){
     return $this->fromPlace;
   }
@@ -48,5 +53,8 @@ class FlightSearchCriteria {
     return $this->budget;
   }
 
+  public function getIs2Way() {
+    return $this->is2Way;
+  }
 
 }

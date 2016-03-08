@@ -60,6 +60,8 @@
 
             $SearchOrigins = '';
             $searchDestinations = '';
+            $returnSegment = '';
+
             $arrToPlaces = $request->getToPlaces();
             foreach($arrToPlaces as $dest) {
           		if($dest != $request->getFromPlace()) {
@@ -74,7 +76,13 @@
             	$searchPassengers .= '<com:SearchPassenger Code="ADT" />';
             }
             $strReqXml = str_replace("{PASSENGERS}", $searchPassengers, $strReqXml);
-            $strReqXml = str_replace("{RETURN_SEGMENT}", '', $strReqXml);
+
+
+            if($request->getIs2Way() == true) {
+            	$returnSegment = '<air:SearchAirLeg>'.$SearchOrigins.'<air:SearchDestination><com:CityOrAirport Code="'.$request->getFromPlace().'" /></air:SearchDestination><air:SearchDepTime PreferredTime="'.$request->getToDate().'" /></air:SearchAirLeg>';
+            }
+
+            $strReqXml = str_replace("{RETURN_SEGMENT}", $returnSegment, $strReqXml);
 
             break;
 

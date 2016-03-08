@@ -32,7 +32,8 @@ class FlightsController extends WiTravelBaseController
 
 
         //send request
-        $gds = GdsProvider::getGdsObj();
+        $gds = new GdsProvider();
+        $gds = $gds->getGdsObj('TRAVELPORT');
         $gds->setRequest($search);
         $results = $gds->getFlightResults();
 

@@ -4,17 +4,17 @@
         <img ng-src="images/plan2.png">
       </div>
       <div class="vueling_outer_btn">
-        <img ng-src="images/{{flight['!Carrier']}}.png" alt="{{flight['!Carrier']}}">
+        <img ng-src="images/{{flight['onward']['!Carrier']}}.png" alt="{{flight['onward']['!Carrier']}}">
       </div>
      </div>
       <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
-        <h2>{{flight['!DepartureTime'] | displayTime}}</h2>
-          <span>{{flight['!ArrivalTime'] | displayTime}}</span>
+        <h2>{{flight['onward']['!DepartureTime'] | displayTime}}</h2>
+          <span>{{flight['onward']['!ArrivalTime'] | displayTime}}</span>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
-        <span>{{flight['!Origin']}}, <strong>{{flight['!Origin']}}</strong></span>
+        <span>{{flight['onward']['!Origin']}}, <strong>{{flight['onward']['!Origin']}}</strong></span>
           <i class="fa fa-arrow-right right_arrow_innr"></i>
-          <span>{{flight['!Destination']}}, <strong>{{flight['!Destination']}}</strong></span>
+          <span>{{flight['onward']['!Destination']}}, <strong>{{flight['onward']['!Destination']}}</strong></span>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 border_inner pad_none"></div>
         <div class="col-md-12 col-sm-12 col-xs-12 plain_main_otr">
@@ -26,13 +26,13 @@
       </div>
      </div>
       <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
-        <h2>18:45</h2>
-          <span>21:00</span>
+        <h2>{{flight['return']['!DepartureTime'] | displayTime}}</h2>
+          <span>{{flight['return']['!ArrivalTime'] | displayTime}}</span>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
-        <span>Arlanda, <strong>Estocolmo</strong></span>
+        <span>{{flight['return']['!Origin']}}, <strong>{{flight['return']['!Origin']}}</strong></span>
           <i class="fa fa-arrow-right right_arrow_innr"></i>
-          <span>Barajas, <strong>Madrid</strong></span>
+          <span>{{flight['return']['!Destination']}}, <strong>{{flight['return']['!Destination']}}</strong></span>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 info_btn_inner pad_none">
         <a href="#">+ info</a>
