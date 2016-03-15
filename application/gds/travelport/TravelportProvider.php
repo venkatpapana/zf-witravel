@@ -98,7 +98,6 @@
             // $strReqXml = str_replace("{CHECKOUT_DATE}", $request->getCheckoutDate(), $strReqXml);
             // $strReqXml = str_replace("{NUM_ROOMS}", $request->getNumRooms(), $strReqXml);
             $strReqXml = str_replace("{LOCATION}", $request->location, $strReqXml);
-            $strReqXml = str_replace("{FROM_DATE}", $request->fromDate, $strReqXml);
             $strReqXml = str_replace("{NUM_ADULTS}", $request->numAdults, $strReqXml);
             $strReqXml = str_replace("{CHECKIN_DATE}", $request->checkinDate, $strReqXml);
             $strReqXml = str_replace("{CHECKOUT_DATE}", $request->checkoutDate, $strReqXml);

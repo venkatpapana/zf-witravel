@@ -17,8 +17,8 @@ angular.module('ngWitravelApp')
     //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());
 
     lowFareSearchService.parseFlights();
-    console.log('DestinationsCtrl, getFlights', lowFareSearchService.getFlights());
-    vm.airSegments = lowFareSearchService.getFlights()
+    console.log('DestinationsCtrl, getAllFlights', lowFareSearchService.getAllFlights());
+    vm.airSegments = lowFareSearchService.getAllFlights()
 
     // vm.user = {name: 'guest'};
     function successFunction(response) {
@@ -29,6 +29,12 @@ angular.module('ngWitravelApp')
       console.log('failureFunction', response)
     }
 
+    var destinationSelected = function(destination) {
+      //alert("DestinationsCtrl::destinationSelected = "+destination);
+      lowFareSearchService.setSelectedDestination(destination);
+    }
+
+    vm.destinationSelected = destinationSelected;
 
 
   }]);

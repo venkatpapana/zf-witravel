@@ -12,7 +12,8 @@ angular.module('ngWitravelApp')
   function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService) {
 
     var vm = this;
-    hotelSearchService.getHotelSearchResults().then(successFunction,failureFunction);
+    var selectedDestination = lowFareSearchService.getSelectedDestination();
+    hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction,failureFunction);
 
     function successFunction(response) {
       console.log('successFunction', response);

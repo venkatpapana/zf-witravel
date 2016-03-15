@@ -5,7 +5,8 @@ angular.module('ngWitravelApp')
   return {
     restrict: 'E',
     scope: {
-      dest: '='
+      'destination': '=',
+      'destinationSelected': '&onSelected'
     },
     templateUrl: 'partials/destination_tile.html'
   };

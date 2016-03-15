@@ -9,7 +9,7 @@
  */
 angular.module('ngWitravelApp')
   .service('hotelSearchService', ['$http', 'wiConfig', function ($http, wiConfig) {
-    var budget = 200, numTravellers=2, twoWay = false;
+    var budget = 200, numTravellers=2, twoWay = true;
     var searchStatus = false, searchResults=null;
     var respResults = [];
 
@@ -30,10 +30,10 @@ angular.module('ngWitravelApp')
     };
 
 
-    var getHotelSearchResults = function() {
+    var getHotelSearchResults = function(location) {
           return $http({
             method: 'GET',
-            url: wiConfig.serviceURL+'/hotels/hotel-search'
+            url: wiConfig.serviceURL+'/hotels/hotel-search/location/'+location+'/adults/'+getNumTravellers()+'/startDate/'+''+'/endDate/'
           }).then(function successFunction(response){
             searchResults = response.data;
             searchStatus = true;
@@ -72,7 +72,9 @@ angular.module('ngWitravelApp')
 
       if(searchResults != null) {
         var airHotelSearchResults = searchResults['HotelSearchResult'];
-
+        if(airHotelSearchResults != undefined && airHotelSearchResults != null && airHotelSearchResults.length == undefined) {
+          airHotelSearchResults = [airHotelSearchResults];
+        }
         if(airHotelSearchResults.length > 0) {
           for (var i = 0; i < airHotelSearchResults.length; i++) {
             var thisHotelResult = airHotelSearchResults[i];

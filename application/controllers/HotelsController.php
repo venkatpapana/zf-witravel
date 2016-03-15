@@ -19,13 +19,23 @@ class HotelsController extends WiTravelBaseController
     public function hotelSearchAction() {
         $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
 
+        $request = Zend_Controller_Front::getInstance()->getRequest();
+
+        $location = $request->getParam('location');
+        // $budget = $request->getParam('budget')?$request->getParam('budget'): 200;
+        $adults = $request->getParam('adults')?$request->getParam('adults'): 1;
+
+        $startDate = $request->getParam('startDate')?$request->getParam('startDate'): $this->getNextFriday();
+        $endDate = $request->getParam('endDate')?$request->getParam('endDate'): $this->getNextSunday();
+
+
         //TODO: read the req params
         $search = new HotelSearchCriteria();
-        $search->location = 'AMS';
-        $search->numAdults = '2';
-        $search->checkinDate = '2016-03-20';
-        $search->checkoutDate = '2016-03-22';
-        $search->numRooms = '1';
+        $search->location = $location;
+        $search->numAdults = $adults;
+        $search->checkinDate = $startDate;
+        $search->checkoutDate = $endDate;
+        $search->numRooms = ceil($search->numAdults/2);
 
         //send request
         $gds = GdsProvider::getGdsObj();

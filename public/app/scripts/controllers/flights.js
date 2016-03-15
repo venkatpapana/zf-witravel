@@ -14,11 +14,13 @@ angular.module('ngWitravelApp')
     var vm = this;
     //vm.results = lowFareSearchService.searchResults
 
-    //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());
+    //console.log('FlightsCtrl, searchResults', lowFareSearchService.getSavedResults());
+    var selectedDestination = lowFareSearchService.getSelectedDestination();
 
     //lowFareSearchService.parseFlights();
-    console.log('FlightsCtrl, getFlights', lowFareSearchService.getFlights());
-    vm.airSegments = lowFareSearchService.getFlights()
+
+    vm.destinationAirSegments = lowFareSearchService.getFlights(selectedDestination);
+    console.log('FlightsCtrl::destinationAirSegments', vm.destinationAirSegments);
 
     // vm.user = {name: 'guest'};
     function successFunction(response) {

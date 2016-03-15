@@ -121,7 +121,7 @@
     	<div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
          <div id="mainwrapper">
            <div ng-repeat="(key, segment) in destinations.airSegments  track by $index">
-             <destination-tile dest=segment[0]['onward']></destination-tile>
+             <destination-tile destination=segment['segments'][0]['onward'] on-selected="destinations.destinationSelected(segment['destination'])"></destination-tile>
            </div>
         </div>
      </div>

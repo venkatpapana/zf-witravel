@@ -9,10 +9,18 @@
  */
 angular.module('ngWitravelApp')
   .service('lowFareSearchService', ['$http', 'wiConfig', function ($http, wiConfig) {
+    var origin = 'AMS';
     var budget = 200, numTravellers=2, twoWay = true;
 
     var searchStatus = false, searchResults=null;
     var respResults = [];
+
+    var selectedDestination, selectedAirSegment, selectedHotel;
+
+    var getOrigin = function() {
+      //TODO: get location based on IP address
+      return origin;
+    }
 
     var  setBudget = function(b) {
       budget = b;
@@ -34,7 +42,7 @@ angular.module('ngWitravelApp')
     var getLowFareSearchResults = function() {
           return $http({
             method: 'GET',
-            url: wiConfig.serviceURL+'/flights/low-fare-search'
+            url: wiConfig.serviceURL+'/flights/low-fare-search/origin/'+getOrigin()+'/budget/'+getBudget()+'/travellers/'+getNumTravellers()
           }).then(function successFunction(response){
             searchResults = response.data;
             searchStatus = true;
@@ -63,9 +71,19 @@ angular.module('ngWitravelApp')
       return airSegment;
     };
 
-
-    var getFlights = function() {
+    var getAllFlights = function() {
       return respResults;
+    };
+
+    var getFlights = function(destination) {
+      var flightsForDestination = [];
+      for (var i = 0; i < respResults.length; i++) {
+        if(respResults[i].destination == destination) {
+          flightsForDestination = respResults[i];
+          break;
+        }
+      }
+      return flightsForDestination;
     };
 
     var parseFlights = function() {
@@ -118,14 +136,37 @@ angular.module('ngWitravelApp')
         } //have AirPricingSolutions
       } //have SearchResults
 
+      console.log("resAirSegments", resAirSegments);
 
-
+      //clear prev. results, if any
+      respResults = [];
       angular.forEach(arrDestinations, function(value, key) {
-        respResults.push(resAirSegments[value]);
+        var thisDestination = {"destination": value, "segments": resAirSegments[value]};
+        respResults.push(thisDestination);
       });
 
       // respResults = resAirSegments;
     };
+
+    var setSelectedDestination = function(destination) {
+       selectedDestination = destination;
+    }
+    var setSelectedAirSegment = function(airSegment) {
+      selectedAirSegment = airSegment;
+    }
+    var setSelectedHotel = function(hotel) {
+      selectedHotel = hotel;
+    }
+
+    var getSelectedDestination = function() {
+      return selectedDestination;
+    }
+    var getSelectedAirSegment = function() {
+      return selectedAirSegment;
+    }
+    var getSelectedHotel = function() {
+      return selectedHotel;
+    }
 
     return {
       setBudget: setBudget,
@@ -135,7 +176,14 @@ angular.module('ngWitravelApp')
       getLowFareSearchResults: getLowFareSearchResults,
       getSavedResults: getSavedResults,
       parseFlights: parseFlights,
-      getFlights: getFlights
+      getAllFlights: getAllFlights,
+      getFlights: getFlights,
+      setSelectedDestination: setSelectedDestination,
+      setSelectedAirSegment: setSelectedAirSegment,
+      setSelectedHotel: setSelectedHotel,
+      getSelectedDestination: getSelectedDestination,
+      getSelectedAirSegment: getSelectedAirSegment,
+      getSelectedHotel: getSelectedHotel
     };
 
   }]);
