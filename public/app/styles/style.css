@@ -5,7 +5,7 @@ body
 }
 .page_bg
 {
-    /*background: url(../images/main-bg.jpg) no-repeat;*/
+    background: url(../images/main-bg.jpg) no-repeat;
 	background-size:cover;
 }
 .main_outer {
