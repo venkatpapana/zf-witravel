@@ -13,9 +13,9 @@ body
 	width: 100%;
 }
 header {
-	padding: 15px 0 0;
-	float: left;
-	width: 100%;
+	/*padding: 15px 0 0;*/
+	/*float: left;*/
+	/*width: 100%;*/
 }
 .pad_none {
 	padding: 0 !important;

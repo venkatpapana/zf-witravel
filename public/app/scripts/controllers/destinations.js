@@ -8,33 +8,34 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .controller('DestinationsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService',
-  function ($http, $state, wiConfig, lowFareSearchService) {
+    .controller('DestinationsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService',
+        function ($http, $state, wiConfig, lowFareSearchService) {
 
-    var vm = this;
-    //vm.results = lowFareSearchService.searchResults
+            var vm = this;
+            //vm.results = lowFareSearchService.searchResults
 
-    //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());
+            //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());
 
-    lowFareSearchService.parseFlights();
-    console.log('DestinationsCtrl, getAllFlights', lowFareSearchService.getAllFlights());
-    vm.airSegments = lowFareSearchService.getAllFlights()
+            lowFareSearchService.parseFlights();
+            console.log('DestinationsCtrl, getAllFlights', lowFareSearchService.getAllFlights());
+            vm.airSegments = lowFareSearchService.getAllFlights()
 
-    // vm.user = {name: 'guest'};
-    function successFunction(response) {
-      console.log('successFunction', response)
-      // vm.results = response.data;
-    }
-    function failureFunction(response) {
-      console.log('failureFunction', response)
-    }
+            // vm.user = {name: 'guest'};
+            function successFunction(response) {
+                console.log('successFunction', response)
+                // vm.results = response.data;
+            }
 
-    var destinationSelected = function(destination) {
-      //alert("DestinationsCtrl::destinationSelected = "+destination);
-      lowFareSearchService.setSelectedDestination(destination);
-    }
+            function failureFunction(response) {
+                console.log('failureFunction', response)
+            }
 
-    vm.destinationSelected = destinationSelected;
+            var destinationSelected = function (destination) {
+                //alert("DestinationsCtrl::destinationSelected = "+destination);
+                lowFareSearchService.setSelectedDestination(destination);
+            }
+
+            vm.destinationSelected = destinationSelected;
 
 
-  }]);
+        }]);

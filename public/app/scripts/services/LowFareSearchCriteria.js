@@ -8,33 +8,31 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .service('LowFareSearchCriteria', [function () {
+    .service('LowFareSearchCriteria', [function () {
 
-    var budget = 200, numTravellers=2;
+        var budget = 200, numTravellers = 2;
 
-    var  setBudget = function(b) {
-      budget = b;
-    }
+        var setBudget = function (b) {
+            budget = b;
+        }
 
-    var getBudget = function(){
-      return budget;
-    };
+        var getBudget = function () {
+            return budget;
+        };
 
-    var  setNumTravellers = function(n) {
-      numTravellers = n;
-    }
+        var setNumTravellers = function (n) {
+            numTravellers = n;
+        }
 
-    var getNumTravellers = function(){
-      return numTravellers;
-    };
-
-
+        var getNumTravellers = function () {
+            return numTravellers;
+        };
 
 
-    return {
-      setBudget: setBudget,
-      getBudget: getBudget,
-      setNumTravellers: setNumTravellers,
-      getNumTravellers: getNumTravellers
-    }
-  }]);
+        return {
+            setBudget: setBudget,
+            getBudget: getBudget,
+            setNumTravellers: setNumTravellers,
+            getNumTravellers: getNumTravellers
+        }
+    }]);

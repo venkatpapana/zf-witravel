@@ -1,82 +1,82 @@
-
 <header class="inner_head">
-	<img src="images/inner_logo.png">
+    <img src="images/inner_logo.png">
 
-<div class="col-md-4 col-sm-4 col-xs-4 header-right-inner pad_none">
-<ul>
-<li><a href="javascript:;">Registro</a> <span><img src="images/admin-img.png"></span></li>
-<li><img src="images/flag1.png"></li>
-<li><img src="images/flag2.png"></li>
-<li><img src="images/flag3.png"></li>
-</ul>
-</div>
+    <div class="col-md-4 col-sm-4 col-xs-4 header-right-inner pad_none">
+        <ul>
+            <li><a href="javascript:;">Registro</a> <span><img src="images/admin-img.png"></span></li>
+            <li><img src="images/flag1.png"></li>
+            <li><img src="images/flag2.png"></li>
+            <li><img src="images/flag3.png"></li>
+        </ul>
+    </div>
 </header>
 
 <section>
 
-<div class="col-md-12 col-sm-12 col-xs-12 bann_out_con">
-	<div class="col-md-3 col-sm-4 col-xs-12">
-    	<div class="col-md-3 col-sm-3 col-xs-12 flltro">
-        	<h2>Filtro</h2>
-        </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 bann_out_con">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+            <div class="col-md-3 col-sm-3 col-xs-12 flltro">
+                <h2>Filtro</h2>
+            </div>
 
-        <div class="col-md-12 col-sm-12 col-xs-12 precio_txt">
-        	<h3>Precio</h3>
-            <!--img src="images/filtro_left_img.png"-->
-            <div class="cont_seek_frst">
-                <h3>our Price: &euro; <span id="ourPrice">97.00</span></h3>
-                <div id="minus">-</div>
-                <div id="slider"></div>
-                <div id="plus">+</div>
+            <div class="col-md-12 col-sm-12 col-xs-12 precio_txt">
+                <h3>Precio</h3>
+                <!--img src="images/filtro_left_img.png"-->
+                <div class="cont_seek_frst">
+                    <h3>our Price: &euro; <span id="ourPrice">97.00</span></h3>
+                    <div id="minus">-</div>
+                    <div id="slider"></div>
+                    <div id="plus">+</div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt_hoteles">
+                <h2>Vuelos</h2>
+                <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt_new01 pad_none">
+                    <h2>Hoteles</h2>
+                    <span>Estrellas (hotel)</span>
+                    <div class="col-md-12 col-sm-12 col-xs-12 rating_main pad_none">
+                        <div class="rating_star" data-rating-max="5"></div>
+                    </div>
+                    <span>Distancia desde el centro</span>
+                    <!--img src="images/five_km_img.png"-->
+                    <div class="precio_txt second_seek">
+                        <h3>Kilo Meter - <span id="ourPrice1">97.00</span></h3>
+                        <div id="minus1">-</div>
+                        <div id="slider1"></div>
+                        <div id="plus1">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12 vuelos_btn pad_none">
+                <a href="#payment">Finalizar</a>
             </div>
         </div>
 
-         <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt_hoteles">
-         	<h2>Vuelos</h2>
-             <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt_new01 pad_none">
-             	<h2>Hoteles</h2>
-                <span>Estrellas (hotel)</span>
-                <div class="col-md-12 col-sm-12 col-xs-12 rating_main pad_none"><div class="rating_star" data-rating-max="5"></div></div>
-                <span>Distancia desde el centro</span>
-                <!--img src="images/five_km_img.png"-->
-                <div class="precio_txt second_seek">
-                    <h3>Kilo Meter - <span id="ourPrice1">97.00</span></h3>
-                    <div id="minus1">-</div>
-                    <div id="slider1"></div>
-                    <div id="plus1">+</div>
+
+        <div class="col-md-9 col-sm-8 col-xs-12 bann_imgs_outr pad_none">
+            <div class="col-md-4 col-sm-4 col-xs-12 new_inner_vuelos_btn">
+                <a href="#">Hoteles</a>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
+                <div ng-repeat="hotel in hotels.hotels  track by $index">
+                    <hotel-tile hotel=hotel></hotel-tile>
                 </div>
-             </div>
-         </div>
 
-         <div class="col-md-12 col-sm-12 col-xs-12 vuelos_btn pad_none">
-         	<a href="#payment">Finalizar</a>
-         </div>
-    </div>
+            </div>
 
-
-    <div class="col-md-9 col-sm-8 col-xs-12 bann_imgs_outr pad_none">
-    	<div class="col-md-4 col-sm-4 col-xs-12 new_inner_vuelos_btn">
-            <a href="#">Hoteles</a>
         </div>
-    	<div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
-				<div ng-repeat="hotel in hotels.hotels  track by $index">
-					<hotel-tile hotel=hotel></hotel-tile>
-				</div>
-
-      </div>
 
     </div>
-
-</div>
 </section>
 
 
-
 <div class="col-md-12 col-sm-12 col-xs-12 footer_part">
-<ul>
-<li><a href="javascript:;">Acerca de wi.travel</a></li>
-<li><a href="javascript:;">Contacto</a></li>
-<li><a href="javascript:;">Miembros</a></li>
-<li><a href="javascript:;">Mapa del sitio</a></li>
-</ul>
+    <ul>
+        <li><a href="javascript:;">Acerca de wi.travel</a></li>
+        <li><a href="javascript:;">Contacto</a></li>
+        <li><a href="javascript:;">Miembros</a></li>
+        <li><a href="javascript:;">Mapa del sitio</a></li>
+    </ul>
 </div>
