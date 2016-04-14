@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name ngWitravelApp.controller:AboutCtrl
+ * @name ngWitravelApp.service:LowFareSearchCriteria
  * @description
- * # test service
+ * # LowFareSearchCriteria service
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')

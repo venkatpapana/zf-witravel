@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name ngWitravelApp.controller:MainCtrl
+ * @name ngWitravelApp.controller:FlightsCtrl
  * @description
- * # MainCtrl
+ * # FlightsCtrl
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')

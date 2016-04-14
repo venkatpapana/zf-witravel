@@ -2,38 +2,21 @@
 
 /**
  * @ngdoc function
- * @name ngWitravelApp.service:hotelSearchService
+ * @name ngWitravelApp.service:hotelImagesService
  * @description
- * # hotelSearchService service
+ * # hotelImagesService service
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .service('hotelSearchService', ['$http', 'wiConfig', function ($http, wiConfig) {
-    var budget = 200, numTravellers=2, twoWay = true;
+  .service('hotelImagesService', ['$http', 'wiConfig', function ($http, wiConfig) {
+    
     var searchStatus = false, searchResults=null;
     var respResults = [];
 
-    var  setBudget = function(b) {
-      budget = b;
-    }
-
-    var getBudget = function(){
-      return budget;
-    };
-
-    var  setNumTravellers = function(n) {
-      numTravellers = n;
-    };
-
-    var getNumTravellers = function(){
-      return numTravellers;
-    };
-
-
-    var getHotelSearchResults = function(location) {
+    var getHotelImageResults = function(location) {
           return $http({
             method: 'GET',
-            url: wiConfig.serviceURL+'/hotels/hotel-search/location/'+location+'/adults/'+getNumTravellers()+'/startDate/'+''+'/endDate/'
+            url: wiConfig.serviceURL+'/hotels/hotel-images/location/'+location
           }).then(function successFunction(response){
             searchResults = response.data;
             searchStatus = true;
@@ -63,11 +46,11 @@ angular.module('ngWitravelApp')
     // };
 
 
-    var getHotels = function() {
+    var getHotelIimages = function() {
       return respResults;
     };
 
-    var parseHotels = function() {
+    var parseHotelImages = function() {
       var resHotels = [];
 
       if(searchResults != null) {

@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name ngWitravelApp.controller:MainCtrl
+ * @name ngWitravelApp.controller:HotelsCtrl
  * @description
- * # MainCtrl
+ * # HotelsCtrl
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .controller('HotelsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService', 'hotelSearchService',
+  .controller('HotelsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService', 'hotelSearchService', 'hotelImagesService'
   function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService) {
 
     var vm = this;

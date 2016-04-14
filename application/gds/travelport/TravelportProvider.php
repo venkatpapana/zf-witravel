@@ -174,7 +174,7 @@
       $this->sendRequest();
 
       //parse resp
-      $this->parseResponse();
+      //$this->parseResponse();
 
       //file_put_contents(__DIR__ . '/cache/api_responses/LowFareSearchResp.json', $this->responseJson);
       //return result
@@ -194,7 +194,7 @@
       $this->sendRequest();
 
       //parse resp
-      $this->parseResponse();
+      //$this->parseResponse();
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelSearchResp.json', $this->responseJson);
       //return result
@@ -220,7 +220,7 @@
       $this->sendRequest();
 
       //parse resp
-      $this->parseResponse();
+      //$this->parseResponse();
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelDetailsResp.json', $this->responseJson);
       //return result
@@ -241,7 +241,7 @@
       $this->sendRequest();
 
       //parse resp
-      $this->parseResponse();
+      //$this->parseResponse();
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelMediaLinksResp.json', $this->responseJson);
       //return result
@@ -263,7 +263,7 @@
       $this->sendRequest();
 
       //parse resp
-      $this->parseResponse();
+      //$this->parseResponse();
 
       //file_put_contents(__DIR__ . '/cache/api_responses/AirCreateReservationResp.json', $this->responseJson);
       //return result
@@ -283,7 +283,7 @@
       $this->sendRequest();
 
       //parse resp
-      $this->parseResponse();
+      //$this->parseResponse();
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelCreateReservationResp.json', $this->responseJson);
       //return result
