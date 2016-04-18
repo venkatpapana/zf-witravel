@@ -13,6 +13,8 @@ angular.module('ngWitravelApp')
         var searchStatus = false, searchResults = null;
         var respResults = [];
 
+        var reservationResult = null, reservationStatus = false;
+
         var setBudget = function (b) {
             budget = b;
         }
@@ -46,21 +48,6 @@ angular.module('ngWitravelApp')
         var getSavedResults = function () {
             return searchResults;
         };
-
-
-        // var getAirSegment = function(segKey) {
-        //   var airSegment = null;
-        //   if(searchResults != null) {
-        //     var arrAirSegments = searchResults['AirSegmentList']['AirSegment'];
-        //     for (var i = 0; i < arrAirSegments.length; i++) {
-        //       if(arrAirSegments[i]['!Key'] == segKey) {
-        //         airSegment = arrAirSegments[i];
-        //         break;
-        //       }
-        //     }
-        //   }
-        //   return airSegment;
-        // };
 
 
         var getHotels = function () {
@@ -122,22 +109,67 @@ angular.module('ngWitravelApp')
         };
 
 
+
+
+        var getSavedResults = function () {
+            return searchResults;
+        };
+
+
         var requestHotelReservation = function (location) {
             return $http({
                 method: 'GET',
                 url: wiConfig.serviceURL + '/hotels/hotel-reservation/location/' + location + '/adults/' + getNumTravellers() + '/startDate/' + '' + '/endDate/'
             }).then(function successFunction(response) {
-                searchResults = response.data;
-                searchStatus = true;
-                return searchStatus;
+                reservationResult = response.data;
+                reservationStatus = true;
+                return reservationStatus;
             }, function failureFunction(response) {
-                return searchStatus;
+                return reservationStatus;
             });
         };
 
-        var getSavedResults = function () {
-            return searchResults;
+
+        var getHoltelReservationResult = function getHoltelReservationResult(location) {
+            if (reservationResult != null && reservationResult.UniversalRecord !== undefined) {
+                return reservationResult;
+            }else{
+                return getNewHoltelReservationResult(location);
+            }
+        }
+
+        var getNewHoltelReservationResult = function getNewHoltelReservationResult(location) {
+            requestHotelReservation(location).then(function() {
+                parseReservationResult();
+                return reservationStatus;
+            }, 
+            function(){
+                return false;
+            });
+            
+        }        
+
+        var parseReservationResult = function() {
+            if (reservationResult != null) {
+
+                if(reservationResult.UniversalRecord !== undefined && 
+                    reservationResult.UniversalRecord.HotelReservation !== undefined && 
+                    reservationResult.UniversalRecord.HotelReservation['!Status'] !== undefined) {
+
+                    reservationStatus = reservationResult['UniversalRecord']['HotelReservation']['!Status'];
+                    var providerLocatorCode = reservationResult['UniversalRecord']['ProviderReservationInfo']['!LocatorCode'];   
+                }else {
+                    //TODO:
+                }                
+
+            }
+
         };
+
+
+
+
+
         return {
             setBudget: setBudget,
             getBudget: getBudget,
@@ -146,7 +178,9 @@ angular.module('ngWitravelApp')
             getHotelSearchResults: getHotelSearchResults,
             getSavedResults: getSavedResults,
             parseHotels: parseHotels,
-            getHotels: getHotels
+            getHotels: getHotels,
+            getHoltelReservationResult: getHoltelReservationResult,
+            getNewHoltelReservationResult: getNewHoltelReservationResult
         };
 
     }//service function

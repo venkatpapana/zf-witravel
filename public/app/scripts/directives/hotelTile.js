@@ -7,6 +7,13 @@ angular.module('ngWitravelApp')
             scope: {
                 hotel: '='
             },
-            templateUrl: 'partials/hotel_tile.html'
+            templateUrl: 'partials/hotel_tile.html',
+            controller: ['hotelSearchService', function(hotelSearchService) {
+            	this.hotelSelected = function(hotel) {
+            		console.log(hotel);
+					hotelSearchService.getHoltelReservationResult(hotel.HotelCode);
+            	}
+            }],
+           	controllerAs: "vm"           	
         };
     });
