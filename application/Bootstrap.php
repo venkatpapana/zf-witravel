@@ -10,6 +10,7 @@ require_once('models/FlightSearchCriteria.php');
 require_once('models/HotelSearchCriteria.php');
 require_once('models/HotelDetailsCriteria.php');
 require_once('models/HotelMediaLinksCriteria.php');
+require_once('models/HotelReservationCriteria.php');
 
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap

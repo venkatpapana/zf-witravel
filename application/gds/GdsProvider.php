@@ -12,7 +12,7 @@
     }
 
     public function setRequest($request) {
-      $this->request = $request;
+      $this->request = $request; //Model Object, includes all request parameters
     }
 
     public function setResponse($response) {

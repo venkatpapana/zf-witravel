@@ -115,6 +115,8 @@
             $strReqXml = str_replace("{CHECKIN_DATE}", $request->checkinDate, $strReqXml);
             $strReqXml = str_replace("{CHECKOUT_DATE}", $request->checkoutDate, $strReqXml);
             $strReqXml = str_replace("{HOTEL_CODE}", $request->hotelCode, $strReqXml);
+            $strReqXml = str_replace("{HOTEL_CHAIN}", $request->hotelChain, $strReqXml);
+
 
             break;
 
@@ -131,6 +133,59 @@
             break;
 
           case 'HotelCreateReservation':
+            $request = $this->getRequest();
+
+            $traveller = $request->traveller;
+            $cc = $traveller->creditCard;
+            $phone = $traveller->phone;
+            $shipAddr = $traveller->shippingAddress;
+            $addr = $traveller->address;
+
+            $strReqXml = str_replace("{TARGET_BRANCH}", $this->wiconfig['Travelport']['TARGET_BRANCH'], $strReqXml);
+            $strReqXml = str_replace("{AUTHORIZED_BY}", $this->wiconfig['Travelport']['AUTHORIZED_BY'], $strReqXml);
+            $strReqXml = str_replace("{HOTEL_CODE}", $request->hotelCode, $strReqXml);
+            $strReqXml = str_replace("{HOTEL_CHAIN}", $request->hotelChain, $strReqXml);
+            $strReqXml = str_replace("{NUM_ADULTS}", $request->numAdults, $strReqXml);
+            $strReqXml = str_replace("{CHECKIN_DATE}", $request->checkinDate, $strReqXml);
+            $strReqXml = str_replace("{CHECKOUT_DATE}", $request->checkoutDate, $strReqXml);
+            $strReqXml = str_replace("{NUM_ROOMS}", $request->numRooms, $strReqXml);
+
+            //traveller
+            $strReqXml = str_replace("{TRAVELLER_TYPE}", $traveller->type, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_PREFIX}", $traveller->prefix, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_FIRSTNAME}", $traveller->firstName, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_LASTNAME}", $traveller->lastName, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_EMAIL}", $traveller->email, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_AGE}", $traveller->age, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_DOB}", $traveller->dob, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_GENDER}", $traveller->gender, $strReqXml);
+            $strReqXml = str_replace("{TRAVELLER_NATIONALITY}", $traveller->nationality, $strReqXml);
+
+            //phone
+            $strReqXml = str_replace("{PHONE_LOCATION}", $phone->location, $strReqXml);
+            $strReqXml = str_replace("{PHONE_COUNTRYCODE}", $phone->countryCode, $strReqXml);
+            $strReqXml = str_replace("{PHONE_AREACODE}", $phone->areaCode, $strReqXml);
+            $strReqXml = str_replace("{PHONE_NUMBER}", $phone->number, $strReqXml);
+
+            //credit card
+            $strReqXml = str_replace("{CREDITCARD_TYPE}", $cc->type, $strReqXml);
+            $strReqXml = str_replace("{CREDITCARD_NUMBER}", $cc->number, $strReqXml);
+            $strReqXml = str_replace("{CREDITCARD_EXPDATE}", $cc->expDate, $strReqXml);
+            $strReqXml = str_replace("{CREDITCARD_CVV}", $cc->cvv, $strReqXml);
+
+            //shippig address
+            $strReqXml = str_replace("{SHIPPING_STREET}", $shipAddr->street, $strReqXml);
+            $strReqXml = str_replace("{SHIPPING_CITY}", $shipAddr->city, $strReqXml);
+            $strReqXml = str_replace("{SHIPPING_POSTALCODE}", $shipAddr->postalCode, $strReqXml);
+
+            //address
+            $strReqXml = str_replace("{ADDRESS_NAME}", $addr->name, $strReqXml);
+            $strReqXml = str_replace("{ADDRESS_STREET}", $addr->street, $strReqXml);
+            $strReqXml = str_replace("{ADDRESS_CITY}", $addr->city, $strReqXml);
+            $strReqXml = str_replace("{ADDRESS_STATE}", $addr->state, $strReqXml);
+            $strReqXml = str_replace("{ADDRESS_POSTALCODE}", $addr->postalCode, $strReqXml);
+            $strReqXml = str_replace("{ADDRESS_COUNTRY}", $addr->country, $strReqXml);
+
 
             break;
 
