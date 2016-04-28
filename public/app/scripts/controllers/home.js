@@ -15,7 +15,8 @@ angular.module('ngWitravelApp')
 
 
             function lowFareSearch() {
-                console.log('LowFareSearchCriteria')
+                console.log('LowFareSearchCriteria');
+                vm.loading = true;
                 lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setNumTravellers(vm.numTravellers);
                 lowFareSearchService.getLowFareSearchResults().then(successFunction, failureFunction);
@@ -24,13 +25,15 @@ angular.module('ngWitravelApp')
 
             // vm.user = {name: 'guest'};
             function successFunction(response) {
-                console.log('successFunction', response)
+                vm.loading = false;
+                console.log('successFunction', response);
                 if (response === true) {
                     $state.go("destinations");
                 }
             }
 
             function failureFunction(response) {
+                vm.loading = false;
                 console.log('failureFunction', response)
             }
 

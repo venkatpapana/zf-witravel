@@ -13,9 +13,11 @@ angular.module('ngWitravelApp')
 
             var vm = this;
             var selectedDestination = lowFareSearchService.getSelectedDestination();
+            vm.loading = true;
             hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
 
             function successFunction(response) {
+                vm.loading = false;
                 console.log('successFunction', response);
 
                 console.log('HotelsCtrl, getSavedResults', hotelSearchService.getSavedResults());
@@ -26,6 +28,7 @@ angular.module('ngWitravelApp')
             }
 
             function failureFunction(response) {
+                vm.loading = false;
                 console.log('failureFunction', response)
             }
 

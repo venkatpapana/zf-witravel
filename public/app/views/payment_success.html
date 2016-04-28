@@ -1,0 +1,51 @@
+<header class="inner_head">
+	<img src="images/inner_logo.png">
+
+<div class="col-md-4 col-sm-4 col-xs-4 header-left-inner pad_none">
+<ul>
+	<li><a href="#"><i class="fa fa-user"></i></a></li>
+	<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+	<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+	<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+</ul>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-4 header-right-inner pad_none">
+<ul>
+<!--<li><a href="javascript:;">Registro</a> <span><img src="images/admin-img.png"></span></li>-->
+<li><img src="images/flag1.png"></li>
+<li><img src="images/flag2.png"></li>
+<li><img src="images/flag3.png"></li>
+</ul>
+</div>
+</header>
+
+<section>
+    <div class="col-md-12 col-sm-12 col-xs-12 bann_out_con custom_table">
+        
+                
+        <div class="alert alert-success">
+            <strong>Success! </strong>{{successmsg}}
+        </div>
+     <table align="center" class="table-striped">
+         <tr><td class="tableheading" >Payment Method</td><td class="tdcontent" >Brain-tree</td></tr>
+        <tr><td class="tableheading" >Transaction id</td><td class="tdcontent" >{{payment.transid}}</td></tr>
+        <tr><td class="tableheading" >Transaction status</td><td class="tdcontent" >{{payment.status}}</td></tr>
+        <tr><td class="tableheading" >Transaction amount</td><td class="tdcontent" >{{payment.amount}}</td></tr>
+        <tr><td class="tableheading" >Customer First Name</td><td class="tdcontent" >{{payment.first_name}}</td></tr>
+        <tr><td class="tableheading" >Customer Last Name</td><td class="tdcontent" >{{payment.last_name}}</td></tr>
+        <tr><td class="tableheading" >Customer Email</td><td class="tdcontent" >{{payment.email}}</td></tr>
+        <tr><td class="tableheading" >Credit Card Number</td><td class="tdcontent" >{{payment.maskedcc}}</td></tr>
+        <tr><td class="tableheading" >Expiration Date</td><td class="tdcontent" >{{payment.cc_exp_mon}}/{{payment.cc_exp_year}}</td></tr>
+    </table>			        
+    </div>
+</section>
+
+
+<div class="col-md-12 col-sm-12 col-xs-12 footer_part">
+<ul>
+<li><a href="javascript:;">Acerca de wi.travel</a></li>
+<li><a href="javascript:;">Contacto</a></li>
+<li><a href="javascript:;">Miembros</a></li>
+<li><a href="javascript:;">Mapa del sitio</a></li>
+</ul>
+</div>

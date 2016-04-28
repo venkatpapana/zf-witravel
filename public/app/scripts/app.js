@@ -15,7 +15,8 @@ angular
         'ngResource',
         'ui.router',
         'ngSanitize',
-        'ngTouch'
+        'ngTouch',
+        'angularRandomString'
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -49,12 +50,13 @@ angular
         }).state('payment', {
             url: "/payment",
             templateUrl: "views/payment.html",
-            controllerAs: 'f_results'
-        }).state('about', {
-            url: "/about",
-            templateUrl: "views/about.html",
-
-            controllerAs: 'about'
+            controller: "PaymentCtrl",
+            controllerAs: 'payment'
+        }).state('payment_success', {
+            url: "/payment_success",
+            templateUrl: "views/payment_success.html",
+            controller: "PaymentCtrl",
+            controllerAs: 'payment'
         });
 
 

@@ -8,7 +8,7 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .service('lowFareSearchService', ['$http', 'wiConfig', function ($http, wiConfig) {
+    .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', function ($http, wiConfig, cityNamesService) {
         var origin = 'AMS';
         var budget = 200, numTravellers = 2, twoWay = true;
 
@@ -97,6 +97,18 @@ angular.module('ngWitravelApp')
 
                         var thisAirPricing = airPricingSolutions[i];
 
+
+                        var thisTotalPrice = thisAirPricing['!TotalPrice'];
+                        if(thisTotalPrice && thisTotalPrice.substring(0, 3) === 'EUR') {
+                            thisTotalPrice = parseInt(thisTotalPrice.substring(3, thisTotalPrice.length));
+                            if(thisTotalPrice > getBudget()) {
+                                continue;
+                            }
+                        }else if(getBudget()){
+                            thisTotalPrice = getBudget(); //TODO: 
+                        }
+                        
+
                         var arrFlights = {};
 
                         if (twoWay) {
@@ -109,14 +121,20 @@ angular.module('ngWitravelApp')
                         var airSegment1 = getAirSegment(airSegmentKey1);
 
                         if (airSegment1 != null) {
+                            airSegment1['TotalPrice'] = thisTotalPrice;
+                            airSegment1['DestinationDisplay'] = cityNamesService.getCityName(airSegment1['!Destination']);
+                            
                             arrFlights['onward'] = airSegment1;
+                            
                             // resAirSegments.push(airSegment1);
                         }
 
                         if (twoWay) {
                             var airSegment2 = getAirSegment(airSegmentKey2);
                             if (airSegment2 != null) {
-                                arrFlights['return'] = airSegment2;
+                                airSegment2['TotalPrice'] = thisTotalPrice;
+                                airSegment2['DestinationDisplay'] = cityNamesService.getCityName(airSegment2['!Destination']);
+                                arrFlights['return'] = airSegment2;                                
                                 // resAirSegments.push(airSegment2);
                             }
                         }

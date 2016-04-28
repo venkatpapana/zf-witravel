@@ -34,6 +34,7 @@ module.exports = function(config) {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
       'bower_components/angular-spinners/dist/angular-spinners.min.js',
+      'bower_components/angular-random-string/src/angular-random-string.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",
