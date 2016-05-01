@@ -32,4 +32,11 @@ angular.module('ngWitravelApp')
                 console.log('failureFunction', response)
             }
 
+            var hotelSelected = function (hotel) {
+                //alert("DestinationsCtrl::destinationSelected = "+destination);
+                //lowFareSearchService.setSelectedDestination(destination);
+                $state.go('payment');
+            };
+            vm.hotelSelected = hotelSelected;            
+
         }]);

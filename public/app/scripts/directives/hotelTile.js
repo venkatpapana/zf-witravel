@@ -5,7 +5,8 @@ angular.module('ngWitravelApp')
         return {
             restrict: 'E',
             scope: {
-                hotel: '='
+                hotel: '=',
+                'hotelSelected': '&onSelected'
             },
             templateUrl: 'partials/hotel_tile.html',
             controller: ['hotelSearchService', function(hotelSearchService) {

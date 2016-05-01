@@ -22,6 +22,14 @@ angular.module('ngWitravelApp')
     vm.destinationAirSegments = lowFareSearchService.getFlights(selectedDestination);
     console.log('FlightsCtrl::destinationAirSegments', vm.destinationAirSegments);
 
+
+    var flightSelected = function (flight) {
+        //alert("DestinationsCtrl::destinationSelected = "+destination);
+        //lowFareSearchService.setSelectedDestination(destination);
+        $state.go('hotelResults');
+    };
+    vm.flightSelected = flightSelected;
+
     // vm.user = {name: 'guest'};
     function successFunction(response) {
       console.log('successFunction', response)

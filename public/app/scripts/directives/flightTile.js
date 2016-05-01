@@ -5,7 +5,8 @@ angular.module('ngWitravelApp')
         return {
             restrict: 'E',
             scope: {
-                flight: '=thisflight'
+                flight: '=thisflight',
+                'flightSelected': '&onSelected'
             },
             templateUrl: 'partials/flight_tile.html'
         };

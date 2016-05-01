@@ -32,12 +32,20 @@
       $client->setCredentials($this->wiconfig['Travelport']['USERNAME'], $this->wiconfig['Travelport']['PASSWORD']);
       $result = $client->send($this->reqXML, $this->getEndPoint());
 
+
+
       if(!empty($result) && is_array($result)) {
+        array_walk_recursive($result, function (&$elem) {
+            if (is_string($elem)) {
+                //$elem = iconv('ISO-8895', 'UTF-8', $elem);
+                $elem = utf8_encode($elem);
+            }
+        });        
         $this->responseJson = Zend_Json::encode($result);
       }
     }
 
-    public function prepareRequest($requestType) {}
+    public function prepareRequest() {}
     // public function sendRequest() {}
     public function parseResponse() {}
 

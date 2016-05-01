@@ -2,12 +2,20 @@
 <header class="inner_head">
     <img src="images/inner_logo.png">
 
+    <div class="col-md-4 col-sm-4 col-xs-4 header-left-inner pad_none">
+        <ul>
+            <li><a href="#"><i class="fa fa-user"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        </ul>
+    </div>
     <div class="col-md-4 col-sm-4 col-xs-4 header-right-inner pad_none">
         <ul>
-            <li><a href="javascript:;">Registro</a> <span><img src="images/admin-img.png"></span></li>
-            <li><img src="images/flag1.png"></li>
-            <li><img src="images/flag2.png"></li>
-            <li><img src="images/flag3.png"></li>
+        <!--<li><a href="javascript:;">Registro</a> <span><img src="images/admin-img.png"></span></li>-->
+        <li><img src="images/flag1.png"></li>
+        <li><img src="images/flag2.png"></li>
+        <li><img src="images/flag3.png"></li>
         </ul>
     </div>
 </header>
@@ -50,9 +58,9 @@
                 </div>
             </div>
 
-            <div class="col-md-12 col-sm-12 col-xs-12 vuelos_btn pad_none">
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12 vuelos_btn pad_none">
                 <a href="#payment">Finalizar</a>
-            </div>
+            </div> -->
         </div>
 
 
@@ -62,7 +70,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
                 <div ng-repeat="hotel in hotels.hotels  track by $index">
-                    <hotel-tile hotel=hotel></hotel-tile>
+                    <hotel-tile hotel=hotel on-selected="hotels.hotelSelected(hotel)"></hotel-tile>
                 </div>
 
             </div>

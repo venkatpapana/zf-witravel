@@ -8,7 +8,7 @@ angular.module('ngWitravelApp')
             loading : '=loading'
         },
         replace:true,
-        template: '<div class="loading">LOADING...</div>',
+        template: '<div class="loading"></div>',
         link: function (scope, element, attr) {
               scope.$watch('loading', function (val) {
                   if (val)

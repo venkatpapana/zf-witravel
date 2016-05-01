@@ -1,10 +1,12 @@
-<div id="box-2" ng-click="destinationSelected(destination)">
+<div id="box-2" >
     <div class="col-md-4 col-sm-4 col-xs-12 madrid_img_outer02 box pad_none">
         <h2>{{destination['DestinationDisplay']}}</h2>
      <span class="caption full-caption">
       <div class="new_hover_star">
           <i class="fa fa-star star_icon_hover"></i>
           <i class="fa fa-star star_icon_hover"></i>
+          <i class="fa fa-star star_icon_hover"></i>
+      <i class="fa fa-star star_icon_hover"></i>
           <i class="fa fa-star star_icon_hover"></i>
       </div>
         <h2>{{destination['DestinationDisplay']}}</h2>
@@ -14,7 +16,7 @@
             <li> 5 Km Centro</li>
         </ul>
         <span>{{destination['TotalPrice']}}€</span>
-        <a href="#">+ info</a>
+        <a ng-click="destinationSelected(destination);">+ info</a>
     </span>
     </div>
 </div>
