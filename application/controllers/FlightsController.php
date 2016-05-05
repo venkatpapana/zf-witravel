@@ -20,10 +20,10 @@ class FlightsController extends WiTravelBaseController
 
     public function lowFareSearchAction() {
         $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
-
         $request = Zend_Controller_Front::getInstance()->getRequest();
 
-        $origin = $request->getParam('origin')? $request->getParam('origin'): 'AMS'; //$this->getOrigin()
+        $origin = Utils::geoLocation()['city'];
+        // $origin = $request->getParam('origin')? $request->getParam('origin'): 'AMS'; //$this->getOrigin()
         $budget = $request->getParam('budget')?$request->getParam('budget'): 200;
         $travellers = $request->getParam('travellers')?$request->getParam('travellers'): 1;
 

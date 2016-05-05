@@ -13,6 +13,8 @@ angular.module('ngWitravelApp')
 
             var vm = this;
 
+            
+
 
             function lowFareSearch() {
                 console.log('LowFareSearchCriteria');

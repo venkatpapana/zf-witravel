@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_WARNING);
+// error_reporting(E_WARNING);
 
 require_once dirname(__FILE__) .'/../vendor/autoload.php';
 
@@ -11,6 +11,7 @@ require_once('models/HotelSearchCriteria.php');
 require_once('models/HotelDetailsCriteria.php');
 require_once('models/HotelMediaLinksCriteria.php');
 require_once('models/HotelReservationCriteria.php');
+require_once('utils/Utils.php');
 
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
