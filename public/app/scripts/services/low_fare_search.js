@@ -10,6 +10,10 @@
 angular.module('ngWitravelApp')
     .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', function ($http, wiConfig, cityNamesService) {
         var origin = 'AMS';
+
+        var allDestinations = ['AMS', 'BER', 'BCN', 'LON', 'CPH', 'PAR', 'IST', 'BRU', 'AGP', 'ROM', 'KRK', 'TLL', 'LIS'];
+        var searchDestinations;
+
         var budget = 200, numTravellers = 2, twoWay = true;
 
         var searchStatus = false, searchResults = null;
@@ -38,11 +42,22 @@ angular.module('ngWitravelApp')
             return numTravellers;
         };
 
+        var getAllDestinations = function() {
+            return allDestinations;
+        };
+
+        var setSearchDestinations = function(destinations) {
+            searchDestinations = destinations;
+        };
+
+        var getSearchDestinationsAsString = function(destinations) {
+            return searchDestinations.join();;
+        };        
 
         var getLowFareSearchResults = function () {
             return $http({
                 method: 'GET',
-                url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + '/budget/' + getBudget() + '/travellers/' + getNumTravellers()
+                url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + '/budget/' + getBudget() + '/travellers/' + getNumTravellers() + '/destinations/'+getSearchDestinationsAsString()
             }).then(function successFunction(response) {
                 searchResults = response.data;
                 searchStatus = true;
@@ -201,7 +216,9 @@ angular.module('ngWitravelApp')
             setSelectedHotel: setSelectedHotel,
             getSelectedDestination: getSelectedDestination,
             getSelectedAirSegment: getSelectedAirSegment,
-            getSelectedHotel: getSelectedHotel
+            getSelectedHotel: getSelectedHotel,
+            getAllDestinations: getAllDestinations,
+            setSearchDestinations: setSearchDestinations
         };
 
     }]);

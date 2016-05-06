@@ -5,6 +5,7 @@
 /public/.tmp
 /public/.sass-cache
 /public/bower_components
+/application/lib
 *log
 .idea/
 *.lock

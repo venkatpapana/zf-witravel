@@ -24,8 +24,9 @@ class FlightsController extends WiTravelBaseController
 
         $origin = Utils::geoLocation()['city'];
         // $origin = $request->getParam('origin')? $request->getParam('origin'): 'AMS'; //$this->getOrigin()
-        $budget = $request->getParam('budget')?$request->getParam('budget'): 200;
+        $budget = $request->getParam('budget')?$request->getParam('budget'): 1200;
         $travellers = $request->getParam('travellers')?$request->getParam('travellers'): 1;
+        $destinations = $request->getParam('destinations')? explode(',', $request->getParam('destinations')): $wiconfig['Destinations'];
 
         $startDate = $request->getParam('startDate')?$request->getParam('startDate'): $this->getNextFriday();
         $endDate = $request->getParam('endDate')?$request->getParam('endDate'): $this->getNextSunday();
@@ -36,7 +37,7 @@ class FlightsController extends WiTravelBaseController
         $search->setFromPlace($origin);
         $search->setFromDate($startDate);
         $search->setToDate($endDate);
-        $search->setToPlaces($wiconfig['Destinations']);
+        $search->setToPlaces($destinations);
         $search->setBudget($budget);
         $search->setNumPassengers($travellers);
 
