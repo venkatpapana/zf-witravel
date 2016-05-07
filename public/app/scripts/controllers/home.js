@@ -37,11 +37,11 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setSearchDestinations(dest1);
                 promises.push(lowFareSearchService.getLowFareSearchResults());
 
-                lowFareSearchService.setSearchDestinations(dest2);
-                promises.push(lowFareSearchService.getLowFareSearchResults());
+                // lowFareSearchService.setSearchDestinations(dest2);
+                // promises.push(lowFareSearchService.getLowFareSearchResults());
 
-                lowFareSearchService.setSearchDestinations(dest3);
-                promises.push(lowFareSearchService.getLowFareSearchResults());                                
+                // lowFareSearchService.setSearchDestinations(dest3);
+                // promises.push(lowFareSearchService.getLowFareSearchResults());                                
                 // promises.push(lowFareSearchService.getLowFareSearchResults());
                 
                 $q.all(promises).then(successFunction, failureFunction);

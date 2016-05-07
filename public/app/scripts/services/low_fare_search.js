@@ -137,7 +137,7 @@ angular.module('ngWitravelApp')
 
                         if (airSegment1 != null) {
                             airSegment1['TotalPrice'] = thisTotalPrice;
-                            airSegment1['DestinationDisplay'] = cityNamesService.getCityName(airSegment1['!Destination']);
+                            airSegment1['DestinationDisplay'] = cityNamesService.getCityNameForCode(airSegment1['!Destination']);
                             
                             arrFlights['onward'] = airSegment1;
                             
@@ -148,7 +148,7 @@ angular.module('ngWitravelApp')
                             var airSegment2 = getAirSegment(airSegmentKey2);
                             if (airSegment2 != null) {
                                 airSegment2['TotalPrice'] = thisTotalPrice;
-                                airSegment2['DestinationDisplay'] = cityNamesService.getCityName(airSegment2['!Destination']);
+                                airSegment2['DestinationDisplay'] = cityNamesService.getCityNameForCode(airSegment2['!Destination']);
                                 arrFlights['return'] = airSegment2;                                
                                 // resAirSegments.push(airSegment2);
                             }

@@ -32,9 +32,17 @@ class GeoLocationController extends WiTravelBaseController {
 			$res = array(
 				'country' => '',
 				'country_iso' => '',
-				'city' => 'PAR'
+				'city' => 'paris'
 			);
 		}
+		$cityNameCodes = json_decode(file_get_contents(__DIR__ . '/../configs/city_names_codes.json'), true);
+		$cityNameCodes = array_change_key_case ($cityNameCodes, CASE_LOWER);
+		if(!empty($cityNameCodes[strtolower($res['city'])])) {
+			$res['city'] = $cityNameCodes[strtolower($res['city'])];
+		}else{
+			$res['city'] = 'UNKNOWN'; //PAR
+		}
+
 		echo Zend_Json::encode($res);
 		
     }
