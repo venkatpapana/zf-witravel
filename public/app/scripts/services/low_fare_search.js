@@ -109,7 +109,7 @@ angular.module('ngWitravelApp')
 
                 if (airPricingSolutions.length > 0) {
                     for (var i = 0; i < airPricingSolutions.length; i++) {
-
+console.log('airPricingSolutions -->', i);
                         var thisAirPricing = airPricingSolutions[i];
 
 
@@ -126,10 +126,10 @@ angular.module('ngWitravelApp')
 
                         var arrFlights = {};
 
-                        if (twoWay) {
+                        if (twoWay && thisAirPricing['Journey'][0] != undefined) {
                             var airSegmentKey1 = thisAirPricing['Journey'][0]['AirSegmentRef']['!Key'];
                             var airSegmentKey2 = thisAirPricing['Journey'][1]['AirSegmentRef']['!Key'];
-                        } else {
+                        } else if(thisAirPricing['Journey']['AirSegmentRef']){
                             var airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef']['!Key'];
                         }
 

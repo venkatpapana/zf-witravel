@@ -12,11 +12,11 @@ class Utils{
 	}
 
     public static function geoLocation() {
-			$res = array(
-				'country' => '',
-				'country_iso' => '',
-				'city' => ''
-			);    	
+		$res = array(
+			'country' => '',
+			'country_iso' => '',
+			'city' => ''
+		);    	
     	try{
 			// This creates the Reader object, which should be reused across
 			// lookups.
@@ -37,9 +37,16 @@ class Utils{
 			$res = array(
 				'country' => '',
 				'country_iso' => '',
-				'city' => 'PAR'
+				'city' => 'Paris'
 			);
 		}
+		$cityNameCodes = json_decode(file_get_contents(__DIR__ . '/../configs/city_names_codes.json'), true);
+		$cityNameCodes = array_change_key_case ($cityNameCodes, CASE_LOWER);
+		if(!empty($cityNameCodes[strtolower($res['city'])])) {
+			$res['city'] = $cityNameCodes[strtolower($res['city'])];
+		}else{
+			$res['city'] = 'UNKNOWN'; //PAR
+		}		
 		return $res;
 		
     }	

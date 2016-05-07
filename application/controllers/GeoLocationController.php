@@ -8,11 +8,11 @@ class GeoLocationController extends WiTravelBaseController {
     }
 
     public function indexAction() {
-			$res = array(
-				'country' => '',
-				'country_iso' => '',
-				'city' => ''
-			);    	
+		$res = array(
+			'country' => '',
+			'country_iso' => '',
+			'city' => ''
+		);    	
     	try{
 			// This creates the Reader object, which should be reused across
 			// lookups.
