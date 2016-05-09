@@ -16,7 +16,7 @@ angular
         'ui.router',
         'ngSanitize',
         'ngTouch',
-        'angularRandomString'
+        'angularRandomString'    
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
 

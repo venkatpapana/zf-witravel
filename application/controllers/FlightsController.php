@@ -22,7 +22,7 @@ class FlightsController extends WiTravelBaseController
         $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
         $request = Zend_Controller_Front::getInstance()->getRequest();
 
-        $origin = Utils::geoLocation()['city'];
+        $origin = Utils::geoLocation()['city_code'];
         // $origin = $request->getParam('origin')? $request->getParam('origin'): 'AMS'; //$this->getOrigin()
         $budget = $request->getParam('budget')?$request->getParam('budget'): 1200;
         $travellers = $request->getParam('travellers')?$request->getParam('travellers'): 1;

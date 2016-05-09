@@ -43,12 +43,39 @@ class Utils{
 		$cityNameCodes = json_decode(file_get_contents(__DIR__ . '/../configs/city_names_codes.json'), true);
 		$cityNameCodes = array_change_key_case ($cityNameCodes, CASE_LOWER);
 		if(!empty($cityNameCodes[strtolower($res['city'])])) {
-			$res['city'] = $cityNameCodes[strtolower($res['city'])];
+			$res['city_code'] = $cityNameCodes[strtolower($res['city'])];
 		}else{
-			$res['city'] = 'UNKNOWN'; //PAR
+			$res['city_code'] = 'PAR'; //PAR
 		}		
 		return $res;
 		
-    }	
+    }
+
+    public static function getGoogleGeoLocation() {
+		$res = array(
+			'country_code' => '',
+			'country_name' => '',
+			'country_iso' => '',
+			'city' => 'Parish',
+			'city_code' => 'PAR'
+		); 
+    	$endpoint = 'https://geoip-db.com/json/';
+    	$result = file_get_contents($endpoint);
+    	if($result) {
+    		$result = json_decode($result, true);
+
+			$cityNameCodes = json_decode(file_get_contents(__DIR__ . '/../configs/city_names_codes.json'), true);
+			$cityNameCodes = array_change_key_case ($cityNameCodes, CASE_LOWER);
+			if(!empty($cityNameCodes[strtolower($result['city'])])) {
+				$result['city_code'] = $cityNameCodes[strtolower($result['city'])];
+			}else{
+				$result['city_code'] = 'PAR'; //PAR
+			}		    		
+
+    	}
+      	return $res;
+
+    
+    }
 }
 

@@ -8,17 +8,25 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('HomeCtrl', ['$http', '$state', '$q', 'wiConfig', 'lowFareSearchService',
-        function ($http, $state, $q, wiConfig, lowFareSearchService) {
+    .controller('HomeCtrl', ['$http', '$state', '$q', 'wiConfig', 'lowFareSearchService', 'geolocationService',
+        function ($http, $state, $q, wiConfig, lowFareSearchService, geolocationService) {
 
             var vm = this;
+            //console.log("home.js, geo=", geolocationService.getGeocoder());
 
+            geolocationService.getGeocoder().then(function(data){            
+                console.log('home.js, geo=', data);
+                vm.location = data['city'];
+
+            }, function(data){
+                vm.location = 'PAR';
+            });
             
-
-
             function lowFareSearch() {
                 console.log('LowFareSearchCriteria');
+                
                 vm.loading = true;
+                lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setNumTravellers(vm.numTravellers);
 

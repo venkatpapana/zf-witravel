@@ -21,6 +21,10 @@ angular.module('ngWitravelApp')
 
         var selectedDestination, selectedAirSegment, selectedHotel;
 
+        var setOrigin = function (o) {
+            origin = o;
+        }        
+
         var getOrigin = function () {
             //TODO: get location based on IP address
             return origin;
