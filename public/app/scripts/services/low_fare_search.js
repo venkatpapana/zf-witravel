@@ -9,7 +9,7 @@
  */
 angular.module('ngWitravelApp')
     .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', function ($http, wiConfig, cityNamesService) {
-        var origin = 'AMS';
+        var origin = 'Paris';
 
         var allDestinations = ['AMS', 'BER', 'BCN', 'LON', 'CPH', 'PAR', 'IST', 'BRU', 'AGP', 'ROM', 'KRK', 'TLL', 'LIS'];
         var searchDestinations;
@@ -209,6 +209,7 @@ console.log('airPricingSolutions -->', i);
             setBudget: setBudget,
             getBudget: getBudget,
             setNumTravellers: setNumTravellers,
+            setOrigin: setOrigin,
             getNumTravellers: getNumTravellers,
             getLowFareSearchResults: getLowFareSearchResults,
             getSavedResults: getSavedResults,

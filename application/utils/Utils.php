@@ -11,6 +11,16 @@ class Utils{
 		return $string;
 	}
 
+	public static function getCityCodeFromName($name) {
+		$cityCode = 'PAR';
+		$cityNameCodes = json_decode(file_get_contents(__DIR__ . '/../configs/city_names_codes.json'), true);
+		$cityNameCodes = array_change_key_case ($cityNameCodes, CASE_LOWER);
+		if(!empty($cityNameCodes[strtolower($res['city'])])) {
+			$cityCode = $cityNameCodes[strtolower($res['city'])];
+		}		
+		return $cityCode;
+	}
+
     public static function geoLocation() {
 		$res = array(
 			'country' => '',

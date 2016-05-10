@@ -13,13 +13,15 @@ angular.module('ngWitravelApp')
 
             var vm = this;
             //console.log("home.js, geo=", geolocationService.getGeocoder());
-
+            vm.origin = 'Loading...';
+            vm.loading = true;
             geolocationService.getGeocoder().then(function(data){            
                 console.log('home.js, geo=', data);
-                vm.location = data['city'];
-
+                vm.origin = data['city'];
+                vm.loading = false;
             }, function(data){
-                vm.location = 'PAR';
+                vm.origin = 'PAR';
+                vm.loading = false;
             });
             
             function lowFareSearch() {
@@ -29,6 +31,8 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setNumTravellers(vm.numTravellers);
+                lowFareSearchService.setOrigin(vm.origin);
+                
 
 
                 var allDestinations = lowFareSearchService.getAllDestinations();
