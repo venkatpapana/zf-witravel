@@ -15,8 +15,8 @@ class Utils{
 		$cityCode = 'PAR';
 		$cityNameCodes = json_decode(file_get_contents(__DIR__ . '/../configs/city_names_codes.json'), true);
 		$cityNameCodes = array_change_key_case ($cityNameCodes, CASE_LOWER);
-		if(!empty($cityNameCodes[strtolower($res['city'])])) {
-			$cityCode = $cityNameCodes[strtolower($res['city'])];
+		if(!empty($cityNameCodes[strtolower($name)])) {
+			$cityCode = $cityNameCodes[strtolower($name)];
 		}		
 		return $cityCode;
 	}
