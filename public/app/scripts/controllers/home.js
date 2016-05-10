@@ -28,6 +28,8 @@ angular.module('ngWitravelApp')
                 console.log('LowFareSearchCriteria');
                 
                 vm.loading = true;
+                lowFareSearchService.clearResults();
+                
                 lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setBudget(vm.budget);
                 lowFareSearchService.setNumTravellers(vm.numTravellers);
@@ -49,12 +51,11 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setSearchDestinations(dest1);
                 promises.push(lowFareSearchService.getLowFareSearchResults());
 
-                // lowFareSearchService.setSearchDestinations(dest2);
-                // promises.push(lowFareSearchService.getLowFareSearchResults());
+                lowFareSearchService.setSearchDestinations(dest2);
+                promises.push(lowFareSearchService.getLowFareSearchResults());
 
-                // lowFareSearchService.setSearchDestinations(dest3);
-                // promises.push(lowFareSearchService.getLowFareSearchResults());                                
-                // promises.push(lowFareSearchService.getLowFareSearchResults());
+                lowFareSearchService.setSearchDestinations(dest3);
+                promises.push(lowFareSearchService.getLowFareSearchResults());                                    
                 
                 $q.all(promises).then(successFunction, failureFunction);
 
@@ -66,7 +67,7 @@ angular.module('ngWitravelApp')
             function successFunction(response) {
                 vm.loading = false;
                 console.log('successFunction', response);
-                if (response[0] === true) {
+                if (response[0] === true || response[1] === true || response[2] === true) {
                     $state.go("destinations");
                 }
             }

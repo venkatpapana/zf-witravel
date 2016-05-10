@@ -16,8 +16,9 @@ angular.module('ngWitravelApp')
 
         var budget = 200, numTravellers = 2, twoWay = true;
 
-        var searchStatus = false, searchResults = null;
+        var searchStatus = false; //, searchResults = null;
         var respResults = [];
+        var resAirSegments = {};
 
         var selectedDestination, selectedAirSegment, selectedHotel;
 
@@ -63,7 +64,9 @@ angular.module('ngWitravelApp')
                 method: 'GET',
                 url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + '/budget/' + getBudget() + '/travellers/' + getNumTravellers() + '/destinations/'+getSearchDestinationsAsString()
             }).then(function successFunction(response) {
-                searchResults = response.data;
+                console.log("getLowFareSearchResults ---> success", response.data)
+                //searchResults = response.data;
+                parseFlights(response.data)
                 searchStatus = true;
                 return searchStatus;
             }, function failureFunction(response) {
@@ -76,7 +79,7 @@ angular.module('ngWitravelApp')
         };
 
 
-        var getAirSegment = function (segKey) {
+        var getAirSegment = function (searchResults, segKey) {
             var airSegment = null;
             if (searchResults != null) {
                 var arrAirSegments = searchResults['AirSegmentList']['AirSegment'];
@@ -91,6 +94,14 @@ angular.module('ngWitravelApp')
         };
 
         var getAllFlights = function () {
+            //clear prev. results, if any  
+            respResults = [];          
+            angular.forEach(resAirSegments, function (segments, dest) {
+                console.log("dest", dest);
+                var thisDestination = {"destination": dest, "segments": segments};
+                respResults.push(thisDestination);
+            });
+
             return respResults;
         };
 
@@ -105,15 +116,22 @@ angular.module('ngWitravelApp')
             return flightsForDestination;
         };
 
-        var parseFlights = function () {
-            var resAirSegments = [], arrDestinations = [];
+        var clearResults = function() {
+            respResults = [];
+            resAirSegments = {};
 
-            if (searchResults != null) {
+        };
+
+        var parseFlights = function (searchResults) {
+            console.log("parseFlights(): ENTER --> respResults = "+respResults.length);
+            //var resAirSegments = {}, arrDestinations = [];
+
+            if (searchResults != null && searchResults['AirPricingSolution'] != undefined) {
                 var airPricingSolutions = searchResults['AirPricingSolution'];
 
                 if (airPricingSolutions.length > 0) {
                     for (var i = 0; i < airPricingSolutions.length; i++) {
-console.log('airPricingSolutions -->', i);
+//console.log('airPricingSolutions -->', i);
                         var thisAirPricing = airPricingSolutions[i];
 
 
@@ -137,7 +155,7 @@ console.log('airPricingSolutions -->', i);
                             var airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef']['!Key'];
                         }
 
-                        var airSegment1 = getAirSegment(airSegmentKey1);
+                        var airSegment1 = getAirSegment(searchResults, airSegmentKey1);
 
                         if (airSegment1 != null) {
                             airSegment1['TotalPrice'] = thisTotalPrice;
@@ -149,7 +167,7 @@ console.log('airPricingSolutions -->', i);
                         }
 
                         if (twoWay) {
-                            var airSegment2 = getAirSegment(airSegmentKey2);
+                            var airSegment2 = getAirSegment(searchResults, airSegmentKey2);
                             if (airSegment2 != null) {
                                 airSegment2['TotalPrice'] = thisTotalPrice;
                                 airSegment2['DestinationDisplay'] = cityNamesService.getCityNameForCode(airSegment2['!Destination']);
@@ -159,14 +177,16 @@ console.log('airPricingSolutions -->', i);
                         }
 
                         if (airSegment1 != null) {
-                            if (arrDestinations.indexOf(airSegment1['!Destination']) < 0) {
-                                arrDestinations.push(airSegment1['!Destination']);
-                                resAirSegments[airSegment1['!Destination']] = [];
-                            }
+                            // if (arrDestinations.indexOf(airSegment1['!Destination']) < 0) {
+                            //     arrDestinations.push(airSegment1['!Destination']);
+                            //     resAirSegments[airSegment1['!Destination']] = [];
+                            // }
                             // if(resAirSegments[airSegment1['!Destination']] == undefined) {
                             //   resAirSegments[airSegment1['!Destination']] = [];
                             // }
-
+                            if(!(airSegment1['!Destination'] in resAirSegments)) {
+                                resAirSegments[airSegment1['!Destination']] = [];
+                            }
                             resAirSegments[airSegment1['!Destination']].push(arrFlights);
                         }
                     }//for
@@ -175,13 +195,7 @@ console.log('airPricingSolutions -->', i);
 
             console.log("resAirSegments", resAirSegments);
 
-            //clear prev. results, if any
-            respResults = [];
-            angular.forEach(arrDestinations, function (value, key) {
-                var thisDestination = {"destination": value, "segments": resAirSegments[value]};
-                respResults.push(thisDestination);
-            });
-
+            console.log("parseFlights(): END --> resAirSegments = "+Object.keys(resAirSegments).length);
             // respResults = resAirSegments;
         };
 
@@ -213,7 +227,7 @@ console.log('airPricingSolutions -->', i);
             getNumTravellers: getNumTravellers,
             getLowFareSearchResults: getLowFareSearchResults,
             getSavedResults: getSavedResults,
-            parseFlights: parseFlights,
+            //parseFlights: parseFlights,
             getAllFlights: getAllFlights,
             getFlights: getFlights,
             setSelectedDestination: setSelectedDestination,
@@ -223,7 +237,8 @@ console.log('airPricingSolutions -->', i);
             getSelectedAirSegment: getSelectedAirSegment,
             getSelectedHotel: getSelectedHotel,
             getAllDestinations: getAllDestinations,
-            setSearchDestinations: setSearchDestinations
+            setSearchDestinations: setSearchDestinations,
+            clearResults: clearResults
         };
 
     }]);
