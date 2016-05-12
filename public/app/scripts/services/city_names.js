@@ -16,20 +16,21 @@ angular.module('ngWitravelApp')
       'AMS': 'Amsterdam',
       'BER': 'Berlin',
       'BCN': 'Barcelona',
-      'LON': 'London',
-      'CPH': 'Copenhagen',
-      'PAR': 'Paris',
       'IST': 'Istanbul',
-      'BRU': 'Brussels',
+      'LIS': 'Lisbon',
+      'LON': 'London',
       'AGP': 'Malaga',
+      'PAR': 'Paris',
+      'CPH': 'Copenhagen',
       'ROM': 'Rome',
-      'KRK': 'Krakow',
-      'TLL': 'Tallin',
-      'LIS': 'Lisbon'
-      /*'SEN': 'SEN',
-      'LTN': 'LTN',
-      'LGW': 'LGW',
-      'SFX': 'SFX'*/
+      'MAD': 'Madrid',
+      'PRG': 'Prague',
+      'BRU': 'Brussels',
+      'VLC': 'Valencia',
+      'SVQ': 'Sevilla',
+      'MIL': 'Milan',
+      'ATH': 'Athens',
+      'LED': 'St.Petersburg'
     };
 
 
@@ -37,16 +38,19 @@ angular.module('ngWitravelApp')
       'RTM': 'AMS', 'EIN': 'AMS', 'DUS': 'AMS', 
       'SXF': 'BER', 'THF': 'BER', 'TXL': 'BER',
       'BLA': 'BCN', 'GRO': 'BCN', 
-      'LCY': 'LON', 'LGW': 'LON', 'LHR': 'LON', 'LOZ': 'LON', 'STN': 'LON', 'LTN': 'LON', 
+      'LCY': 'LON', 'LGW': 'LON', 'LHR': 'LON', 'LOZ': 'LON', 'STN': 'LON', 'LTN': 'LON', 'SEN': 'LON', 'LYX': 'LON', 
       'MMX': 'CPH', 
-      'LBG': 'PAR', 'ORY': 'PAR', 'PHT': 'PAR', 'PRX': 'PAR', 'XCR': 'PAR', 'CDG': 'PAR',
-      'SAW': 'IST', 
+      'LBG': 'PAR', 'ORY': 'PAR', 'PHT': 'PAR', 'PRX': 'PAR', 'XCR': 'PAR', 'CDG': 'PAR', 'POX': 'PAR', 'BVA': 'PAR',
+      'SAW': 'IST', 'TEQ': 'IST', 'YEI': 'IST', 
       'ANR': 'BRU', 'CRL': 'BRU', 
-      'GRX': 'AGP', 'GIB': 'AGP', 'SVQ': 'AGP', 
+      'GRX': 'AGP', 'GIB': 'AGP',
       'CIA': 'ROM', 'FCO': 'ROM', 'PEG': 'ROM', 
       'KTW': 'KRK', 
       'HEL': 'TLL', 'TAY': 'TLL', 'TKU': 'TLL',
-      'FAO': 'LIS'
+      'FAO': 'LIS',
+      'PED': 'PRG',
+      'XRY': 'SVQ',
+      'LIN': 'MIL', 'MXP': 'MIL', 'BGY': 'MIL', 'LUG': 'MIL'
     };
 
 
@@ -73,11 +77,15 @@ angular.module('ngWitravelApp')
       }
     };
 
-
+    var getDestinationCityCodes = function() {
+      var cityCodes = Object.keys(arrCityCodeNames);
+      return cityCodes;
+    };
 
 
     return {
-      getCityNameForCode: getCityNameForCode      
+      getCityNameForCode: getCityNameForCode,
+      getDestinationCityCodes: getDestinationCityCodes     
     };
 
   }]);    

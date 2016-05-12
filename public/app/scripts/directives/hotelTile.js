@@ -11,7 +11,7 @@ angular.module('ngWitravelApp')
             templateUrl: 'partials/hotel_tile.html',
             controller: ['hotelSearchService', function(hotelSearchService) {
             	this.hotelSelected = function(hotel) {
-            		console.log(hotel);
+            		// console.log(hotel);
 					hotelSearchService.getHoltelReservationResult(hotel.HotelCode);
             	}
             }],

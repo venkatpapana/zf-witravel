@@ -23,7 +23,7 @@ class FlightsController extends WiTravelBaseController
         $request = Zend_Controller_Front::getInstance()->getRequest();
 
         //$origin = Utils::geoLocation()['city_code'];
-        $origin = $request->getParam('origin')? $request->getParam('origin'): 'Paris'; //$this->getOrigin()
+        $origin = $request->getParam('origin')? $request->getParam('origin'): 'Madrid'; //$this->getOrigin()
         $origin = Utils::getCityCodeFromName($origin);
 
         $budget = $request->getParam('budget')?$request->getParam('budget'): 1200;

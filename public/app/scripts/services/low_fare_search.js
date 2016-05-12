@@ -9,9 +9,10 @@
  */
 angular.module('ngWitravelApp')
     .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', function ($http, wiConfig, cityNamesService) {
-        var origin = 'Paris';
+        var origin = 'Madrid';
 
-        var allDestinations = ['AMS', 'BER', 'BCN', 'LON', 'CPH', 'PAR', 'IST', 'BRU', 'AGP', 'ROM', 'KRK', 'TLL', 'LIS'];
+        //var allDestinations = ['AMS', 'BER', 'BCN', 'LON', 'CPH', 'PAR', 'IST', 'BRU', 'AGP', 'ROM', 'KRK', 'TLL', 'LIS'];
+        var allDestinations = cityNamesService.getDestinationCityCodes();
         var searchDestinations;
 
         var budget = 200, numTravellers = 2, twoWay = true;
@@ -64,7 +65,7 @@ angular.module('ngWitravelApp')
                 method: 'GET',
                 url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + '/budget/' + getBudget() + '/travellers/' + getNumTravellers() + '/destinations/'+getSearchDestinationsAsString()
             }).then(function successFunction(response) {
-                console.log("getLowFareSearchResults ---> success", response.data)
+                //console.log("getLowFareSearchResults ---> success", response.data)
                 //searchResults = response.data;
                 parseFlights(response.data)
                 searchStatus = true;
@@ -97,7 +98,7 @@ angular.module('ngWitravelApp')
             //clear prev. results, if any  
             respResults = [];          
             angular.forEach(resAirSegments, function (segments, dest) {
-                console.log("dest", dest);
+                //console.log("dest", dest);
                 var thisDestination = {"destination": dest, "segments": segments};
                 respResults.push(thisDestination);
             });
@@ -123,7 +124,7 @@ angular.module('ngWitravelApp')
         };
 
         var parseFlights = function (searchResults) {
-            console.log("parseFlights(): ENTER --> respResults = "+respResults.length);
+            //console.log("parseFlights(): ENTER --> resAirSegments = ", resAirSegments);
             //var resAirSegments = {}, arrDestinations = [];
 
             if (searchResults != null && searchResults['AirPricingSolution'] != undefined) {
@@ -187,15 +188,16 @@ angular.module('ngWitravelApp')
                             if(!(airSegment1['!Destination'] in resAirSegments)) {
                                 resAirSegments[airSegment1['!Destination']] = [];
                             }
+                            console.log('destination ----> '+airSegment1['!Destination']);
                             resAirSegments[airSegment1['!Destination']].push(arrFlights);
                         }
                     }//for
                 } //have AirPricingSolutions
             } //have SearchResults
 
-            console.log("resAirSegments", resAirSegments);
+            //console.log("resAirSegments", resAirSegments);
 
-            console.log("parseFlights(): END --> resAirSegments = "+Object.keys(resAirSegments).length);
+            //console.log("parseFlights(): END --> resAirSegments = ", resAirSegments);
             // respResults = resAirSegments;
         };
 

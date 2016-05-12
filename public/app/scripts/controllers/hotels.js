@@ -18,9 +18,9 @@ angular.module('ngWitravelApp')
 
             function successFunction(response) {
                 vm.loading = false;
-                console.log('successFunction', response);
+                // console.log('successFunction', response);
 
-                console.log('HotelsCtrl, getSavedResults', hotelSearchService.getSavedResults());
+                // console.log('HotelsCtrl, getSavedResults', hotelSearchService.getSavedResults());
                 hotelSearchService.parseHotels();
                 // console.log('HotelsCtrl, getHotels', hotelSearchService.getHotels());
                 vm.hotels = hotelSearchService.getHotels()

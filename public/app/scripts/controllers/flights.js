@@ -32,7 +32,7 @@ angular.module('ngWitravelApp')
 
     // vm.user = {name: 'guest'};
     function successFunction(response) {
-      console.log('successFunction', response)
+      // console.log('successFunction', response)
       // vm.results = response.data;
     }
     function failureFunction(response) {

@@ -28,7 +28,7 @@ angular.module('ngWitravelApp')
       var geocoder = new $window.google.maps.Geocoder();      
       if ($window.navigator.geolocation) {        
         $window.navigator.geolocation.getCurrentPosition(function successFunction(position) {
-          console.log('position', position)  
+          // console.log('position', position)  
           var lat = position.coords.latitude;
           var lng = position.coords.longitude;
 
@@ -45,7 +45,7 @@ angular.module('ngWitravelApp')
           geocoder.geocode({'latLng': latlng}, function(results, status) {
 
             if (status == google.maps.GeocoderStatus.OK) {
-              console.log(results)
+              // console.log(results)
               if (results[1]) {
                 //formatted address
                 //alert(results[0].formatted_address)
@@ -73,7 +73,7 @@ angular.module('ngWitravelApp')
                   //}
                   }
                 }
-                console.log(result);
+                // console.log(result);
                 defer.resolve(result);
                                 
               } else {

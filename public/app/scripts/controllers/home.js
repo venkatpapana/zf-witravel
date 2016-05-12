@@ -20,12 +20,12 @@ angular.module('ngWitravelApp')
                 vm.origin = data['city'];
                 vm.loading = false;
             }, function(data){
-                vm.origin = 'PAR';
+                vm.origin = 'MAD';
                 vm.loading = false;
             });
             
             function lowFareSearch() {
-                console.log('LowFareSearchCriteria');
+                // console.log('LowFareSearchCriteria');
                 
                 vm.loading = true;
                 lowFareSearchService.clearResults();
@@ -66,7 +66,7 @@ angular.module('ngWitravelApp')
             // vm.user = {name: 'guest'};
             function successFunction(response) {
                 vm.loading = false;
-                console.log('successFunction', response);
+                // console.log('successFunction', response);
                 if (response[0] === true || response[1] === true || response[2] === true) {
                     $state.go("destinations");
                 }
