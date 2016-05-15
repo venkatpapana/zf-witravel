@@ -78,14 +78,14 @@ header {
   padding: 0;
 }
 .contentbox li {
-  float:left;
+  float:inherit;
   color: #ffffff;
   font-family: "ADGETSANS-Bold";
   font-weight: bold;
   font-size: 20px;
   margin: 0 5px;
 }
-.inputouter {
+.inputouter{
   border: 4px solid #ffffff;
   border-radius: 22px;
   display: inline-block;
@@ -112,12 +112,12 @@ header {
   border-radius: 22px;
   display: inline-block;
   margin: 8px auto auto;
-  padding: 18px 50px;
+  padding: 12px 50px;
   vertical-align: top;
 }
 .originInputouter input {
   background: rgba(0, 0, 0, 0);
-  width: 190px;
+  width: 170px;
   border: none;
   border-bottom: 4px solid #fff;
   float: left;
@@ -164,7 +164,7 @@ footer {
 .index_footer
 {
 padding:15px 0 0 !important;
-position:absolute;
+/*position:absolute;*/
 bottom:0;
 }
 footer ul {
