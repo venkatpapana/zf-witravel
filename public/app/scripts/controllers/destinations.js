@@ -8,8 +8,8 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('DestinationsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService',
-        function ($http, $state, wiConfig, lowFareSearchService) {
+    .controller('DestinationsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'cityNamesService',
+        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, cityNamesService) {
 
             var vm = this;
             //vm.results = lowFareSearchService.searchResults
@@ -19,6 +19,19 @@ angular.module('ngWitravelApp')
             //lowFareSearchService.parseFlights();
             //console.log('DestinationsCtrl, getAllFlights', lowFareSearchService.getAllFlights());
             vm.airSegments = lowFareSearchService.getAllFlights();
+            vm.hotelResults = hotelSearchService.getParsedCacheResults();
+
+            for (var i = 0; i < vm.airSegments.length; i++) {                
+                var thisCity = vm.airSegments[i];
+                vm.airSegments[i]['hotels'] = [];
+
+                var destCityCode = cityNamesService.getCityCodeAlias(thisCity['destination']);
+
+                if(vm.hotelResults[destCityCode] != undefined  && vm.hotelResults[destCityCode] != null) {
+                    vm.airSegments[i]['hotels'] = vm.hotelResults[destCityCode];
+                }
+
+            };
 
             // vm.user = {name: 'guest'};
             function successFunction(response) {

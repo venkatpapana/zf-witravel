@@ -1,6 +1,14 @@
 <?php
 use GeoIp2\Database\Reader;
-class Utils{
+class Utils{	
+	  public static function getNextFriday() {
+	    return '2016-05-20';
+	  }
+
+
+	  public static function getNextSunday() {
+	    return '2016-05-22';
+	  }	
 
 	public static function fillRequestTemplate ($templateFile, $arrPlaceholders) {
 		$string = file_get_contents(__DIR__ . '/../xml_req_templates/'.$templateFile);

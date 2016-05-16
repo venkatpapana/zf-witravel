@@ -59,6 +59,14 @@ angular.module('ngWitravelApp')
     //     cityNameCodes = res.data;                
     // });
 
+    var getCityCodeAlias = function(code) {
+      if(cityCodeAlias[code] != undefined) {
+        return cityCodeAlias[code];
+      }else{
+        return code;
+      }      
+    };
+
   	var getCityNameForCode = function(code) {
       if(arrCityCodeNames[code] != undefined) {
         return arrCityCodeNames[code];
@@ -84,6 +92,7 @@ angular.module('ngWitravelApp')
 
 
     return {
+      getCityCodeAlias: getCityCodeAlias,
       getCityNameForCode: getCityNameForCode,
       getDestinationCityCodes: getDestinationCityCodes     
     };

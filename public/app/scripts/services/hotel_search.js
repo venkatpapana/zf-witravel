@@ -8,10 +8,11 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .service('hotelSearchService', ['$http', 'wiConfig', function ($http, wiConfig) {
+    .service('hotelSearchService', ['$http', '$q', 'wiConfig', function ($http, $q, wiConfig) {
         var budget = 200, numTravellers = 2, twoWay = true;
         var searchStatus = false, searchResults = null;
         var respResults = [];
+        var cacheResults=[], cacheParsedResults = [];
 
         var reservationResult = null, reservationStatus = false;
 
@@ -44,6 +45,22 @@ angular.module('ngWitravelApp')
                 return searchStatus;
             });
         };
+
+        var getCacheHotelSearchResults = function () {
+            return $http({
+                method: 'GET',
+                url: wiConfig.serviceURL + '/hotels/cache-hotel-search'
+            }).then(function successFunction(response) {
+                cacheResults = response.data;
+                //parseCacheResults();
+                return cacheResults;
+            }, function failureFunction(response) {
+                return false;
+            });
+        };  
+        var getParsedCacheResults = function() {
+            return cacheResults;
+        }      
 
         var getSavedResults = function () {
             return searchResults;
@@ -103,12 +120,64 @@ angular.module('ngWitravelApp')
                             resHotels.push(objHotelDetails);
                         }
                     }//for
-                } //have AirPricingSolutions
+                } //have HotelSearchResults
             } //have SearchResults
             respResults = resHotels;
         };
 
 
+        var parseCacheResults = function () {
+            var resHotels = [];
+                // if (cacheResults.length > 0) {
+            for(var cityCode in cacheResults) {
+                console.log("parseCacheResults", cityCode);
+ 
+ 
+            // for (var i = 0; i < cacheResults.length; i++) {
+                var thisHotelResult = cacheResults[cityCode];
+                // if (!thisHotelResult['HotelProperty']['!Availability'] || thisHotelResult['HotelProperty']['!Availability'] != 'Available') {
+                //     continue;
+                // }
+
+
+                var objHotelDetails = {};
+
+
+                objHotelDetails.Address = thisHotelResult['HotelProperty']['PropertyAddress']['Address'];
+                objHotelDetails.Availability = thisHotelResult['HotelProperty']['!Availability'];
+                objHotelDetails.HotelCode = thisHotelResult['HotelProperty']['!HotelCode'];
+                objHotelDetails.Name = thisHotelResult['HotelProperty']['!Name'];
+                objHotelDetails.ParticipationLevel = thisHotelResult['HotelProperty']['!ParticipationLevel'];
+                objHotelDetails.ReserveRequirement = thisHotelResult['HotelProperty']['!ReserveRequirement'];
+
+                if ((thisHotelResult['RateInfo']['!ApproximateMinimumAmount'])) {
+                    objHotelDetails.MinimumAmount = thisHotelResult['RateInfo']['!ApproximateMinimumAmount'];
+                } else {
+                    objHotelDetails.MinimumAmount = thisHotelResult['RateInfo']['!MinimumAmount'];
+                }
+                if ((thisHotelResult['RateInfo']['!ApproximateMaximumAmount'])) {
+                    objHotelDetails.MaximumAmount = thisHotelResult['RateInfo']['!ApproximateMaximumAmount'];
+                } else {
+                    objHotelDetails.MaximumAmount = thisHotelResult['RateInfo']['!MaximumAmount'];
+                }
+
+                //objHotelDetails.MinimumAmountNum      = preg_replace('/[a-z]/i', '', objHotelDetails.MinimumAmount);
+                objHotelDetails.MinimumAmountNum = objHotelDetails.MinimumAmount;
+                //objHotelDetails.TotalMinAmountNum     = number_format(objHotelDetails.MinimumAmountNum * $this->durationNumDays, 2);
+                objHotelDetails.TotalMinAmountNum = objHotelDetails.MinimumAmountNum * 2;
+
+                objHotelDetails.Transportation = thisHotelResult['HotelProperty']['!HotelTransportation'];
+
+
+                if (objHotelDetails != null) {
+                    resHotels.push(objHotelDetails);
+                }
+
+            }//for
+                // } //have AirPricingSolutions
+            cacheParsedResults = resHotels;
+
+        };
 
 
         var getSavedResults = function () {
@@ -180,7 +249,9 @@ angular.module('ngWitravelApp')
             parseHotels: parseHotels,
             getHotels: getHotels,
             getHoltelReservationResult: getHoltelReservationResult,
-            getNewHoltelReservationResult: getNewHoltelReservationResult
+            getNewHoltelReservationResult: getNewHoltelReservationResult,
+            getCacheHotelSearchResults: getCacheHotelSearchResults,
+            getParsedCacheResults: getParsedCacheResults
         };
 
     }//service function

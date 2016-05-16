@@ -1,13 +1,13 @@
 <?php
-  require_once __DIR__ . '/../GdsProvider.php';
+  require_once __DIR__ . '/../GdsInterface.php';
 
-  class TravelportProvider extends GdsProvider {
+  class Travelport extends GdsInterface {
 
     protected $reqXmlPath;
     protected $reqXML, $responseJson;
 
-    public function __construct() {
-      parent::__construct();
+    public function __construct($wiconfig) {
+      parent::__construct($wiconfig);
       $this->reqXmlPath = __DIR__ . "/requests";
       $this->reqXML = "";
     }

@@ -1,11 +1,6 @@
 <?php
-require_once __DIR__ . '/../gds/GdsProvider.php';
-
-class FlightsController extends WiTravelBaseController
-{
-
-    public function init()
-    {
+class FlightsController extends WiTravelBaseController {
+    public function init() {
       $this->getHelper('ViewRenderer')
         ->setNoRender();
 
@@ -13,13 +8,12 @@ class FlightsController extends WiTravelBaseController
          ->setHeader('Content-Type', 'application/json');
     }
 
-    public function indexAction()
-    {
+    public function indexAction() {
         echo __METHOD__;
     }
 
     public function lowFareSearchAction() {
-        $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
+        
         $request = Zend_Controller_Front::getInstance()->getRequest();
 
         //$origin = Utils::geoLocation()['city_code'];
@@ -44,10 +38,10 @@ class FlightsController extends WiTravelBaseController
         $search->setNumPassengers($travellers);
 
         //send request
-        $gds = new GdsProvider();
-        $gds = $gds->getGdsObj('TRAVELPORT');
-        $gds->setRequest($search);
-        $results = $gds->getFlightResults();
+        // $gds = new GdsProvider();
+        // $gds = $gds->getGdsObj('TRAVELPORT');
+        $this->gds->setRequest($search);
+        $results = $this->gds->getFlightResults();
 
         echo $results;
 
@@ -98,9 +92,11 @@ class FlightsController extends WiTravelBaseController
 
 
         //send request
-        $gds = GdsProvider::getGdsObj();
-        $gds->setRequest($search);
-        $results = $gds->bookFlight();
+        // $gds = GdsProvider::getGdsObj();
+        // $gds = new GdsProvider();
+        // $gds = $gds->getGdsObj('TRAVELPORT');
+        $this->gds->setRequest($search);
+        $results = $this->gds->bookFlight();
 
         echo $results;
 

@@ -8,8 +8,8 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('HomeCtrl', ['$http', '$state', '$q', 'wiConfig', 'lowFareSearchService', 'geolocationService',
-        function ($http, $state, $q, wiConfig, lowFareSearchService, geolocationService) {
+    .controller('HomeCtrl', ['$http', '$state', '$q', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'geolocationService', 
+        function ($http, $state, $q, wiConfig, lowFareSearchService, hotelSearchService, geolocationService) {
 
             var vm = this;
             //console.log("home.js, geo=", geolocationService.getGeocoder());
@@ -48,6 +48,8 @@ angular.module('ngWitravelApp')
                 var defer = $q.defer();
                 var promises = [];                
 
+                promises.push(hotelSearchService.getCacheHotelSearchResults());
+
                 lowFareSearchService.setSearchDestinations(dest1);
                 promises.push(lowFareSearchService.getLowFareSearchResults());
 
@@ -55,8 +57,9 @@ angular.module('ngWitravelApp')
                 promises.push(lowFareSearchService.getLowFareSearchResults());
 
                 lowFareSearchService.setSearchDestinations(dest3);
-                promises.push(lowFareSearchService.getLowFareSearchResults());                                    
+                promises.push(lowFareSearchService.getLowFareSearchResults());   
                 
+                                
                 $q.all(promises).then(successFunction, failureFunction);
 
                 // lowFareSearchService.getLowFareSearchResults().then(successFunction, failureFunction);

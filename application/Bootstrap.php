@@ -1,18 +1,23 @@
 <?php
 // error_reporting(E_WARNING);
 
-require_once dirname(__FILE__) .'/../vendor/autoload.php';
+require_once __DIR__ .'/../vendor/autoload.php';
 
 //TODO: autoload
-require_once('controllers/WiTravelBaseController.php');
-require_once('gds/GdsProvider.php');
-require_once('models/FlightSearchCriteria.php');
-require_once('models/HotelSearchCriteria.php');
-require_once('models/HotelDetailsCriteria.php');
-require_once('models/HotelMediaLinksCriteria.php');
-require_once('models/HotelReservationCriteria.php');
-require_once('utils/Utils.php');
-
+require_once(__DIR__ . '/controllers/WiTravelBaseController.php');
+require_once(__DIR__ . '/gds/GdsFactory.php');
+// require_once('models/FlightSearchCriteria.php');
+// require_once('models/HotelSearchCriteria.php');
+// require_once('models/HotelDetailsCriteria.php');
+// require_once('models/HotelMediaLinksCriteria.php');
+// require_once('models/HotelReservationCriteria.php');
+require_once(__DIR__ . '/utils/Utils.php');
+foreach (glob(__DIR__ . "/models/*.php") as $filename) {
+    require_once $filename;
+}
+foreach (glob(__DIR__ . "/parsers/*.php") as $filename) {
+    require_once $filename;
+}
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -45,6 +50,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 		return $request;
 	}
-
 
 }
