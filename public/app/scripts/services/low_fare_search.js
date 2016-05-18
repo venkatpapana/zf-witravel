@@ -139,9 +139,9 @@ angular.module('ngWitravelApp')
                         var thisTotalPrice = thisAirPricing['!TotalPrice'];
                         if(thisTotalPrice && thisTotalPrice.substring(0, 3) === 'EUR') {
                             thisTotalPrice = parseInt(thisTotalPrice.substring(3, thisTotalPrice.length));
-                            if(thisTotalPrice > getBudget()) {
-                                continue;
-                            }
+                            // if(thisTotalPrice > getBudget()) {
+                            //     continue;
+                            // }
                         }else if(getBudget()){
                             thisTotalPrice = getBudget(); //TODO: 
                         }
@@ -188,7 +188,7 @@ angular.module('ngWitravelApp')
                             if(!(airSegment1['!Destination'] in resAirSegments)) {
                                 resAirSegments[airSegment1['!Destination']] = [];
                             }
-                            console.log('destination ----> '+airSegment1['!Destination']);
+                            //console.log('destination ----> '+airSegment1['!Destination']);
                             resAirSegments[airSegment1['!Destination']].push(arrFlights);
                         }
                     }//for

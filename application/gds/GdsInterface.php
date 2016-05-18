@@ -43,7 +43,9 @@
                 //$elem = iconv('ISO-8895', 'UTF-8', $elem);
                 $elem = utf8_encode($elem);
             }
-        });        
+        });  
+        $this->status = true;
+        $this->responseJson = Zend_Json::encode($result);      
         
       }else if ($client->fault) {
         $this->status = false;
@@ -53,10 +55,8 @@
         $err_msg = $client->getError();
         if ($err_msg) {
           // Print error msg
+          $this->status = false;
           $this->message =  'Error: ' . $err_msg;
-        } else {
-          $this->status = true;
-          $this->responseJson = Zend_Json::encode($result);
         }
       }
 

@@ -29,7 +29,7 @@
 	    $gds->setRequest($search);
 	    $results_json = $gds->getHotelResults();
 
-	    if($results_json !=== false) {
+	    if($results_json !== false) {
 		    $cityRow->hotels_json = $results_json;
 		    $cityRow->save();
 

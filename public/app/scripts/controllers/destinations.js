@@ -18,17 +18,50 @@ angular.module('ngWitravelApp')
 
             //lowFareSearchService.parseFlights();
             //console.log('DestinationsCtrl, getAllFlights', lowFareSearchService.getAllFlights());
-            vm.airSegments = lowFareSearchService.getAllFlights();
-            vm.hotelResults = hotelSearchService.getParsedCacheResults();
+            var budget = lowFareSearchService.getBudget();
+            var allAirSegments = lowFareSearchService.getAllFlights();
+            var allHotelResults = hotelSearchService.getParsedCacheResults();
 
-            for (var i = 0; i < vm.airSegments.length; i++) {                
-                var thisCity = vm.airSegments[i];
-                vm.airSegments[i]['hotels'] = [];
+            vm.airSegments = [];
+            // vm.hotelResults = [];
 
-                var destCityCode = cityNamesService.getCityCodeAlias(thisCity['destination']);
+            for (var i = 0; i < allAirSegments.length; i++) {                
+                var thisSegment = allAirSegments[i];
+                allAirSegments[i]['hotels'] = [];
 
-                if(vm.hotelResults[destCityCode] != undefined  && vm.hotelResults[destCityCode] != null) {
-                    vm.airSegments[i]['hotels'] = vm.hotelResults[destCityCode];
+                var destCityCode = cityNamesService.getCityCodeAlias(thisSegment['destination']);
+                console.log('destCityCode', destCityCode);
+
+                var airPrice = parseInt(thisSegment['segments'][0]['onward']['TotalPrice']);
+                var thisHotels = [], thisHotelMin=0;
+                if(allHotelResults[destCityCode] != undefined  && allHotelResults[destCityCode] != null) {
+
+                    for (var j = 0; j < allHotelResults[destCityCode].length; j++) {
+                        var thisHotel = allHotelResults[destCityCode][j];
+                        var hotelPrice = parseInt(thisHotel['TotalMinAmountNum']);
+
+                        var total = airPrice+hotelPrice;
+                        console.log('airPrice='+airPrice+', hotelPrice='+hotelPrice+', total='+total+', budget='+budget);
+
+                        if(  total >  budget) {
+                            console.log('-----> skip');
+                            continue;
+                        }else{
+                            console.log('-----> add');
+                            if(total < thisHotelMin || thisHotelMin == 0) {
+                                thisHotelMin = total;
+                            }
+                            thisHotels.push(thisHotel);
+                        }
+                    }                                
+                    
+                }else{
+                    continue;
+                }
+                if(thisHotels.length > 0) {
+                    thisSegment['hotels'] = thisHotels;
+                    thisSegment['TotalPrice'] = thisHotelMin;
+                    vm.airSegments.push(thisSegment);
                 }
 
             };
