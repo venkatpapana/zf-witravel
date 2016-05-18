@@ -253,7 +253,11 @@
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelSearchResp.json', $this->responseJson);
       //return result
-      return $this->responseJson;
+      if($this->status) {
+        return $this->responseJson;
+      }else{
+        return false;
+      }
     }
 
     // public function getFlightDetails() {
@@ -279,7 +283,11 @@
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelDetailsResp.json', $this->responseJson);
       //return result
-      return $this->responseJson;
+      if($this->status) {
+        return $this->responseJson;
+      }else{
+        return false;
+      }
 
     }
 
@@ -300,7 +308,11 @@
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelMediaLinksResp.json', $this->responseJson);
       //return result
-      return $this->responseJson;
+      if($this->status) {
+        return $this->responseJson;
+      }else{
+        return false;
+      }
 
     }
 
@@ -322,7 +334,11 @@
 
       //file_put_contents(__DIR__ . '/cache/api_responses/AirCreateReservationResp.json', $this->responseJson);
       //return result
-      return $this->responseJson;
+      if($this->status) {
+        return $this->responseJson;
+      }else{
+        return false;
+      }
     }
 
     public function bookHotel() {
@@ -342,7 +358,11 @@
 
       //file_put_contents(__DIR__ . '/cache/api_responses/HotelCreateReservationResp.json', $this->responseJson);
       //return result
-      return $this->responseJson;
+      if($this->status) {
+        return $this->responseJson;
+      }else{
+        return false;
+      }
 
     }
 

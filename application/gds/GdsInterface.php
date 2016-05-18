@@ -3,6 +3,7 @@
    class GdsInterface {
     protected $wiconfig, $requestType;
     protected $request, $response;
+    protected $status, $message;
 
     public function __construct($wiconfig = array()) {
         $this->wiconfig = $wiconfig;      
@@ -20,15 +21,20 @@
       return $this->request;
     }
 
+    public function getMessage() {
+      return $this->message;
+    }
+
     public function getResponse() {
       return $this->response;
     }
 
     public function sendRequest() {
       $client = new nusoap_client($this->getEndPoint(), false);
-      $client->setCredentials($this->wiconfig['Travelport']['USERNAME'], $this->wiconfig['Travelport']['PASSWORD']);
-      $result = $client->send($this->reqXML, $this->getEndPoint());
 
+      $client->setCredentials($this->wiconfig['Travelport']['USERNAME'], $this->wiconfig['Travelport']['PASSWORD']);
+       //print_r($client); exit;
+      $result = $client->send($this->reqXML, $this->getEndPoint());
 
 
       if(!empty($result) && is_array($result)) {
@@ -38,8 +44,22 @@
                 $elem = utf8_encode($elem);
             }
         });        
-        $this->responseJson = Zend_Json::encode($result);
+        
+      }else if ($client->fault) {
+        $this->status = false;
+        $this->message =  'Fault: ' . print_r($result, 1);
+      } else {
+        // check result
+        $err_msg = $client->getError();
+        if ($err_msg) {
+          // Print error msg
+          $this->message =  'Error: ' . $err_msg;
+        } else {
+          $this->status = true;
+          $this->responseJson = Zend_Json::encode($result);
+        }
       }
+
     }
 
     public function prepareRequest() {}

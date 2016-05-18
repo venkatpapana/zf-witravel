@@ -1,5 +1,5 @@
 <?php
-
+define('APPLICATION_ENV', 'development');
 require_once __DIR__ . '/../../vendor/autoload.php';
 // Define path to application directory
 defined('APPLICATION_PATH')
@@ -23,5 +23,4 @@ $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
-
 $application->bootstrap();

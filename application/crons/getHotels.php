@@ -29,19 +29,23 @@
 	    $gds->setRequest($search);
 	    $results_json = $gds->getHotelResults();
 
-	    //$cityRow->hotels_json = $results_json;
-	    //$cityRow->save();
+	    if($results_json !=== false) {
+		    $cityRow->hotels_json = $results_json;
+		    $cityRow->save();
 
-	    //parse
-	    $obj =  new HotelSearchParser();
-	    $obj->setJsonResponse($results_json);
-		$hotels = $obj->parse();	
-	
-		foreach ($hotels as $hotelCode => $hotelRow) {
-			// echo "<pre>";
-			// var_dump($hotelRow); 
-			$hotelRow->city_code = $cityRow->code;
-			$hotelRow->save();
+		    //parse
+		    $obj =  new HotelSearchParser();
+		    $obj->setJsonResponse($results_json);
+			$hotels = $obj->parse();	
+		
+			foreach ($hotels as $hotelCode => $hotelRow) {
+				// echo "<pre>";
+				// var_dump($hotelRow); 
+				$hotelRow->city_code = $cityRow->code;
+				$hotelRow->save();
+			}
+		}else{
+			echo $gds->getMessage()."\n";
 		}
 
 	}

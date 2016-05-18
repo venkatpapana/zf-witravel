@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `cities` (
 
 CREATE TABLE IF NOT EXISTS `hotels` (
   `HotelCode` int(11) NOT NULL PRIMARY KEY,
-  `city_id` int(11) NOT NULL,
+  `city_code` varchar(6) NOT NULL,
   `Name` varchar(32) NOT NULL,
   `Availability` varchar(32) NOT NULL,
   `Address` tinytext NOT NULL,
@@ -52,7 +52,11 @@ CREATE TABLE IF NOT EXISTS `hotels` (
   `MinimumAmount` varchar(12) DEFAULT NULL,
   `MaximumAmount` varchar(12) DEFAULT NULL,
   `MinimumAmountNum` varchar(12) DEFAULT NULL,
-  `TotalMinAmountNum` varchar(12) DEFAULT NULL
+  `TotalMinAmountNum` varchar(12) DEFAULT NULL,
+  FOREIGN KEY (city_code) 
+        REFERENCES cities(code)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
