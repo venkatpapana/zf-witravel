@@ -13,9 +13,11 @@ angular.module('ngWitravelApp')
 
             var vm = this;
             var selectedDestination = lowFareSearchService.getSelectedDestination();
-            vm.loading = true;
-            hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
-
+            // vm.loading = true;
+            // hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
+var cached = hotelSearchService.getParsedCacheResults()
+vm.hotels = cached[selectedDestination];
+ console.log("cache.hotels", vm.hotels);
             function successFunction(response) {
                 vm.loading = false;
                 // console.log('successFunction', response);
@@ -23,7 +25,8 @@ angular.module('ngWitravelApp')
                 // console.log('HotelsCtrl, getSavedResults', hotelSearchService.getSavedResults());
                 hotelSearchService.parseHotels();
                 // console.log('HotelsCtrl, getHotels', hotelSearchService.getHotels());
-                vm.hotels = hotelSearchService.getHotels()
+                vm.hotels = hotelSearchService.getHotels();
+                console.log("vm.hotels", vm.hotels);
                 // vm.results = response.data;
             }
 

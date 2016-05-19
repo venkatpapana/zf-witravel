@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name ngWitravelApp.service:hotelImagesService
+ * @name ngWitravelApp.service:geolocationService
  * @description
- * # hotelImagesService service
+ * # geolocationService service
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')

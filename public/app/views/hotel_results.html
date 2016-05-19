@@ -69,7 +69,7 @@
                 <a href="#">Hoteles</a>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
-                <div ng-repeat="hotel in hotels.hotels  track by $index">
+                <div ng-repeat="hotel in hotels.hotels  | orderBy : 'TotalMinAmountNum' track by $index ">
                     <hotel-tile hotel=hotel on-selected="hotels.hotelSelected(hotel)"></hotel-tile>
                 </div>
 

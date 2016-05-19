@@ -109,9 +109,9 @@ angular.module('ngWitravelApp')
                         }
 
                         //objHotelDetails.MinimumAmountNum		= preg_replace('/[a-z]/i', '', objHotelDetails.MinimumAmount);
-                        objHotelDetails.MinimumAmountNum = objHotelDetails.MinimumAmount;
+                        objHotelDetails.MinimumAmountNum = parseInt(objHotelDetails.MinimumAmount);
                         //objHotelDetails.TotalMinAmountNum		= number_format(objHotelDetails.MinimumAmountNum * $this->durationNumDays, 2);
-                        objHotelDetails.TotalMinAmountNum = objHotelDetails.MinimumAmountNum * 2;
+                        objHotelDetails.TotalMinAmountNum = parseInt(objHotelDetails.MinimumAmountNum); // * 2;
 
                         objHotelDetails.Transportation = thisHotelResult['HotelProperty']['!HotelTransportation'];
 
@@ -162,9 +162,9 @@ angular.module('ngWitravelApp')
                 }
 
                 //objHotelDetails.MinimumAmountNum      = preg_replace('/[a-z]/i', '', objHotelDetails.MinimumAmount);
-                objHotelDetails.MinimumAmountNum = objHotelDetails.MinimumAmount;
+                objHotelDetails.MinimumAmountNum = parseInt(objHotelDetails.MinimumAmount);
                 //objHotelDetails.TotalMinAmountNum     = number_format(objHotelDetails.MinimumAmountNum * $this->durationNumDays, 2);
-                objHotelDetails.TotalMinAmountNum = objHotelDetails.MinimumAmountNum * 2;
+                objHotelDetails.TotalMinAmountNum = parseInt(objHotelDetails.MinimumAmountNum); //* 2
 
                 objHotelDetails.Transportation = thisHotelResult['HotelProperty']['!HotelTransportation'];
 

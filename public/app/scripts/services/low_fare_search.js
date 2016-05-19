@@ -8,14 +8,16 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', function ($http, wiConfig, cityNamesService) {
+    .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', 'hotelSearchService', 'util', 
+        function ($http, wiConfig, cityNamesService, hotelSearchService, util) {
         var origin = 'Madrid';
 
         //var allDestinations = ['AMS', 'BER', 'BCN', 'LON', 'CPH', 'PAR', 'IST', 'BRU', 'AGP', 'ROM', 'KRK', 'TLL', 'LIS'];
         var allDestinations = cityNamesService.getDestinationCityCodes();
         var searchDestinations;
 
-        var budget = 200, numTravellers = 2, twoWay = true;
+        var budget = 500, numTravellers = 2, twoWay = true;
+        var sortBy = 'price';
 
         var searchStatus = false; //, searchResults = null;
         var respResults = [];
@@ -203,23 +205,80 @@ angular.module('ngWitravelApp')
 
         var setSelectedDestination = function (destination) {
             selectedDestination = destination;
-        }
+        };
         var setSelectedAirSegment = function (airSegment) {
             selectedAirSegment = airSegment;
-        }
+        };
         var setSelectedHotel = function (hotel) {
             selectedHotel = hotel;
-        }
+        };
 
         var getSelectedDestination = function () {
             return selectedDestination;
-        }
+        };
         var getSelectedAirSegment = function () {
             return selectedAirSegment;
-        }
+        };
         var getSelectedHotel = function () {
             return selectedHotel;
-        }
+        };
+
+
+
+        var filterResults = function(budget) {
+            
+            var allAirSegments = getAllFlights();
+            var allHotelResults = hotelSearchService.getParsedCacheResults();
+
+            var airSegments = [];
+            // vm.hotelResults = [];
+
+            for (var i = 0; i < allAirSegments.length; i++) {                
+                var thisSegment = allAirSegments[i];
+                allAirSegments[i]['hotels'] = [];
+
+                var destCityCode = cityNamesService.getCityCodeAlias(thisSegment['destination']);
+                // console.log('destCityCode', destCityCode);
+
+                var airPrice = parseInt(thisSegment['segments'][0]['onward']['TotalPrice']);
+                if(thisSegment['segments'][0]['return'] != undefined && thisSegment['segments'][0]['return'] != null) {
+                    airPrice += parseInt(thisSegment['segments'][0]['return']['TotalPrice']);
+                }
+                var thisHotels = [], thisHotelMin=0;
+                if(twoWay && allHotelResults[destCityCode] != undefined  && allHotelResults[destCityCode] != null) {
+
+                    for (var j = 0; j < allHotelResults[destCityCode].length; j++) {
+                        var thisHotel = allHotelResults[destCityCode][j];
+                        var hotelPrice = parseInt(thisHotel['TotalMinAmountNum']);
+
+                        var total = airPrice+hotelPrice;
+                        // console.log('destCityCode='+destCityCode+', airPrice='+airPrice+', hotelPrice='+hotelPrice+', total='+total+', budget='+budget);
+
+                        if(  total >  budget) {
+                            // console.log('-----> skip');
+                            continue;
+                        }else{
+                            // console.log('-----> add');
+                            if(total < thisHotelMin || thisHotelMin == 0) {
+                                thisHotelMin = total;
+                            }
+                            thisHotels.push(thisHotel);
+                        }
+                    }                                
+                    
+                }else{
+                    continue;
+                }
+                if(thisHotels.length > 0) {
+                    thisSegment['hotels'] = thisHotels;
+                    thisSegment['TotalPrice'] = thisHotelMin;
+                    airSegments.push(thisSegment);
+                }
+            }//for
+            util.sortObjects(airSegments, 'TotalMinAmountNum')
+            return airSegments;
+        };
+
 
         return {
             setBudget: setBudget,
@@ -240,7 +299,8 @@ angular.module('ngWitravelApp')
             getSelectedHotel: getSelectedHotel,
             getAllDestinations: getAllDestinations,
             setSearchDestinations: setSearchDestinations,
-            clearResults: clearResults
+            clearResults: clearResults,
+            filterResults: filterResults
         };
 
     }]);
