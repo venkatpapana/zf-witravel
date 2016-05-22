@@ -8,12 +8,14 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('DestinationsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'cityNamesService',
-        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, cityNamesService) {
+    .controller('DestinationsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'cityNamesService', 'util',
+        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, cityNamesService, util) {
 
             var vm = this;
             var budget = lowFareSearchService.getBudget();
             vm.airSegments = lowFareSearchService.filterResults(budget);
+
+            util.sortObjects(vm.airSegments, 'MinTotalPrice');
             //vm.results = lowFareSearchService.searchResults
 
             //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());

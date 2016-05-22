@@ -8,37 +8,30 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .controller('FlightsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService',
-  function ($http, $state, wiConfig, lowFareSearchService) {
+  .controller('FlightsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService', 'util',
+  function ($http, $state, wiConfig, lowFareSearchService, util) {
 
     var vm = this;
-    //vm.results = lowFareSearchService.searchResults
-
-    //console.log('FlightsCtrl, searchResults', lowFareSearchService.getSavedResults());
-    var selectedDestination = lowFareSearchService.getSelectedDestination();
-
-    //lowFareSearchService.parseFlights();
-
-    vm.destinationAirSegments = lowFareSearchService.getFlights(selectedDestination);
-    console.log('FlightsCtrl::destinationAirSegments', vm.destinationAirSegments);
-
-
+    
     var flightSelected = function (flight) {
-        //alert("DestinationsCtrl::destinationSelected = "+destination);
-        //lowFareSearchService.setSelectedDestination(destination);
-        $state.go('hotelResults');
+        lowFareSearchService.setSelectedAirSegment(flight);
+        vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
     };
+    
+
+    var redirectToHotels = function(flight) {
+        flightSelected(flight);
+        $state.go('hotelResults');     
+    };
+    
+
     vm.flightSelected = flightSelected;
 
-    // vm.user = {name: 'guest'};
-    function successFunction(response) {
-      // console.log('successFunction', response)
-      // vm.results = response.data;
-    }
-    function failureFunction(response) {
-      console.log('failureFunction', response)
-    }
-
-
-
+    var selectedDestination = lowFareSearchService.getSelectedDestination();
+    vm.selectedDestAirSegments = lowFareSearchService.getFlights(selectedDestination);
+    // util.sortObjects(vm.selectedDestAirSegments['segments'], 'TotalAirPrice');
+    lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
+    flightSelected(vm.selectedDestAirSegments[0]);
+    vm.redirectToHotels = redirectToHotels;
+    
   }]);

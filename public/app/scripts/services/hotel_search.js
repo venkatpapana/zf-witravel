@@ -236,7 +236,19 @@ angular.module('ngWitravelApp')
         };
 
 
+        var updateRelativePricings = function(sortedHotels) {
+            var minPrice = parseInt(sortedHotels[0]['TotalMinAmountNum']);
+            sortedHotels[0]['relativeAmountNum'] = minPrice;
+            sortedHotels[0]['relativeAmountDisplay'] = minPrice;
 
+            for (var i = sortedHotels.length - 1; i > 0; i--) {
+                var thisHotelPrice = parseInt(sortedHotels[i]['TotalMinAmountNum']);
+                var thisRelativePrice = (thisHotelPrice - minPrice);
+                
+                sortedHotels[i]['relativeAmountNum'] = thisRelativePrice;
+                sortedHotels[i]['relativeAmountDisplay'] = ' +' + thisRelativePrice;
+            };
+        };
 
 
         return {
@@ -251,7 +263,8 @@ angular.module('ngWitravelApp')
             getHoltelReservationResult: getHoltelReservationResult,
             getNewHoltelReservationResult: getNewHoltelReservationResult,
             getCacheHotelSearchResults: getCacheHotelSearchResults,
-            getParsedCacheResults: getParsedCacheResults
+            getParsedCacheResults: getParsedCacheResults,
+            updateRelativePricings: updateRelativePricings
         };
 
     }//service function

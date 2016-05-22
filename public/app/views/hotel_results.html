@@ -32,7 +32,7 @@
                 <h3>Precio</h3>
                 <!--img src="images/filtro_left_img.png"-->
                 <div class="cont_seek_frst">
-                    <h3>our Price: &euro; <span id="ourPrice">97.00</span></h3>
+                    <h3>our Price: &euro; <span id="ourPrice">{{hotels.selectedAirSegment['TotalAirPrice']}}</span></h3>
                     <div id="minus">-</div>
                     <div id="slider"></div>
                     <div id="plus">+</div>
@@ -50,7 +50,7 @@
                     <span>Distancia desde el centro</span>
                     <!--img src="images/five_km_img.png"-->
                     <div class="precio_txt second_seek">
-                        <h3>Kilo Meter - <span id="ourPrice1">97.00</span></h3>
+                        <h3>Kilo Meter - <span id="ourPrice1">{{hotels.selectedHotelPrice}} </span></h3>
                         <div id="minus1">-</div>
                         <div id="slider1"></div>
                         <div id="plus1">+</div>
@@ -69,8 +69,8 @@
                 <a href="#">Hoteles</a>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
-                <div ng-repeat="hotel in hotels.hotels  | orderBy : 'TotalMinAmountNum' track by $index ">
-                    <hotel-tile hotel=hotel on-selected="hotels.hotelSelected(hotel)"></hotel-tile>
+                <div ng-repeat="hotel in hotels.hotels  track by $index ">
+                    <hotel-tile hotel=hotel on-selected="hotels.hotelSelected(hotel)"  goto-payment="hotels.redirectToPayment(hotel);"></hotel-tile>
                 </div>
 
             </div>

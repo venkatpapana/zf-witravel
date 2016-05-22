@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name ngWitravelApp.service:geolocationService
+ * @name ngWitravelApp.service:util
  * @description
- * # geolocationService service
+ * # util service
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
@@ -12,11 +12,11 @@ angular.module('ngWitravelApp')
     
     var res=null;
     var sortObjects = function(arrObjects, key) {
-        // for (var i = arrObjects.length - 1; i >= 0; i--) {
-        //   arrObjects[i]
-        // };
         arrObjects.sort(function(a, b) {
-            return a[key] < b[key];
+          var x = parseInt(a[key]), 
+              y = parseInt(b[key])
+          // console.log(x + ' > ' + y +' --> '+(x > y));
+          return x - y;
         });
     };
 

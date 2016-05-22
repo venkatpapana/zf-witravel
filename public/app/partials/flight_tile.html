@@ -1,4 +1,4 @@
-<div class="col-md-4 col-sm-4 col-xs-12 vueling_outer pad_none">
+<div class="col-md-4 col-sm-4 col-xs-12 vueling_outer pad_none" ng-click="flightSelected(flight);">
     <div class="col-md-12 col-sm-12 col-xs-12 plain_main_otr">
         <div class="plain_img_outer">
             <img ng-src="images/plan2.png">
@@ -37,6 +37,6 @@
         <span>{{flight['return']['!Destination']}}, <strong>{{flight['return']['!Destination']}}</strong></span>
     </div>
     <div class="col-md-12 col-sm-12 col-xs-12 info_btn_inner pad_none">
-        <a ng-click="flightSelected(flight);">+ info</a>
+        <a ng-click="redirectToHotels(flight);">Seleccionar {{flight['relativeAirPriceDisplay']}} € más</a>
     </div>
 </div>

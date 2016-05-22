@@ -6,7 +6,8 @@ angular.module('ngWitravelApp')
             restrict: 'E',
             scope: {
                 flight: '=thisflight',
-                'flightSelected': '&onSelected'
+                'flightSelected': '&onSelected',
+                'redirectToHotels': '&gotoHotels',
             },
             templateUrl: 'partials/flight_tile.html'
         };

@@ -8,38 +8,41 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('HotelsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService',
-        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService) {
+    .controller('HotelsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'util',
+        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, util) {
 
             var vm = this;
-            var selectedDestination = lowFareSearchService.getSelectedDestination();
-            // vm.loading = true;
-            // hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
-var cached = hotelSearchService.getParsedCacheResults()
-vm.hotels = cached[selectedDestination];
- console.log("cache.hotels", vm.hotels);
-            function successFunction(response) {
-                vm.loading = false;
-                // console.log('successFunction', response);
 
-                // console.log('HotelsCtrl, getSavedResults', hotelSearchService.getSavedResults());
-                hotelSearchService.parseHotels();
-                // console.log('HotelsCtrl, getHotels', hotelSearchService.getHotels());
-                vm.hotels = hotelSearchService.getHotels();
-                console.log("vm.hotels", vm.hotels);
-                // vm.results = response.data;
-            }
-
-            function failureFunction(response) {
-                vm.loading = false;
-                console.log('failureFunction', response)
-            }
 
             var hotelSelected = function (hotel) {
-                //alert("DestinationsCtrl::destinationSelected = "+destination);
-                //lowFareSearchService.setSelectedDestination(destination);
-                $state.go('payment');
+                lowFareSearchService.setSelectedHotel(hotel);
+                vm.selectedHotelPrice = parseInt(hotel['TotalMinAmountNum']);
+                vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
             };
-            vm.hotelSelected = hotelSelected;            
+            
+            var redirectToPayment = function(hotel) {
+                hotelSelected(hotel);
+                $state.go('payment');  
+            };
 
-        }]);
+            vm.selectedTotalPrice = 0;
+            vm.hotelSelected = hotelSelected;    
+            vm.redirectToPayment = redirectToPayment;    
+                    
+
+            vm.selectedDestination = lowFareSearchService.getSelectedDestination();
+            vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
+            // vm.loading = true;
+            // hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
+            var cached = hotelSearchService.getParsedCacheResults()
+            vm.hotels = cached[vm.selectedDestination];
+            console.log("cache.hotels", vm.hotels);
+
+            if(vm.hotels && vm.hotels.length > 0) {
+                util.sortObjects(vm.hotels, 'TotalMinAmountNum');
+                hotelSearchService.updateRelativePricings(vm.hotels);
+                hotelSelected(vm.hotels[0]);
+            }
+
+
+}]);

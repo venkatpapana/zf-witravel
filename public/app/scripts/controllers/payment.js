@@ -13,6 +13,12 @@ angular.module('ngWitravelApp')
 
             var vm = this;
 
+            vm.selectedDestination = lowFareSearchService.getSelectedDestination();
+            vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
+            vm.selectedHotel = lowFareSearchService.getSelectedHotel();
+
+            vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
+
             vm.transid = randomString(6);
             vm.status = 'authorized';
             vm.amount = '395.00';
