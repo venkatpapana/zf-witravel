@@ -12,10 +12,16 @@ angular.module('ngWitravelApp')
         function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, cityNamesService, util) {
 
             var vm = this;
-            var budget = lowFareSearchService.getBudget();
-            vm.airSegments = lowFareSearchService.filterResults(budget);
+            vm.budget = lowFareSearchService.getBudget();
+            vm.airSegments = lowFareSearchService.filterResults(vm.budget);
 
-            util.sortObjects(vm.airSegments, 'MinTotalPrice');
+            vm.budgetChange = function() {
+                console.log('budgetChange', vm.budget);
+                lowFareSearchService.setBudget(vm.budget);
+                vm.airSegments = lowFareSearchService.filterResults(vm.budget);
+            };
+
+            
             //vm.results = lowFareSearchService.searchResults
 
             //console.log('DestinationsCtrl, searchResults', lowFareSearchService.getSavedResults());
