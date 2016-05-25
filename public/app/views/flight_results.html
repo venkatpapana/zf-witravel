@@ -40,7 +40,7 @@
                 <h3>our Price: {{flights.budget}}</h3>
                 <!-- <div id="minus">-</div> -->
                 <div id="slider">
-                    <md-slider flex md-discrete min="100" max="1000" ng-model="flights.budget" aria-label="budget" id="budget-slider" class ng-change="flights.budgetChange()"></md-slider>
+                    <md-slider flex md-discrete min="100" max="1000" step="5"  ng-model="flights.budget" aria-label="budget" id="budget-slider" class ng-change="flights.budgetChange()"></md-slider>
                 </div>
                 <!-- <div id="plus">+</div> -->
                 <div class="col-xs-12 pad_none price_result_con"><span id="ourPrice">&euro;  97.00</span></div>

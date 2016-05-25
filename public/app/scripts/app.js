@@ -17,7 +17,7 @@ angular
         'ngSanitize',
         'ngTouch',
         'angularRandomString',
-        'ngMaterial', 'ngMessages', 'material.svgAssetsCache'   
+        'ngMaterial'    
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -78,6 +78,6 @@ angular
     })
     .constant("wiConfig", {
         "env": "local",
-        "serviceURL": "/qa/public",
+        "serviceURL": "/zf-witravel/public",
     });
 ;

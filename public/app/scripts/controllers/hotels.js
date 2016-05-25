@@ -25,6 +25,12 @@ angular.module('ngWitravelApp')
                 $state.go('payment');  
             };
 
+            vm.budgetChange = function() {
+                //console.log('budgetChange', vm.budget);
+                lowFareSearchService.setBudget(vm.budget);
+                // vm.airSegments = lowFareSearchService.filterResults(vm.budget);
+            };            
+
             vm.selectedTotalPrice = 0;
             vm.hotelSelected = hotelSelected;    
             vm.redirectToPayment = redirectToPayment;    
