@@ -13,14 +13,26 @@ angular.module('ngWitravelApp')
 
             var vm = this;
             vm.budget = lowFareSearchService.getBudget();
+
+            vm.startDate = lowFareSearchService.getStartDate(); //Date object
+            vm.endDate = lowFareSearchService.getEndDate(); //Date object
+
             vm.airSegments = lowFareSearchService.filterResults(vm.budget);
 
             vm.budgetChange = function() {
-                console.log('budgetChange', vm.budget);
+                //console.log('budgetChange', vm.budget);
                 lowFareSearchService.setBudget(vm.budget);
                 vm.airSegments = lowFareSearchService.filterResults(vm.budget);
             };
 
+
+            vm.updateStartDate = function() {
+                lowFareSearchService.setStartDate(vm.startDate);
+            };
+
+            vm.updateEndDate = function() {
+                lowFareSearchService.setEndDate(vm.endDate);
+            };
             
             //vm.results = lowFareSearchService.searchResults
 

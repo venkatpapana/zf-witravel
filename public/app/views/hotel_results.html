@@ -33,9 +33,11 @@
                 <!--img src="images/filtro_left_img.png"-->
                 <div class="cont_seek_frst">
                     <h3>our Price: &euro; <span id="ourPrice">{{hotels.selectedAirSegment['TotalAirPrice']}}</span></h3>
-                    <div id="minus">-</div>
-                    <div id="slider"></div>
-                    <div id="plus">+</div>
+                    <!-- <div id="minus">-</div> -->
+                    <div id="slider">
+                        <md-slider flex md-discrete min="100" max="1000" ng-model="hotels.budget" aria-label="budget" id="budget-slider" class ng-change="hotels.budgetChange()"></md-slider>
+                    </div>
+                    <!-- <div id="plus">+</div> -->
                 </div>
             </div>
 

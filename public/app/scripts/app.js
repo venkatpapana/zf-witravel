@@ -16,7 +16,8 @@ angular
         'ui.router',
         'ngSanitize',
         'ngTouch',
-        'angularRandomString'    
+        'angularRandomString',
+        'ngMaterial', 'ngMessages', 'material.svgAssetsCache'   
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
 

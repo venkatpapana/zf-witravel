@@ -2,12 +2,12 @@
 use GeoIp2\Database\Reader;
 class Utils{	
 	  public static function getNextFriday() {
-	    return '2016-05-20';
+	    return date("Y-m-d", strtotime('next friday'));
 	  }
 
 
 	  public static function getNextSunday() {
-	    return '2016-05-22';
+	    return date("Y-m-d", strtotime('next sunday'));
 	  }	
 
 	public static function fillRequestTemplate ($templateFile, $arrPlaceholders) {

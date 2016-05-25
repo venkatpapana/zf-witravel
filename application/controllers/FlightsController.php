@@ -57,8 +57,8 @@ class FlightsController extends WiTravelBaseController {
         $reservation = new FlightReservationCriteria();
         $reservation->hotelCode = 53495;
         $reservation->numAdults = 2;
-        $reservation->checkinDate = '2016-05-20';
-        $reservation->checkoutDate = '2016-05-22';
+        $reservation->checkinDate = Utils::getNextFriday();
+        $reservation->checkoutDate = Utils::getNextSunday();
         $reservation->numRooms = '1';
 
         //traveller

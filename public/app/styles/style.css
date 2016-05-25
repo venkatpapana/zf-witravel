@@ -2494,3 +2494,8 @@ body.loading {
     -moz-appearance: none;
 	 -webkit-appearance: none;
 }
+
+
+.md-datepicker-button {
+	display: none;
+}

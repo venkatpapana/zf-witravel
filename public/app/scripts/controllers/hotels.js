@@ -8,8 +8,8 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('HotelsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'util',
-        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, util) {
+    .controller('HotelsCtrl', ['$http', '$state', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'util', 'cityNamesService',
+        function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, util, cityNamesService) {
 
             var vm = this;
 
@@ -29,13 +29,17 @@ angular.module('ngWitravelApp')
             vm.hotelSelected = hotelSelected;    
             vm.redirectToPayment = redirectToPayment;    
                     
+            vm.budget = lowFareSearchService.getBudget();
+
+            vm.startDate = lowFareSearchService.getStartDate(); //Date object
+            vm.endDate = lowFareSearchService.getEndDate(); //Date object                    
 
             vm.selectedDestination = lowFareSearchService.getSelectedDestination();
             vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
             // vm.loading = true;
             // hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
             var cached = hotelSearchService.getParsedCacheResults()
-            vm.hotels = cached[vm.selectedDestination];
+            vm.hotels = cached[cityNamesService.getCityCodeAlias(vm.selectedDestination)];
             console.log("cache.hotels", vm.hotels);
 
             if(vm.hotels && vm.hotels.length > 0) {

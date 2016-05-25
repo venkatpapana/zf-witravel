@@ -23,15 +23,33 @@ angular.module('ngWitravelApp')
         flightSelected(flight);
         $state.go('hotelResults');     
     };
+
+    vm.budgetChange = function() {
+        //console.log('budgetChange', vm.budget);
+        lowFareSearchService.setBudget(vm.budget);
+        // vm.airSegments = lowFareSearchService.filterResults(vm.budget);
+    };
+    
+    vm.updateStartDate = function() {
+        lowFareSearchService.setStartDate(vm.startDate);
+    };
+
+    vm.updateEndDate = function() {
+        lowFareSearchService.setEndDate(vm.endDate);
+    };
     
 
     vm.flightSelected = flightSelected;
+    vm.budget = lowFareSearchService.getBudget();
 
-    var selectedDestination = lowFareSearchService.getSelectedDestination();
-    vm.selectedDestAirSegments = lowFareSearchService.getFlights(selectedDestination);
+    vm.startDate = lowFareSearchService.getStartDate(); //Date object
+    vm.endDate = lowFareSearchService.getEndDate(); //Date object
+
+    vm.selectedDestination = lowFareSearchService.getSelectedDestination();
+    vm.selectedDestAirSegments = lowFareSearchService.getFlights(vm.selectedDestination);
     // util.sortObjects(vm.selectedDestAirSegments['segments'], 'TotalAirPrice');
     lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
-    flightSelected(vm.selectedDestAirSegments[0]);
+    flightSelected(vm.selectedDestAirSegments['segments'][0]);
     vm.redirectToHotels = redirectToHotels;
     
   }]);

@@ -17,6 +17,7 @@ angular.module('ngWitravelApp')
         var searchDestinations;
 
         var budget = 500, numTravellers = 2, twoWay = true;
+        var startDate = util.nextDayofWeekDate(5), endDate = util.nextDayofWeekDate(7); //Date object 
         var sortBy = 'price';
 
         var searchStatus = false; //, searchResults = null;
@@ -50,6 +51,22 @@ angular.module('ngWitravelApp')
             return numTravellers;
         };
 
+        var setStartDate = function (d) {
+            startDate = d;
+        }
+
+        var getStartDate = function () {
+            return startDate;
+        };  
+
+        var setEndDate = function (d) {
+            endDate = d;
+        }
+
+        var getEndDate = function () {
+            return endDate;
+        };               
+
         var getAllDestinations = function() {
             return allDestinations;
         };
@@ -65,7 +82,10 @@ angular.module('ngWitravelApp')
         var getLowFareSearchResults = function () {
             return $http({
                 method: 'GET',
-                url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + '/budget/' + getBudget() + '/travellers/' + getNumTravellers() + '/destinations/'+getSearchDestinationsAsString()
+                url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + 
+                        '/budget/' + getBudget() + '/travellers/' + getNumTravellers() + 
+                        '/startDate/' + util.convertDate2PhpString(getStartDate()) + '/endDate/' + util.convertDate2PhpString(getEndDate()) + 
+                        '/destinations/'+getSearchDestinationsAsString()
             }).then(function successFunction(response) {
                 //console.log("getLowFareSearchResults ---> success", response.data)
                 //searchResults = response.data;
@@ -336,6 +356,10 @@ angular.module('ngWitravelApp')
             setNumTravellers: setNumTravellers,
             setOrigin: setOrigin,
             getNumTravellers: getNumTravellers,
+            setStartDate: setStartDate,
+            getStartDate: getStartDate,
+            setEndDate: setEndDate,
+            getEndDate: getEndDate,
             getLowFareSearchResults: getLowFareSearchResults,
             getSavedResults: getSavedResults,
             //parseFlights: parseFlights,
