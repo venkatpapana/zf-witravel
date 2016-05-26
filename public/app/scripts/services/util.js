@@ -22,6 +22,9 @@ angular.module('ngWitravelApp')
 
     var nextDayofWeekDate = function nextDayofWeekDate(dayOfWeek) {
       var ret = new Date();
+      if(dayOfWeek == ret.getDay()) {
+        return ret;
+      }
       ret.setDate(ret.getDate() + (dayOfWeek - 1 - ret.getDay() + 7) % 7 + 1);      
       return ret;
     };

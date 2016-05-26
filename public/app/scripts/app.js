@@ -78,6 +78,6 @@ angular
     })
     .constant("wiConfig", {
         "env": "local",
-        "serviceURL": "/zf-witravel/public",
+        "serviceURL": "/qa/public",
     });
 ;
