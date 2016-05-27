@@ -52,10 +52,12 @@
                     <span>Distancia desde el centro</span>
                     <!--img src="images/five_km_img.png"-->
                     <div class="precio_txt second_seek">
-                        <h3>Kilo Meter - <span id="ourPrice1">{{hotels.selectedHotelPrice}} </span></h3>
-                        <div id="minus1">-</div>
-                        <div id="slider1"></div>
-                        <div id="plus1">+</div>
+                        <h3>Kilo Meter - <span id="ourPrice1">{{hotels.distance}} </span></h3>
+                        <!-- <div id="minus1">-</div> -->
+                        <div id="slider1">
+                            <md-slider flex md-discrete min="1" max="20" step="2"  ng-model="hotels.distance" aria-label="hotels" id="hotels-slider" class ng-change="hotels.distanceChange()"></md-slider> 
+                        </div>
+                        <!-- <div id="plus1">+</div> -->
                     </div>
                 </div>
             </div>

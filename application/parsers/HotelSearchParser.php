@@ -54,6 +54,7 @@ class HotelSearchParser extends BaseParser{
 			$objHotelDetails->Name					= $arrHotelSearchResult['HotelProperty']['!Name'];
 			$objHotelDetails->Availability			= $arrHotelSearchResult['HotelProperty']['!Availability'];
 			$objHotelDetails->Address				= $arrHotelSearchResult['HotelProperty']['PropertyAddress']['Address'];
+			$objHotelDetails->Distance				= $arrHotelSearchResult['HotelProperty']['Distance']['!Value'];
 			$objHotelDetails->Transportation		= $arrHotelSearchResult['HotelProperty']['!HotelTransportation'];
 			$objHotelDetails->ReserveRequirement	= $arrHotelSearchResult['HotelProperty']['!ReserveRequirement'];
 			$objHotelDetails->ParticipationLevel	= $arrHotelSearchResult['HotelProperty']['!ParticipationLevel'];

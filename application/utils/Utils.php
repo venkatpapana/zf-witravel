@@ -2,12 +2,18 @@
 use GeoIp2\Database\Reader;
 class Utils{	
 	  public static function getNextFriday() {
-	    return date("Y-m-d", strtotime('next friday'));
+	  // 	if(strtoupper(date("D")) == 'FRI') {
+			// return date("Y-m-d");
+	  // 	}else{
+	  //   	return date("Y-m-d", strtotime('next friday'));
+	  //   }
+	  	return date("Y-m-d", strtotime('next friday'));
 	  }
 
 
 	  public static function getNextSunday() {
-	    return date("Y-m-d", strtotime('next sunday'));
+	    // return date("Y-m-d", strtotime('next sunday'));
+	    return date('Y-m-d', strtotime(Utils::getNextFriday(). ' + 2 days'));
 	  }	
 
 	public static function fillRequestTemplate ($templateFile, $arrPlaceholders) {

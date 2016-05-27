@@ -27,9 +27,9 @@ angular.module('ngWitravelApp')
     vm.budgetChange = function() {
         //console.log('budgetChange', vm.budget);
         lowFareSearchService.setBudget(vm.budget);
-        // vm.airSegments = lowFareSearchService.filterResults(vm.budget);
+        // vm.airSegments = lowFareSearchService.filterResults();
     };
-    
+
     vm.updateStartDate = function() {
         lowFareSearchService.setStartDate(vm.startDate);
     };

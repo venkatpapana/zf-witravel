@@ -97,41 +97,12 @@
          <div class="col-md-12 col-sm-12 col-xs-12 donde_txt">
             <h2>Dónde no quieres ir</h2>
            
-            
-                <div class="box_check_txt">
-                    <input type="checkbox" id="c4" name="cc" />
-                    <label for="c4"><span class="blue"></span>Francia</label>
+
+                <div class="box_check_txt" ng-repeat="destName in destinations.resultDestinations">
+                    <input type="checkbox" id="chk_{{destName}}" name="chk_{{destName}}" />
+                    <label for="chk_{{destName}}"><span class="blue"></span>{{destName | cityCode2Name}}</label>
                 </div>
-                
-                <div class="box_check_txt">
-                    <input type="checkbox" id="c5" name="cc" />
-                    <label for="c5"><span class="blue"></span>Austria</label>
-                </div>  
-                
-                <div class="box_check_txt">
-                    <input type="checkbox" id="c6" name="cc" />
-                    <label for="c6"><span class="blue"></span>Bélgica</label>
-                </div>
-                    
-                 <div class="box_check_txt">
-                    <input type="checkbox" id="c7" name="cc" />
-                    <label for="c7"><span class="blue"></span>Suecia</label>
-                </div>  
-                
-                <div class="box_check_txt">
-                    <input type="checkbox" id="c8" name="cc" />
-                    <label for="c8"><span class="blue"></span>España</label>
-                </div>  
-                
-                <div class="box_check_txt">
-                    <input type="checkbox" id="c9" name="cc" />
-                    <label for="c9"><span class="blue"></span>Portugal</label>
-                </div>
-                
-                <div class="box_check_txt">
-                    <input type="checkbox" id="c10" name="cc" />
-                    <label for="c10"><span class="blue"></span>Alemania</label>
-                </div>      
+                  
          </div>
          
          <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt">
@@ -148,10 +119,12 @@
                 <span>Distancia desde el centro</span>
                 <!--img src="images/five_km_img.png"-->
                 <div class="precio_txt second_seek">
-                    <h3>Kilo Meter - <span id="ourPrice1">97.00</span></h3>
-                    <div id="minus1">-</div>
-                    <div id="slider1"></div>
-                    <div id="plus1">+</div>
+                    <h3>Kilo Meter - <span id="ourPrice1">{{destinations.distance}}</span></h3>
+                    <!-- <div id="minus1">-</div> -->
+                    <div id="slider1">
+                        <md-slider flex md-discrete min="1" max="20" step="5"  ng-model="destinations.distance" aria-label="distance" id="distance-slider" class ng-change="destinations.distanceChange()"></md-slider> 
+                    </div>
+                    <!-- <div id="plus1">+</div> -->
                 </div>
              </div>
          </div>

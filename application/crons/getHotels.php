@@ -8,8 +8,8 @@
 	$cities = $citiesTable->fetchAll();
 	
 	foreach ($cities as $cityRow) {
-		// echo $city->code;
-
+		echo $cityRow->code;
+// continue;
 	    $location = $cityRow->code;	    
 	    $adults = 1;
 
@@ -37,7 +37,8 @@
 		    $obj =  new HotelSearchParser();
 		    $obj->setJsonResponse($results_json);
 			$hotels = $obj->parse();	
-		
+		echo count($hotels); 
+		echo "<br>";
 			foreach ($hotels as $hotelCode => $hotelRow) {
 				// echo "<pre>";
 				// var_dump($hotelRow); 

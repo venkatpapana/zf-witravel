@@ -91,11 +91,15 @@ angular.module('ngWitravelApp')
 
 
                         objHotelDetails.Address = thisHotelResult['HotelProperty']['PropertyAddress']['Address'];
+                        objHotelDetails.Distance = thisHotelResult['HotelProperty']['Distance']['!Value'];
                         objHotelDetails.Availability = thisHotelResult['HotelProperty']['!Availability'];
                         objHotelDetails.HotelCode = thisHotelResult['HotelProperty']['!HotelCode'];
                         objHotelDetails.Name = thisHotelResult['HotelProperty']['!Name'];
                         objHotelDetails.ParticipationLevel = thisHotelResult['HotelProperty']['!ParticipationLevel'];
                         objHotelDetails.ReserveRequirement = thisHotelResult['HotelProperty']['!ReserveRequirement'];
+
+                        
+
 
                         if ((thisHotelResult['RateInfo']['!ApproximateMinimumAmount'])) {
                             objHotelDetails.MinimumAmount = thisHotelResult['RateInfo']['!ApproximateMinimumAmount'];
@@ -144,6 +148,7 @@ angular.module('ngWitravelApp')
 
 
                 objHotelDetails.Address = thisHotelResult['HotelProperty']['PropertyAddress']['Address'];
+                objHotelDetails.Distance = thisHotelResult['HotelProperty']['Distance']['!Value'];
                 objHotelDetails.Availability = thisHotelResult['HotelProperty']['!Availability'];
                 objHotelDetails.HotelCode = thisHotelResult['HotelProperty']['!HotelCode'];
                 objHotelDetails.Name = thisHotelResult['HotelProperty']['!Name'];

@@ -18,6 +18,9 @@ angular.module('ngWitravelApp')
 
         var budget = 500, numTravellers = 2, twoWay = true;
         var startDate = util.nextDayofWeekDate(5), endDate = util.nextDayofWeekDate(7); //Date object 
+        var distance = 20;
+        var arrDispDestinations = [], arrResultDestinations = [];
+
         var sortBy = 'price';
 
         var searchStatus = false; //, searchResults = null;
@@ -43,6 +46,18 @@ angular.module('ngWitravelApp')
             return budget;
         };
 
+
+        var getResultDestinations = function () {
+            return arrResultDestinations;
+        };
+
+        var setDistance = function (d) {
+            distance = d;
+        }
+
+        var getDistance = function () {
+            return distance;
+        };
         var setNumTravellers = function (n) {
             numTravellers = n;
         };
@@ -121,7 +136,10 @@ angular.module('ngWitravelApp')
             respResults = [];          
             angular.forEach(resAirSegments, function (segments, dest) {
                 //console.log("dest", dest);
-                util.sortObjects(segments, 'TotalAirPrice')
+                if(arrResultDestinations.indexOf(dest) == -1) {
+                    arrResultDestinations.push(dest);
+                }
+                util.sortObjects(segments, 'TotalAirPrice');
                 var thisDestination = {"destination": dest, "segments": segments};
                 respResults.push(thisDestination);
             });
@@ -253,7 +271,7 @@ angular.module('ngWitravelApp')
 
 
 
-        var filterResults = function(budget) {
+        var filterResults = function() {
             
             var allAirSegments = getAllFlights();
             var allHotelResults = hotelSearchService.getParsedCacheResults();
@@ -282,7 +300,7 @@ angular.module('ngWitravelApp')
                         var total = airPrice+hotelPrice;
                         // console.log('destCityCode='+destCityCode+', airPrice='+airPrice+', hotelPrice='+hotelPrice+', total='+total+', budget='+budget);
 
-                        if(  total >  budget) {
+                        if(  total >  budget || thisHotel['Distance'] > distance) {
                             // console.log('-----> skip');
                             continue;
                         }else{
@@ -353,6 +371,9 @@ angular.module('ngWitravelApp')
         return {
             setBudget: setBudget,
             getBudget: getBudget,
+            setDistance: setDistance,
+            getDistance: getDistance,
+            getResultDestinations: getResultDestinations,
             setNumTravellers: setNumTravellers,
             setOrigin: setOrigin,
             getNumTravellers: getNumTravellers,

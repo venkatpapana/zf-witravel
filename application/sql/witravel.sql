@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `hotels` (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `hotels` ADD `Distance` INT NOT NULL AFTER `Address`;
 
 
 INSERT INTO `temperatures` (`id`, `city_code`, `month`, `avg_temp`) VALUES

@@ -1,5 +1,5 @@
 angular.module('ngWitravelApp')
-    .filter('displayTime', function () {
+    .filter('displayTime', [function () {
 
         /**
          *  2016-04-20T23:55:00.000+02:00
@@ -11,4 +11,17 @@ angular.module('ngWitravelApp')
             }
             return input;
         }
-    });
+    }])
+    .filter('cityCode2Name', ['cityNamesService', function (cityNamesService) {
+
+        /**
+         *  2016-04-20T23:55:00.000+02:00
+         *  returns 23:55
+         */
+        return function (input) {
+            if (input) { //when input is defined the apply filter
+                input = cityNamesService.getCityNameForCode(input);
+            }
+            return input;
+        }
+    }]);
