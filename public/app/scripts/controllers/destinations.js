@@ -12,14 +12,7 @@ angular.module('ngWitravelApp')
         function ($http, $state, wiConfig, lowFareSearchService, hotelSearchService, cityNamesService, util) {
 
             var vm = this;
-            vm.budget = lowFareSearchService.getBudget();
-            vm.distance = lowFareSearchService.getDistance();
-            vm.resultDestinations = lowFareSearchService.getResultDestinations();
 
-            vm.startDate = lowFareSearchService.getStartDate(); //Date object
-            vm.endDate = lowFareSearchService.getEndDate(); //Date object
-
-            vm.airSegments = lowFareSearchService.filterResults();
 
             vm.budgetChange = function() {
                 //console.log('budgetChange', vm.budget);
@@ -32,6 +25,14 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setDistance(vm.distance);
                 vm.airSegments = lowFareSearchService.filterResults();
             };
+
+            vm.detinationsChange = function() {
+                //console.log(vm.arrDispDestinations);
+                console.log(vm.dispDestinations);
+                lowFareSearchService.setDispDestinations(vm.dispDestinations);
+                vm.airSegments = lowFareSearchService.filterResults();
+
+            }
 
             vm.updateStartDate = function() {
                 lowFareSearchService.setStartDate(vm.startDate);
@@ -61,10 +62,27 @@ angular.module('ngWitravelApp')
             var destinationSelected = function (destination) {
                 //alert("DestinationsCtrl::destinationSelected = "+destination);
                 lowFareSearchService.setSelectedDestination(destination);
+                lowFareSearchService.setSelectedHotel(null);
+                lowFareSearchService.setSelectedAirSegment(null);
+
                 $state.go('flightResults');
             };
 
             vm.destinationSelected = destinationSelected;
+
+            vm.budget = lowFareSearchService.getBudget();
+            vm.distance = lowFareSearchService.getDistance();
+
+            vm.resultDestinations = lowFareSearchService.getResultDestinations();
+            vm.dispDestinations = lowFareSearchService.getDispDestinations();
+
+            vm.startDate = lowFareSearchService.getStartDate(); //Date object
+            vm.endDate = lowFareSearchService.getEndDate(); //Date object
+
+            vm.airSegments = lowFareSearchService.filterResults();
+
+            
+
 
 
         }]);

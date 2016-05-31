@@ -8,7 +8,7 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .service('hotelSearchService', ['$http', '$q', 'wiConfig', function ($http, $q, wiConfig) {
+    .service('hotelSearchService', ['$http', '$q', 'wiConfig', 'util', function ($http, $q, wiConfig, util) {
         var budget = 200, numTravellers = 2, twoWay = true;
         var searchStatus = false, searchResults = null;
         var respResults = [];
@@ -113,9 +113,9 @@ angular.module('ngWitravelApp')
                         }
 
                         //objHotelDetails.MinimumAmountNum		= preg_replace('/[a-z]/i', '', objHotelDetails.MinimumAmount);
-                        objHotelDetails.MinimumAmountNum = parseInt(objHotelDetails.MinimumAmount);
+                        objHotelDetails.MinimumAmountNum = util.string2Num(objHotelDetails.MinimumAmount);
                         //objHotelDetails.TotalMinAmountNum		= number_format(objHotelDetails.MinimumAmountNum * $this->durationNumDays, 2);
-                        objHotelDetails.TotalMinAmountNum = parseInt(objHotelDetails.MinimumAmountNum); // * 2;
+                        objHotelDetails.TotalMinAmountNum = util.string2Num(objHotelDetails.MinimumAmountNum); // * 2;
 
                         objHotelDetails.Transportation = thisHotelResult['HotelProperty']['!HotelTransportation'];
 
@@ -167,9 +167,9 @@ angular.module('ngWitravelApp')
                 }
 
                 //objHotelDetails.MinimumAmountNum      = preg_replace('/[a-z]/i', '', objHotelDetails.MinimumAmount);
-                objHotelDetails.MinimumAmountNum = parseInt(objHotelDetails.MinimumAmount);
+                objHotelDetails.MinimumAmountNum = util.string2Num(objHotelDetails.MinimumAmount);
                 //objHotelDetails.TotalMinAmountNum     = number_format(objHotelDetails.MinimumAmountNum * $this->durationNumDays, 2);
-                objHotelDetails.TotalMinAmountNum = parseInt(objHotelDetails.MinimumAmountNum); //* 2
+                objHotelDetails.TotalMinAmountNum = util.string2Num(objHotelDetails.MinimumAmountNum); //* 2
 
                 objHotelDetails.Transportation = thisHotelResult['HotelProperty']['!HotelTransportation'];
 
@@ -242,17 +242,19 @@ angular.module('ngWitravelApp')
 
 
         var updateRelativePricings = function(sortedHotels) {
-            var minPrice = parseInt(sortedHotels[0]['TotalMinAmountNum']);
-            sortedHotels[0]['relativeAmountNum'] = minPrice;
-            sortedHotels[0]['relativeAmountDisplay'] = minPrice;
+            if(sortedHotels && sortedHotels.length > 0) {
+                var minPrice = util.string2Num(sortedHotels[0]['TotalMinAmountNum']); 
+                sortedHotels[0]['relativeAmountNum'] = minPrice;
+                sortedHotels[0]['relativeAmountDisplay'] = minPrice + ' €';
 
-            for (var i = sortedHotels.length - 1; i > 0; i--) {
-                var thisHotelPrice = parseInt(sortedHotels[i]['TotalMinAmountNum']);
-                var thisRelativePrice = (thisHotelPrice - minPrice);
-                
-                sortedHotels[i]['relativeAmountNum'] = thisRelativePrice;
-                sortedHotels[i]['relativeAmountDisplay'] = ' +' + thisRelativePrice;
-            };
+                for (var i = sortedHotels.length - 1; i > 0; i--) {
+                    var thisHotelPrice = util.string2Num(sortedHotels[i]['TotalMinAmountNum']); 
+                    var thisRelativePrice = (thisHotelPrice - minPrice);
+                    
+                    sortedHotels[i]['relativeAmountNum'] = thisRelativePrice;
+                    sortedHotels[i]['relativeAmountDisplay'] = ' +' + thisRelativePrice + ' € más';
+                };
+            }
         };
 
 

@@ -16,7 +16,7 @@ angular.module('ngWitravelApp')
 
             var hotelSelected = function (hotel) {
                 lowFareSearchService.setSelectedHotel(hotel);
-                vm.selectedHotelPrice = parseInt(hotel['TotalMinAmountNum']);
+                vm.selectedHotelPrice = util.string2Num(hotel['TotalMinAmountNum']);
                 vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
             };
             
@@ -26,32 +26,41 @@ angular.module('ngWitravelApp')
             };
 
             vm.budgetChange = function() {
-                //console.log('budgetChange', vm.budget);
+
                 lowFareSearchService.setBudget(vm.budget);
-                //TODO: filtering
-                // vm.airSegments = lowFareSearchService.filterResults();
+                refreshHotels();            
             };
 
            vm.distanceChange = function() {
-                //console.log('budgetChange', vm.budget);
+
                 lowFareSearchService.setDistance(vm.distance);
-                vm.airSegments = lowFareSearchService.filterResults();
-                // vm.selectedDestAirSegments = lowFareSearchService.getFlights(vm.selectedDestination);
-
-                for (var i = vm.airSegments.length - 1; i >= 0; i--) {
-                    if(vm.airSegments[i]['destination'] == vm.selectedDestination) {
-                        vm.hotels = vm.airSegments[i]['hotels'];
-                        break;
-                    }
-                };
-
-
-
-                // var cached = hotelSearchService.getParsedCacheResults()
-                // vm.hotels = cached[cityNamesService.getCityCodeAlias(vm.selectedDestination)];
+                refreshHotels();                
             };                        
 
-            vm.selectedTotalPrice = 0;
+            var refreshHotels = function() {
+                // vm.airSegments = lowFareSearchService.filterResults();
+                // // vm.selectedDestAirSegments = lowFareSearchService.getFlights(vm.selectedDestination);
+                // if(vm.airSegments.length > 0) {
+                //     for (var i = vm.airSegments.length - 1; i >= 0; i--) {
+                //         if(vm.airSegments[i]['destination'] == vm.selectedDestination) {
+                //             vm.hotels = vm.airSegments[i]['hotels'];
+                //             break;
+                //         }
+                //     }
+                // }else{
+                //     vm.hotels = [];
+                // }
+                // util.sortObjects(vm.hotels, 'TotalMinAmountNum');
+                vm.hotels = [];
+                
+                vm.selectedDestAirSegments = lowFareSearchService.getFlightsForDestination(vm.selectedDestination);
+                if(vm.selectedDestAirSegments) {
+                    vm.hotels = vm.selectedDestAirSegments['hotels'];
+                }
+                hotelSearchService.updateRelativePricings(vm.hotels);
+            };
+
+            // vm.selectedTotalPrice = 0;
             vm.hotelSelected = hotelSelected;    
             vm.redirectToPayment = redirectToPayment;    
                     
@@ -63,17 +72,18 @@ angular.module('ngWitravelApp')
 
             vm.selectedDestination = lowFareSearchService.getSelectedDestination();
             vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
+            vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
             // vm.loading = true;
             // hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
-            var cached = hotelSearchService.getParsedCacheResults()
-            vm.hotels = cached[cityNamesService.getCityCodeAlias(vm.selectedDestination)];
-            console.log("cache.hotels", vm.hotels);
-
-            if(vm.hotels && vm.hotels.length > 0) {
-                util.sortObjects(vm.hotels, 'TotalMinAmountNum');
-                hotelSearchService.updateRelativePricings(vm.hotels);
+            // var cached = hotelSearchService.getParsedCacheResults()
+            // vm.hotels = cached[cityNamesService.getCityCodeAlias(vm.selectedDestination)];
+            // console.log("cache.hotels", vm.hotels);
+            refreshHotels();
+            if(!lowFareSearchService.getSelectedHotel() && vm.hotels && vm.hotels.length > 0) {
                 hotelSelected(vm.hotels[0]);
             }
-
+            
+            // util.sortObjects(vm.hotels, 'TotalMinAmountNum');
+            // hotelSearchService.updateRelativePricings(vm.hotels);
 
 }]);

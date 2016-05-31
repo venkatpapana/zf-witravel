@@ -17,6 +17,9 @@
       <Supplier Name="4U" />
       <Supplier Name="TO" />
     </PermittedSuppliers>
+    <HotelRating RatingProvider="AAA" >
+      <RatingRange MinimumRating="1" MaximumRating="5" />
+    </HotelRating>
   </HotelSearchModifiers>
   <HotelStay>
     <CheckinDate>{CHECKIN_DATE}</CheckinDate>

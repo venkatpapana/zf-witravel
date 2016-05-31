@@ -27,7 +27,8 @@ angular.module('ngWitravelApp')
     vm.budgetChange = function() {
         //console.log('budgetChange', vm.budget);
         lowFareSearchService.setBudget(vm.budget);
-        // vm.airSegments = lowFareSearchService.filterResults();
+        refreshFlights();
+        
     };
 
     vm.updateStartDate = function() {
@@ -37,6 +38,16 @@ angular.module('ngWitravelApp')
     vm.updateEndDate = function() {
         lowFareSearchService.setEndDate(vm.endDate);
     };
+
+    var refreshFlights = function() {
+        vm.selectedDestAirSegments = [];
+        vm.airSegments = lowFareSearchService.filterResults();
+        for (var i = vm.airSegments.length - 1; i >= 0; i--) {
+            if(vm.selectedDestination == vm.airSegments[i]['destination']) {
+                vm.selectedDestAirSegments = vm.airSegments[i];
+            }
+        }
+    }
     
 
     vm.flightSelected = flightSelected;
@@ -44,12 +55,21 @@ angular.module('ngWitravelApp')
 
     vm.startDate = lowFareSearchService.getStartDate(); //Date object
     vm.endDate = lowFareSearchService.getEndDate(); //Date object
-
-    vm.selectedDestination = lowFareSearchService.getSelectedDestination();
-    vm.selectedDestAirSegments = lowFareSearchService.getFlights(vm.selectedDestination);
-    // util.sortObjects(vm.selectedDestAirSegments['segments'], 'TotalAirPrice');
-    lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
-    flightSelected(vm.selectedDestAirSegments['segments'][0]);
+    
     vm.redirectToHotels = redirectToHotels;
+    
+    
+    vm.selectedDestination = lowFareSearchService.getSelectedDestination();
+    vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
+    
+    
+    refreshFlights();
+    if(!lowFareSearchService.getSelectedAirSegment() && vm.selectedDestAirSegments && vm.selectedDestAirSegments.length > 0) {
+        flightSelected(vm.selectedDestAirSegments['segments'][0]);
+    }    
+    if(vm.selectedDestAirSegments && vm.selectedDestAirSegments['segments']) {
+        lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
+    }
+    
     
   }]);

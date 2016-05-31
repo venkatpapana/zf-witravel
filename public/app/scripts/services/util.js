@@ -12,12 +12,14 @@ angular.module('ngWitravelApp')
     
     var res=null;
     var sortObjects = function(arrObjects, key) {
-        arrObjects.sort(function(a, b) {
-          var x = parseInt(a[key]), 
-              y = parseInt(b[key])
-          // console.log(x + ' > ' + y +' --> '+(x > y));
-          return x - y;
-        });
+        if(arrObjects && arrObjects.length > 0) {
+          arrObjects.sort(function(a, b) {
+            var x = string2Num(a[key]), 
+                y = string2Num(b[key])
+            // console.log(x + ' > ' + y +' --> '+(x > y));
+            return x - y;
+          });
+        }
     };
 
     var nextDayofWeekDate = function nextDayofWeekDate(dayOfWeek) {
@@ -28,6 +30,17 @@ angular.module('ngWitravelApp')
       ret.setDate(ret.getDate() + (dayOfWeek - 1 - ret.getDay() + 7) % 7 + 1);      
       return ret;
     };
+
+    var nextFridayDate = function nextFridayDate(dayOfWeek) {
+      var ret = nextDayofWeekDate(5);
+      return ret;
+    };
+
+    var nextSundayDate = function nextSundayDate(dayOfWeek) {
+      var ret = nextDayofWeekDate(5);
+      ret.setDate(ret.getDate() +  2);      
+      return ret;
+    };    
 
     var convertDate2JsString = function(objDate) {
       var res = objDate.getMonth()+1+'/'+objDate.getDate()+'/'+objDate.getFullYear();
@@ -43,10 +56,21 @@ angular.module('ngWitravelApp')
       // return arrDate[2]+'-'+arrDate[0]+'-'+arrDate[1];
     };
 
+    var string2Num = function(str) {
+      if(str) {
+        str = str.toString().replace(/,/g, '');
+        
+      }
+      return parseInt(str, 10);
+    };
+
     return {
       sortObjects: sortObjects,
       nextDayofWeekDate: nextDayofWeekDate,
+      nextFridayDate: nextFridayDate,
+      nextSundayDate: nextSundayDate,
       convertDate2JsString: convertDate2JsString,
-      convertDate2PhpString: convertDate2PhpString
+      convertDate2PhpString: convertDate2PhpString,
+      string2Num: string2Num
     }
   }]);

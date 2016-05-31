@@ -8,16 +8,22 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('PaymentCtrl', ['$http', '$state', '$timeout', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'randomString',
-        function ($http, $state, $timeout, wiConfig, lowFareSearchService, hotelSearchService, randomString) {
+    .controller('PaymentCtrl', ['$http', '$state', '$timeout', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'randomString', 'util',
+        function ($http, $state, $timeout, wiConfig, lowFareSearchService, hotelSearchService, randomString, util) {
 
             var vm = this;
+
 
             vm.selectedDestination = lowFareSearchService.getSelectedDestination();
             vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
             vm.selectedHotel = lowFareSearchService.getSelectedHotel();
 
+            vm.startDate = util.convertDate2JsString(lowFareSearchService.getStartDate()); //Date object
+            vm.endDate = util.convertDate2JsString(lowFareSearchService.getEndDate()); //Date object
+
             vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
+
+            vm.bookingCharges = lowFareSearchService.getBookingCharges();
 
             vm.transid = randomString(6);
             vm.status = 'authorized';

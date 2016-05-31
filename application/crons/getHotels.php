@@ -8,7 +8,7 @@
 	$cities = $citiesTable->fetchAll();
 	
 	foreach ($cities as $cityRow) {
-		echo $cityRow->code;
+		$cityRow->code;
 // continue;
 	    $location = $cityRow->code;	    
 	    $adults = 1;
@@ -27,7 +27,7 @@
 	    //send request
 	    $gds = GdsFactory::getGdsProvider($wiconfig, 'TRAVELPORT');
 	    $gds->setRequest($search);
-	    $results_json = $gds->getHotelResults();
+ 	    $results_json = $gds->getHotelResults();
 
 	    if($results_json !== false) {
 		    $cityRow->hotels_json = $results_json;
@@ -37,8 +37,8 @@
 		    $obj =  new HotelSearchParser();
 		    $obj->setJsonResponse($results_json);
 			$hotels = $obj->parse();	
-		echo count($hotels); 
-		echo "<br>";
+		// echo count($hotels); 
+		// echo "<br>";
 			foreach ($hotels as $hotelCode => $hotelRow) {
 				// echo "<pre>";
 				// var_dump($hotelRow); 

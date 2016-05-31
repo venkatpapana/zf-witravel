@@ -24,6 +24,12 @@
 
     <div class="col-md-12 col-sm-12 col-xs-12 bann_out_con">
         <div class="col-md-3 col-sm-4 col-xs-12">
+
+            <div class="col-md-12 col-sm-12 col-xs-12 precio_final">
+                <h2>{{hotels.selectedTotalPrice}} €</h2>
+                <span>precio final</span>
+            </div>
+
             <div class="col-md-3 col-sm-3 col-xs-12 flltro">
                 <h2>Filtro</h2>
             </div>
@@ -32,7 +38,7 @@
                 <h3>Precio</h3>
                 <!--img src="images/filtro_left_img.png"-->
                 <div class="cont_seek_frst">
-                    <h3>our Price: &euro; <span id="ourPrice">{{hotels.budget}}</span></h3>
+                    <h3>Presupuesto: &euro; <span id="ourPrice">{{hotels.budget}}</span></h3>
                     <!-- <div id="minus">-</div> -->
                     <div id="slider">
                         <md-slider flex md-discrete min="100" max="1000" step="5" ng-model="hotels.budget" aria-label="budget" id="budget-slider" class ng-change="hotels.budgetChange()"></md-slider>
@@ -55,7 +61,7 @@
                         <h3>Kilo Meter - <span id="ourPrice1">{{hotels.distance}} </span></h3>
                         <!-- <div id="minus1">-</div> -->
                         <div id="slider1">
-                            <md-slider flex md-discrete min="1" max="20" step="2"  ng-model="hotels.distance" aria-label="hotels" id="hotels-slider" class ng-change="hotels.distanceChange()"></md-slider> 
+                            <md-slider flex md-discrete min="1" max="10" step="1"  ng-model="hotels.distance" aria-label="hotels" id="hotels-slider" class ng-change="hotels.distanceChange()"></md-slider> 
                         </div>
                         <!-- <div id="plus1">+</div> -->
                     </div>

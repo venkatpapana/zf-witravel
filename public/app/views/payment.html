@@ -32,19 +32,32 @@
             <div class="col-md-11 col-sm-12 col-xs-12 sallda_outer pad_none">
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Salida</h2>
-                    <h3><span class="spn1">Miercoles</span> <input type="text" value="" name="" id="datepicker" class="input_1" placeholder="Date"></h3>
+                    <h3><span class="spn1">Miercoles</span> <!-- <input type="text" value="" name="" id="datepicker" class="input_1" placeholder="Date"> --></h3>
+                    <br />{{payment.startDate}}
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Vuelta</h2>
-                    <h3><span class="spn2">Viernes</span>  <input type="text" value="" name="" id="datepicker1" class="input_2" placeholder="Date"></h3>
+                    <h3><span class="spn2">Viernes</span> <!--  <input type="text" value="" name="" id="datepicker1" class="input_2" placeholder="Date"> --></h3>
+                    <br />{{payment.endDate}}
                 </div>
             </div>
          </div>
          
-         
+         <div class="col-md-12 col-sm-12 col-xs-12 pad_none">
+            <div class="col-md-12 col-sm-12 col-xs-12 pricing_txt_inner01 pad_none">
+                <h2>€ Pricing</h2>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 tp_mrgn pad_none">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="font-size: 12px">
+                    <div>Flight price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{payment.selectedAirSegment['TotalAirPrice'] | string2Num}} €</div>
+                    <div>Hotel price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{payment.selectedHotel['TotalMinAmountNum'] | string2Num}} €</div>
+                    <div>Booking charges : {{payment.bookingCharges | string2Num}} €</div><br>
+                </div>
+            </div>
+         </div>
          
          <div class="col-md-12 col-sm-12 col-xs-12 pad_none">
-            <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt_inner01 pad_none">
+            <div class="col-md-12 col-sm-12 col-xs-12 vuelos_txt_new01 pad_none">
             <h2>Vuelos</h2>
             </div>
           
@@ -55,17 +68,18 @@
                     <img src="images/plan2.png">
                 </div>
                 <div class="vueling_outer_btn">
-                    <img src="images/vueling_btn.png">
+                    <img width="47" height="22" ng-src="images/airlines/{{payment.selectedAirSegment['onward']['!Carrier']}}_70_48.jpg"
+                 alt="{{flight['onward']['!Carrier']}}">
                 </div>
                </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
-                    <h2>18:45</h2>
-                    <span>21:00</span>
+                    <h2>{{payment.selectedAirSegment['onward']['!DepartureTime'] | displayTime}}</h2>
+                    <span>{{payment.selectedAirSegment['onward']['!ArrivalTime'] | displayTime}}</span>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
-                    <span>Barajas, <strong>Madrid</strong></span>
+                    <span>{{payment.selectedAirSegment['onward']['!Origin'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['onward']['!Origin']}}</strong></span>
                     <i class="fa fa-arrow-right right_arrow_pagar"></i>
-                    <span>Arlanda, <strong>Estocolmo</strong></span>
+                    <span>{{payment.selectedAirSegment['onward']['!Destination'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['onward']['!Destination']}}</strong></span>
                 </div>
 
                   <div class="col-md-12 col-sm-12 col-xs-12 plain_main_otr">
@@ -73,17 +87,18 @@
                     <img src="images/plain_left.png">
                 </div>
                 <div class="vueling_outer_btn">
-                    <img src="images/vueling_btn.png">
+                    <img width="47" height="22" ng-src="images/airlines/{{payment.selectedAirSegment['return']['!Carrier']}}_70_48.jpg"
+                 alt="{{flight['return']['!Carrier']}}">
                 </div>
                </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
-                    <h2>18:45</h2>
-                    <span>21:00</span>
+                    <h2>{{payment.selectedAirSegment['return']['!DepartureTime'] | displayTime}}</h2>
+                    <span>{{payment.selectedAirSegment['return']['!ArrivalTime'] | displayTime}}</span>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
-                    <span>Arlanda, <strong>Estocolmo</strong></span>
+                    <span>{{payment.selectedAirSegment['return']['!Origin'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['return']['!Origin']}}</strong></span>
                     <i class="fa fa-arrow-right right_arrow_pagar"></i>
-                    <span>Barajas, <strong>Madrid</strong></span>
+                    <span>{{payment.selectedAirSegment['return']['!Destination'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['return']['!Destination']}}</strong></span>
                 </div>
             </div>
                         
@@ -92,8 +107,7 @@
              </div>
              
              <div class="col-md-8 col-sm-8 col-xs-8 radision_blue_txt">
-                <h2>Radisson Blu Royal 
-                Viking Hotel, <strong>Estocolmo</strong></h2>
+                <h2>{{payment.selectedHotel['Name']}}, <strong>{{payment.selectedHotel['Address']}}</strong></h2>
             </div>
              <div class="col-md-4 col-sm-4 col-xs-4 radision_blue_star pad_none">
                 <i class="fa fa-star star_icon"></i>
