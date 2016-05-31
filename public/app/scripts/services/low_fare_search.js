@@ -16,7 +16,7 @@ angular.module('ngWitravelApp')
         var allDestinations = cityNamesService.getDestinationCityCodes();
         var searchDestinations;
 
-        var budget = 500, numTravellers = 2, twoWay = true;
+        var budget = 500, numTravellers = 2, twoWay = false;
         var startDate = util.nextFridayDate(), endDate = util.nextSundayDate(); //Date object 
         var distance = 20;
         var dispDestinations = {};
@@ -47,6 +47,14 @@ angular.module('ngWitravelApp')
         var getBudget = function () {
             return budget;
         };
+
+        var setTwoWay = function (t) {
+            twoWay = t;
+        }
+
+        var getTwoWay = function () {
+            return twoWay;
+        };        
 
         var getBookingCharges = function() {
             return bookingCharges;
@@ -232,7 +240,7 @@ angular.module('ngWitravelApp')
                         var arrFlights = {};
                         arrFlights['TotalAirPrice'] = thisTotalPrice;
 
-                        if (twoWay && thisAirPricing['Journey'][0] != undefined) {
+                        if (!twoWay && thisAirPricing['Journey'][0] != undefined) {
                             var airSegmentKey1 = thisAirPricing['Journey'][0]['AirSegmentRef']['!Key'];
                             var airSegmentKey2 = thisAirPricing['Journey'][1]['AirSegmentRef']['!Key'];
                         } else if(thisAirPricing['Journey']['AirSegmentRef']){
@@ -251,7 +259,7 @@ angular.module('ngWitravelApp')
                             // resAirSegments.push(airSegment1);
                         }
 
-                        if (twoWay) {
+                        if (!twoWay) {
                             var airSegment2 = getAirSegment(searchResults, airSegmentKey2);
                             if (airSegment2 != null) {
                                 // airSegment2['TotalPrice'] = thisTotalPrice;
@@ -430,6 +438,8 @@ angular.module('ngWitravelApp')
             getBudget: getBudget,
             setDistance: setDistance,
             getDistance: getDistance,
+            getTwoWay: getTwoWay,
+            setTwoWay: setTwoWay,
             getResultDestinations: getResultDestinations,
             getDispDestinations: getDispDestinations,
             setDispDestinations: setDispDestinations,

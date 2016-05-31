@@ -27,9 +27,14 @@ angular.module('ngWitravelApp')
     vm.budgetChange = function() {
         //console.log('budgetChange', vm.budget);
         lowFareSearchService.setBudget(vm.budget);
-        refreshFlights();
-        
+        refreshFlights(); 
     };
+
+    vm.twoWayChange = function() {
+        console.log('twoWayChange', vm.twoWay);
+        lowFareSearchService.setTwoWay(vm.twoWay);
+        // vm.airSegments = lowFareSearchService.filterResults();
+    };    
 
     vm.updateStartDate = function() {
         lowFareSearchService.setStartDate(vm.startDate);
@@ -52,6 +57,7 @@ angular.module('ngWitravelApp')
 
     vm.flightSelected = flightSelected;
     vm.budget = lowFareSearchService.getBudget();
+    vm.twoWay = lowFareSearchService.getTwoWay();
 
     vm.startDate = lowFareSearchService.getStartDate(); //Date object
     vm.endDate = lowFareSearchService.getEndDate(); //Date object
