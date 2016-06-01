@@ -2512,7 +2512,7 @@ body.loading {
 .pricing_txt_inner01 h2
 {
 	margin:20px 0 0;
-	padding:4px 0 4px 38px;
+	padding:4px 0 4px 3px;
     font-family: 'ADGETSANS-Bold';
     font-weight:bold;
 	font-size:12px;
