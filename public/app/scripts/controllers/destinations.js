@@ -78,8 +78,8 @@ angular.module('ngWitravelApp')
                         );                    
                     }, 
                     function(){
-                        vm.startDate = lowFareSearchService.getStartDate();
-                        vm.endDate = lowFareSearchService.getEndDate();
+                        // vm.startDate = lowFareSearchService.getStartDate();
+                        // vm.endDate = lowFareSearchService.getEndDate();
                     }
                 );                
                 // vm.airSegments = lowFareSearchService.filterResults();
@@ -122,8 +122,12 @@ angular.module('ngWitravelApp')
             vm.dispDestinations = lowFareSearchService.getDispDestinations();
             vm.twoWay = lowFareSearchService.getTwoWay();
 
+            vm.startMinDate = new Date();
+            vm.endMinDate = new Date();
             vm.startDate = lowFareSearchService.getStartDate(); //Date object
             vm.endDate = lowFareSearchService.getEndDate(); //Date object
+
+
 
             vm.airSegments = lowFareSearchService.filterResults();
 
