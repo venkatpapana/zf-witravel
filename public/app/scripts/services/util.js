@@ -11,6 +11,9 @@ angular.module('ngWitravelApp')
   .service('util', ['$mdDialog', function ($mdDialog) {
     
     var res=null;
+
+    var weekday = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
     var sortObjects = function(arrObjects, key) {
         if(arrObjects && arrObjects.length > 0) {
           arrObjects.sort(function(a, b) {
@@ -56,6 +59,10 @@ angular.module('ngWitravelApp')
       // return arrDate[2]+'-'+arrDate[0]+'-'+arrDate[1];
     };
 
+    var getDayNameForDateObj = function(objDate) {      
+      return weekday[objDate.getDay()];      
+    };
+
     var string2Num = function(str) {
       if(str) {
         str = str.toString().replace(/,/g, '');
@@ -89,6 +96,7 @@ angular.module('ngWitravelApp')
       convertDate2JsString: convertDate2JsString,
       convertDate2PhpString: convertDate2PhpString,
       string2Num: string2Num, 
-      showNewSearchConfirm: showNewSearchConfirm
+      showNewSearchConfirm: showNewSearchConfirm,
+      getDayNameForDateObj: getDayNameForDateObj
     }
   }]);

@@ -94,6 +94,11 @@ angular.module('ngWitravelApp')
         if(vm.selectedDestAirSegments && vm.selectedDestAirSegments['segments']) {
             lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
         }
+
+        lowFareSearchService.setSelectedDestination(vm.selectedDestination);
+        // lowFareSearchService.setSelectedHotel(null);
+        // lowFareSearchService.setSelectedAirSegment(null);
+        vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
     };
     
 
@@ -108,7 +113,7 @@ angular.module('ngWitravelApp')
     
     
     vm.selectedDestination = lowFareSearchService.getSelectedDestination();
-    vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
+    // vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
     
     
     refreshFlights();

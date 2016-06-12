@@ -18,8 +18,8 @@ angular.module('ngWitravelApp')
             vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
             vm.selectedHotel = lowFareSearchService.getSelectedHotel();
 
-            vm.startDate = util.convertDate2JsString(lowFareSearchService.getStartDate()); //Date object
-            vm.endDate = util.convertDate2JsString(lowFareSearchService.getEndDate()); //Date object
+            vm.startDate = lowFareSearchService.getStartDate(); //Date object
+            vm.endDate = lowFareSearchService.getEndDate(); //Date object
 
             vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
 

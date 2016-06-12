@@ -220,6 +220,7 @@
       $this->requestType = 'LowFareSearch';
       if($this->wiconfig['Travelport']['USE_CACHE'] == 'true') {
         return file_get_contents(__DIR__ . '/cache/api_responses/LowFareSearchResp.json');
+        // return file_get_contents(__DIR__ . '/cache/api_responses/LowFareSearchResp.1way.json');
       }
 
       //prepare req. xml

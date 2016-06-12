@@ -42,4 +42,17 @@ angular.module('ngWitravelApp')
         };
     }])
 
+    .filter('date2DayName', [function () {
+        return function(objDate) {   
+            var weekday = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+            return weekday[objDate.getDay()];      
+        };
+    }])
+
+    .filter('convertDate2JsString', [function () {
+        return function(objDate) {   
+            return objDate.getMonth()+1+'/'+objDate.getDate()+'/'+objDate.getFullYear();    
+        };
+    }])
+
     ;

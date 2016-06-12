@@ -216,7 +216,7 @@ angular.module('ngWitravelApp')
             // vm.selectedDestAirSegments = lowFareSearchService.getFlights(vm.selectedDestination);
             if(airSegments.length > 0) {
                 for (var i = airSegments.length - 1; i >= 0; i--) {
-                    if(airSegments[i]['destination'] == selectedDestination) {
+                    if(cityNamesService.getCityNameForCode(airSegments[i]['destination']) == cityNamesService.getCityNameForCode(selectedDestination)) {
                         res = airSegments[i];
                         break;
                     }

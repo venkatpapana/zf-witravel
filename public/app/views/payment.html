@@ -32,13 +32,13 @@
             <div class="col-md-11 col-sm-12 col-xs-12 sallda_outer pad_none">
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Salida</h2>
-                    <h3><span class="spn1">Miercoles</span> <!-- <input type="text" value="" name="" id="datepicker" class="input_1" placeholder="Date"> --></h3>
-                    <br />{{payment.startDate}}
+                    <h3><span class="spn1">{{payment.startDate | date2DayName}}</span> <br>
+                    {{payment.startDate | convertDate2JsString}}</h3>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Vuelta</h2>
-                    <h3><span class="spn2">Viernes</span> <!--  <input type="text" value="" name="" id="datepicker1" class="input_2" placeholder="Date"> --></h3>
-                    <br />{{payment.endDate}}
+                    <h3><span class="spn2">{{payment.endDate | date2DayName}}</span><br>
+                    {{payment.endDate | convertDate2JsString}}</h3>
                 </div>
             </div>
          </div>
