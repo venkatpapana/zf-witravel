@@ -1,3 +1,4 @@
+<loading loading="destinations.loading"></loading>
 <header class="inner_head">
     <a href="#"><img src="images/inner_logo.png"></a>
 
@@ -83,7 +84,7 @@
                     <h2>Salida</h2>
                     <h3><span class="spn1">Miercoles</span></h3> 
                     <!-- <input type="text" value="" name="" id="datepicker" class="input_1" placeholder="Date"> --> 
-                    <md-datepicker ng-model="destinations.startDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" ng-change="destinations.updateStartDate()"></md-datepicker>
+                    <md-datepicker ng-model="destinations.startDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" ng-change="destinations.datesChange()"></md-datepicker>
                     
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
@@ -91,7 +92,7 @@
                     <!-- <input type="text" value="" name="" id="datepicker1" class="input_2" placeholder="Date"> -->
                     <div ng-if="!destinations.twoWay">    
                         <h3><span class="spn2">Viernes</span></h3>  
-                        <md-datepicker ng-model="destinations.endDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" ></md-datepicker>
+                        <md-datepicker ng-model="destinations.endDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" ng-change="destinations.datesChange()"></md-datepicker>
                     </div>
 
                 </div>

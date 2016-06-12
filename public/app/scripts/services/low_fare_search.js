@@ -8,8 +8,8 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .service('lowFareSearchService', ['$http', 'wiConfig', 'cityNamesService', 'hotelSearchService', 'util',
-        function ($http, wiConfig, cityNamesService, hotelSearchService, util) {
+    .service('lowFareSearchService', ['$http', '$q', 'wiConfig', 'cityNamesService', 'hotelSearchService', 'util',
+        function ($http, $q, wiConfig, cityNamesService, hotelSearchService, util) {
         var origin = 'Madrid';
 
         //var allDestinations = ['AMS', 'BER', 'BCN', 'LON', 'CPH', 'PAR', 'IST', 'BRU', 'AGP', 'ROM', 'KRK', 'TLL', 'LIS'];
@@ -117,13 +117,43 @@ angular.module('ngWitravelApp')
             return searchDestinations.join();;
         };        
 
+
+        var newSearchRequest = function(successFunction, failureFunction) {
+            clearResults();
+            var allDestinations = getAllDestinations();
+
+            var dest1 = allDestinations.slice(0, 6);
+            var dest2 = allDestinations.slice(6, 12);
+            var dest3 = allDestinations.slice(12);
+
+            var defer = $q.defer();
+            var promises = [];                
+
+            promises.push(hotelSearchService.getCacheHotelSearchResults());
+
+            setSearchDestinations(dest1);
+            promises.push(getLowFareSearchResults());
+
+            setSearchDestinations(dest2);
+            promises.push(getLowFareSearchResults());
+
+            setSearchDestinations(dest3);
+            promises.push(getLowFareSearchResults());   
+            
+                            
+            $q.all(promises).then(successFunction, failureFunction);
+
+        };
+
+
         var getLowFareSearchResults = function () {
             return $http({
                 method: 'GET',
                 url: wiConfig.serviceURL + '/flights/low-fare-search/origin/' + getOrigin() + 
                         '/budget/' + getBudget() + '/travellers/' + getNumTravellers() + 
                         '/startDate/' + util.convertDate2PhpString(getStartDate()) + '/endDate/' + util.convertDate2PhpString(getEndDate()) + 
-                        '/destinations/'+getSearchDestinationsAsString()
+                        '/destinations/'+getSearchDestinationsAsString() +
+                        '/twoWay/'+!getTwoWay()
             }).then(function successFunction(response) {
                 //console.log("getLowFareSearchResults ---> success", response.data)
                 //searchResults = response.data;
@@ -239,12 +269,12 @@ angular.module('ngWitravelApp')
 
                         var arrFlights = {};
                         arrFlights['TotalAirPrice'] = thisTotalPrice;
-
-                        if (!twoWay && thisAirPricing['Journey'][0] != undefined) {
-                            var airSegmentKey1 = thisAirPricing['Journey'][0]['AirSegmentRef']['!Key'];
-                            var airSegmentKey2 = thisAirPricing['Journey'][1]['AirSegmentRef']['!Key'];
+                        var airSegmentKey1, airSegmentKey2;
+                        if (thisAirPricing['Journey'][0] != undefined) { //!twoWay && 
+                            airSegmentKey1 = thisAirPricing['Journey'][0]['AirSegmentRef']['!Key'];
+                            airSegmentKey2 = thisAirPricing['Journey'][1]['AirSegmentRef']['!Key'];
                         } else if(thisAirPricing['Journey']['AirSegmentRef']){
-                            var airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef']['!Key'];
+                            airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef']['!Key'];
                         }
 
                         var airSegment1 = getAirSegment(searchResults, airSegmentKey1);
@@ -259,7 +289,7 @@ angular.module('ngWitravelApp')
                             // resAirSegments.push(airSegment1);
                         }
 
-                        if (!twoWay) {
+                        if (airSegmentKey2) { //!twoWay && 
                             var airSegment2 = getAirSegment(searchResults, airSegmentKey2);
                             if (airSegment2 != null) {
                                 // airSegment2['TotalPrice'] = thisTotalPrice;
@@ -325,8 +355,10 @@ angular.module('ngWitravelApp')
 
 
         var filterResults = function() {
-            
-            var allAirSegments = getAllFlights();
+            var allAirSegments = [];
+            angular.copy(getAllFlights(), allAirSegments);
+            // var allAirSegments = getAllFlights();
+
             var allHotelResults = hotelSearchService.getParsedCacheResults();
 
             var airSegments = [];
@@ -334,6 +366,21 @@ angular.module('ngWitravelApp')
 
             for (var i = 0; i < allAirSegments.length; i++) {                
                 var thisSegment = allAirSegments[i];
+
+                var airPrice = 0;
+
+                //2-way / 1-way filter
+                // if(!!getTwoWay()) {                    
+                //     for (var j = thisSegment['segments'].length - 1; j >= 0; j--) {
+                //         // var thisFlight = thisSegment['segments'][i];
+                //         thisSegment['segments'][j]['return'] = {}
+                //     }
+                //     // thisSegment['segments'][0]['return'] = {};
+                //     // airPrice = util.string2Num(thisSegment['segments'][0]['TotalAirPrice']);
+                // }else{
+                //     // airPrice = util.string2Num(thisSegment['segments'][0]['TotalAirPrice']);
+                // }
+                airPrice = util.string2Num(thisSegment['segments'][0]['TotalAirPrice']);
                 allAirSegments[i]['hotels'] = [];
 
                 //city strike filter
@@ -344,13 +391,15 @@ angular.module('ngWitravelApp')
                 var destCityCode = cityNamesService.getCityCodeAlias(thisSegment['destination']);
                 // console.log('destCityCode', destCityCode);
 
-                var airPrice = util.string2Num(thisSegment['segments'][0]['TotalAirPrice']);
+
+                
                 // if(thisSegment['segments'][0]['return'] != undefined && thisSegment['segments'][0]['return'] != null) {
                 //     airPrice += util.string2Num(thisSegment['segments'][0]['return']['TotalPrice']);
                 // }
                 var thisHotels = [], thisFlightHotelMin=0;
                 if(allHotelResults[destCityCode] != undefined  && allHotelResults[destCityCode] != null) { //twoWay && 
 
+                    //budget filter
                     for (var j = 0; j < allHotelResults[destCityCode].length; j++) {
                         var thisHotel = allHotelResults[destCityCode][j];
                         var hotelPrice = util.string2Num(thisHotel['TotalMinAmountNum']);
@@ -440,6 +489,7 @@ angular.module('ngWitravelApp')
             getDistance: getDistance,
             getTwoWay: getTwoWay,
             setTwoWay: setTwoWay,
+            newSearchRequest: newSearchRequest,
             getResultDestinations: getResultDestinations,
             getDispDestinations: getDispDestinations,
             setDispDestinations: setDispDestinations,

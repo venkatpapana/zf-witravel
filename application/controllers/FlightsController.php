@@ -27,6 +27,7 @@ class FlightsController extends WiTravelBaseController {
         $startDate = $request->getParam('startDate')?$request->getParam('startDate'): $this->getNextFriday();
         $endDate = $request->getParam('endDate')?$request->getParam('endDate'): $this->getNextSunday();
 
+        $twoWay = filter_var($request->getParam('twoWay'), FILTER_VALIDATE_BOOLEAN);
 
         //TODO: read the req params
         $search = new FlightSearchCriteria();
@@ -36,6 +37,7 @@ class FlightsController extends WiTravelBaseController {
         $search->setToPlaces($destinations);
         $search->setBudget($budget);
         $search->setNumPassengers($travellers);
+        $search->setIs2Way($twoWay);
 
         //send request
         // $gds = new GdsProvider();

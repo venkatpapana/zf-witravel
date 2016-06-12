@@ -8,8 +8,8 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .controller('FlightsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService', 'util',
-  function ($http, $state, wiConfig, lowFareSearchService, util) {
+  .controller('FlightsCtrl', ['$http', '$state','wiConfig', 'lowFareSearchService', 'util', 'cityNamesService', 
+  function ($http, $state, wiConfig, lowFareSearchService, util, cityNamesService) {
 
     var vm = this;
     
@@ -28,31 +28,73 @@ angular.module('ngWitravelApp')
         //console.log('budgetChange', vm.budget);
         lowFareSearchService.setBudget(vm.budget);
         refreshFlights(); 
-    };
+    };   
 
     vm.twoWayChange = function() {
-        console.log('twoWayChange', vm.twoWay);
-        lowFareSearchService.setTwoWay(vm.twoWay);
+        util.showNewSearchConfirm(
+            function() {
+                vm.loading = true;
+                console.log('twoWayChange', vm.twoWay);
+                lowFareSearchService.setTwoWay(vm.twoWay);
+                lowFareSearchService.newSearchRequest(
+                    function() {
+                    vm.loading = false;
+                    refreshFlights();
+                    }, function(){vm.loading = false;}
+                );                   
+            }, 
+            function(){
+                vm.twoWay = !vm.twoWay;
+            }
+        );                
         // vm.airSegments = lowFareSearchService.filterResults();
-    };    
+        // console.log(vm.airSegments);
+    }; 
 
-    vm.updateStartDate = function() {
-        lowFareSearchService.setStartDate(vm.startDate);
-    };
+    vm.datesChange = function() {
+        util.showNewSearchConfirm(
+            function() {
+                vm.loading = true;
+                lowFareSearchService.setStartDate(vm.startDate);
+                lowFareSearchService.setEndDate(vm.endDate);
+                lowFareSearchService.newSearchRequest(
+                    function() {
+                        vm.loading = false;
+                        // refreshFlights();
+                        vm.airSegments = lowFareSearchService.filterResults();
+                    }, 
+                    function(){
+                        vm.loading = false;
+                    }
+                );                    
+            }, 
+            function(){
+                vm.startDate = lowFareSearchService.getStartDate();
+                vm.endDate = lowFareSearchService.getEndDate();
+            }
+        );                
+        // vm.airSegments = lowFareSearchService.filterResults();
+        // console.log(vm.airSegments);
+    };                       
 
-    vm.updateEndDate = function() {
-        lowFareSearchService.setEndDate(vm.endDate);
-    };
 
     var refreshFlights = function() {
         vm.selectedDestAirSegments = [];
         vm.airSegments = lowFareSearchService.filterResults();
         for (var i = vm.airSegments.length - 1; i >= 0; i--) {
-            if(vm.selectedDestination == vm.airSegments[i]['destination']) {
+            if(cityNamesService.getCityCodeAlias(vm.selectedDestination) == cityNamesService.getCityCodeAlias(vm.airSegments[i]['destination'])) {
                 vm.selectedDestAirSegments = vm.airSegments[i];
+                break;
             }
         }
-    }
+
+        if(!lowFareSearchService.getSelectedAirSegment() && vm.selectedDestAirSegments && vm.selectedDestAirSegments.length > 0) {
+            flightSelected(vm.selectedDestAirSegments['segments'][0]);
+        }    
+        if(vm.selectedDestAirSegments && vm.selectedDestAirSegments['segments']) {
+            lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
+        }
+    };
     
 
     vm.flightSelected = flightSelected;
@@ -70,12 +112,12 @@ angular.module('ngWitravelApp')
     
     
     refreshFlights();
-    if(!lowFareSearchService.getSelectedAirSegment() && vm.selectedDestAirSegments && vm.selectedDestAirSegments.length > 0) {
-        flightSelected(vm.selectedDestAirSegments['segments'][0]);
-    }    
-    if(vm.selectedDestAirSegments && vm.selectedDestAirSegments['segments']) {
-        lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
-    }
+    // if(!lowFareSearchService.getSelectedAirSegment() && vm.selectedDestAirSegments && vm.selectedDestAirSegments.length > 0) {
+    //     flightSelected(vm.selectedDestAirSegments['segments'][0]);
+    // }    
+    // if(vm.selectedDestAirSegments && vm.selectedDestAirSegments['segments']) {
+    //     lowFareSearchService.updateRelativePricings(vm.selectedDestAirSegments['segments']);
+    // }
     
     
   }]);

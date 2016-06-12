@@ -36,31 +36,32 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setOrigin(vm.origin);
                 
 
+                lowFareSearchService.newSearchRequest(successFunction, failureFunction);
 
-                var allDestinations = lowFareSearchService.getAllDestinations();
-                // var source = 'PAR';
-                // var sourceIndex = allDestinations.indexOf(source);
-                // allDestinations.splice(sourceIndex, 1);
-                var dest1 = allDestinations.slice(0, 6);
-                var dest2 = allDestinations.slice(6, 12);
-                var dest3 = allDestinations.slice(12);
+                // var allDestinations = lowFareSearchService.getAllDestinations();
+                // // var source = 'PAR';
+                // // var sourceIndex = allDestinations.indexOf(source);
+                // // allDestinations.splice(sourceIndex, 1);
+                // var dest1 = allDestinations.slice(0, 6);
+                // var dest2 = allDestinations.slice(6, 12);
+                // var dest3 = allDestinations.slice(12);
 
-                var defer = $q.defer();
-                var promises = [];                
+                // var defer = $q.defer();
+                // var promises = [];                
 
-                promises.push(hotelSearchService.getCacheHotelSearchResults());
+                // promises.push(hotelSearchService.getCacheHotelSearchResults());
 
-                lowFareSearchService.setSearchDestinations(dest1);
-                promises.push(lowFareSearchService.getLowFareSearchResults());
+                // lowFareSearchService.setSearchDestinations(dest1);
+                // promises.push(lowFareSearchService.getLowFareSearchResults());
 
-                lowFareSearchService.setSearchDestinations(dest2);
-                promises.push(lowFareSearchService.getLowFareSearchResults());
+                // lowFareSearchService.setSearchDestinations(dest2);
+                // promises.push(lowFareSearchService.getLowFareSearchResults());
 
-                lowFareSearchService.setSearchDestinations(dest3);
-                promises.push(lowFareSearchService.getLowFareSearchResults());   
+                // lowFareSearchService.setSearchDestinations(dest3);
+                // promises.push(lowFareSearchService.getLowFareSearchResults());   
                 
                                 
-                $q.all(promises).then(successFunction, failureFunction);
+                // $q.all(promises).then(successFunction, failureFunction);
 
                 // lowFareSearchService.getLowFareSearchResults().then(successFunction, failureFunction);
                 // $state.go("destinations");

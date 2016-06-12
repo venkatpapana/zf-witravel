@@ -6,6 +6,7 @@ angular.module('ngWitravelApp')
             restrict: 'E',
             scope: {
                 flight: '=thisflight',
+                twoway: '=roundtrip',
                 'flightSelected': '&onSelected',
                 'redirectToHotels': '&gotoHotels',
             },

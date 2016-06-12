@@ -1,3 +1,4 @@
+<loading loading="flights.loading"></loading>
 <header class="inner_head">
     <a href="#"><img src="images/inner_logo.png"></a>
 
@@ -66,14 +67,14 @@
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Salida</h2>
                     <h3><span class="spn1">Miercoles</span> <!-- <input type="text" value="" name="" id="datepicker2" class="input_1" placeholder="Date"> --></h3>
-                    <md-datepicker ng-model="flights.startDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate"  ng-change="flights.updateStartDate()"></md-datepicker>
+                    <md-datepicker ng-model="flights.startDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate"  ng-change="flights.datesChange()"></md-datepicker>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Vuelta</h2>
                      <!-- <input type="text" value="" name="" id="datepicker3" class="input_2" placeholder="Date"> -->
                     <div ng-if="!flights.twoWay">
                         <h3><span class="spn2">Viernes</span></h3>
-                        <md-datepicker ng-model="flights.endDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" ng-change="flights.updateEndDate()"></md-datepicker>
+                        <md-datepicker ng-model="flights.endDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate" ng-change="flights.datesChange()"></md-datepicker>
                     </div>
                 </div>
             </div>
@@ -105,7 +106,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12 pad_none">
 
             <div ng-repeat="segment in flights.selectedDestAirSegments['segments']  track by $index">
-                <flight-tile thisflight=segment on-selected="flights.flightSelected(segment)" goto-hotels="flights.redirectToHotels(segment);"></flight-tile>
+                <flight-tile thisflight=segment on-selected="flights.flightSelected(segment)" goto-hotels="flights.redirectToHotels(segment);" roundtrip="flights.twoWay"></flight-tile>                
             </div>            
             
                         

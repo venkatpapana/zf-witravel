@@ -8,7 +8,7 @@
  * Service of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-  .service('util', [function () {
+  .service('util', ['$mdDialog', function ($mdDialog) {
     
     var res=null;
     var sortObjects = function(arrObjects, key) {
@@ -64,6 +64,23 @@ angular.module('ngWitravelApp')
       return parseInt(str, 10);
     };
 
+    var showNewSearchConfirm = function(yesFunction, noFunction) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+          .title('Would you like to serch again?')
+          .textContent('This will take time, do you want to continue?')
+          .ariaLabel('Search')
+          .ok('Please do it!')
+          .cancel('No');
+        $mdDialog.show(confirm).then(function() {
+            // $scope.status = 'You decided to get rid of your debt.';
+            yesFunction();
+        }, function() {
+            // $scope.status = 'You decided to keep your debt.';
+            noFunction();
+        });
+    };
+
     return {
       sortObjects: sortObjects,
       nextDayofWeekDate: nextDayofWeekDate,
@@ -71,6 +88,7 @@ angular.module('ngWitravelApp')
       nextSundayDate: nextSundayDate,
       convertDate2JsString: convertDate2JsString,
       convertDate2PhpString: convertDate2PhpString,
-      string2Num: string2Num
+      string2Num: string2Num, 
+      showNewSearchConfirm: showNewSearchConfirm
     }
   }]);

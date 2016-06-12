@@ -17,8 +17,8 @@
         <i class="fa fa-arrow-right right_arrow_innr"></i>
         <span>{{flight['onward']['!Destination'] | cityCode2Name}}, <strong>{{flight['onward']['!Destination']}}</strong></span>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 border_inner pad_none"></div>
-    <div class="col-md-12 col-sm-12 col-xs-12 plain_main_otr">
+    <div class="col-md-12 col-sm-12 col-xs-12 border_inner pad_none" ng-hide="!!twoway"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12 plain_main_otr" ng-hide="!!twoway">
         <div class="plain_img_outer">
             <img src="images/plain_left.png">
         </div>
@@ -27,11 +27,11 @@
                  alt="{{flight['return']['!Carrier']}}">
         </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
+    <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt" ng-hide="!!twoway">
         <h2>{{flight['return']['!DepartureTime'] | displayTime}}</h2>
         <span>{{flight['return']['!ArrivalTime'] | displayTime}}</span>
     </div>
-    <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
+    <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt" ng-hide="!!twoway">
         <span>{{flight['return']['!Origin'] | cityCode2Name}}, <strong>{{flight['return']['!Origin']}}</strong></span>
         <i class="fa fa-arrow-right right_arrow_innr"></i>
         <span>{{flight['return']['!Destination'] | cityCode2Name}}, <strong>{{flight['return']['!Destination']}}</strong></span>

@@ -19,12 +19,7 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setBudget(vm.budget);
                 vm.airSegments = lowFareSearchService.filterResults();
             };
-
-            vm.twoWayChange = function() {
-                console.log('twoWayChange', vm.twoWay);
-                lowFareSearchService.setTwoWay(vm.twoWay);
-                // vm.airSegments = lowFareSearchService.filterResults();
-            };            
+            
 
             vm.distanceChange = function() {
                 //console.log('budgetChange', vm.budget);
@@ -38,15 +33,59 @@ angular.module('ngWitravelApp')
                 lowFareSearchService.setDispDestinations(vm.dispDestinations);
                 vm.airSegments = lowFareSearchService.filterResults();
 
-            }
-
-            vm.updateStartDate = function() {
-                lowFareSearchService.setStartDate(vm.startDate);
             };
 
-            vm.updateEndDate = function() {
-                lowFareSearchService.setEndDate(vm.endDate);
-            };
+            vm.twoWayChange = function() {
+                util.showNewSearchConfirm(
+                    function() {
+                        vm.loading = true;
+                        console.log('twoWayChange', vm.twoWay);
+                        lowFareSearchService.setTwoWay(vm.twoWay);
+                        lowFareSearchService.newSearchRequest(
+                            function() {
+                                vm.loading = false;
+                                // refreshFlights();
+                                vm.airSegments = lowFareSearchService.filterResults();
+                            }, 
+                            function(){
+                                vm.loading = false;
+                            }
+                        );                    
+                    }, 
+                    function(){
+                        vm.twoWay = !vm.twoWay;
+                    }
+                );                
+                // vm.airSegments = lowFareSearchService.filterResults();
+                // console.log(vm.airSegments);
+            };   
+
+            vm.datesChange = function() {
+                util.showNewSearchConfirm(
+                    function() {
+                        vm.loading = true;
+                        lowFareSearchService.setStartDate(vm.startDate);
+                        lowFareSearchService.setEndDate(vm.endDate);
+                        lowFareSearchService.newSearchRequest(
+                            function() {
+                                vm.loading = false;
+                                // refreshFlights();
+                                vm.airSegments = lowFareSearchService.filterResults();
+                            }, 
+                            function(){
+                                vm.loading = false;
+                            }
+                        );                    
+                    }, 
+                    function(){
+                        vm.startDate = lowFareSearchService.getStartDate();
+                        vm.endDate = lowFareSearchService.getEndDate();
+                    }
+                );                
+                // vm.airSegments = lowFareSearchService.filterResults();
+                // console.log(vm.airSegments);
+            };                       
+
             
             //vm.results = lowFareSearchService.searchResults
 
@@ -89,7 +128,4 @@ angular.module('ngWitravelApp')
             vm.airSegments = lowFareSearchService.filterResults();
 
             
-
-
-
         }]);
