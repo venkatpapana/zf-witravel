@@ -2519,3 +2519,10 @@ body.loading {
 	color:#FFF;
 	background:#07cdfa 5px 3px no-repeat;
 }
+
+.ssl-trust{
+	display: inline-block;
+    background: url("../images/comodo_secure_seal_76x26_transp.png");
+    width: 76px;
+    height: 26px;
+}
