@@ -126,7 +126,7 @@ angular.module('ngWitravelApp')
             var dest2 = allDestinations.slice(6, 12);
             var dest3 = allDestinations.slice(12);
 
-            var defer = $q.defer();
+            // var defer = $q.defer();
             var promises = [];                
 
             promises.push(hotelSearchService.getCacheHotelSearchResults());
@@ -157,7 +157,7 @@ angular.module('ngWitravelApp')
             }).then(function successFunction(response) {
                 //console.log("getLowFareSearchResults ---> success", response.data)
                 //searchResults = response.data;
-                parseFlights(response.data)
+                parseFlights(response.data);
                 searchStatus = true;
                 return searchStatus;
             }, function failureFunction(response) {

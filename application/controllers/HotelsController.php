@@ -94,7 +94,7 @@ class HotelsController extends WiTravelBaseController
     }    
 
     public function hotelDetailsAction() {
-        $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
+        // $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
 
         //TODO: read the req params
         $search = new HotelDetailsCriteria();
@@ -115,17 +115,23 @@ class HotelsController extends WiTravelBaseController
     }
 
     public function hotelMediaLinksAction() {
-        $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
+        $request = Zend_Controller_Front::getInstance()->getRequest();
 
-        //TODO: read the req params
-        $search = new HotelMediaLinksCriteria();
-        $search->hotelCode = 53495;
+        // $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
+        $results = array();
 
-        //send request
-        // $gds = GdsProvider::getGdsObj();
-        $this->gds->setRequest($search);
-        $results = $this->gds->getHotelMediaLinks();
+        if($request->getParam('hotelCode')) {
+            $hotelCode = $request->getParam('hotelCode');
+// echo __METHOD__ . $hotelCode; exit;            
+            //TODO: read the req params
+            $search = new HotelMediaLinksCriteria();
+            $search->hotelCode = $hotelCode;
 
+            //send request
+            // $gds = GdsProvider::getGdsObj();
+            $this->gds->setRequest($search);
+            $results = $this->gds->getHotelMediaLinks();
+        }
         echo $results;
 
     }

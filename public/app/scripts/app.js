@@ -17,7 +17,8 @@ angular
         'ngSanitize',
         'ngTouch',
         'angularRandomString',
-        'ngMaterial'    
+        'ngMaterial',
+        'angular-carousel'
     ])
     .config(function ($stateProvider, $urlRouterProvider) {
 

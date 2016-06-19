@@ -6,6 +6,7 @@ angular.module('ngWitravelApp')
             restrict: 'E',
             scope: {
                 hotel: '=',
+                hotelImages: '=?',
                 'hotelSelected': '&onSelected',
                 'redirectToPayment': '&gotoPayment',
             },

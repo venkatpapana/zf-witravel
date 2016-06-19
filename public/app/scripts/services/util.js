@@ -12,7 +12,7 @@ angular.module('ngWitravelApp')
     
     var res=null;
 
-    var weekday = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    var weekdays = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
     var sortObjects = function(arrObjects, key) {
         if(arrObjects && arrObjects.length > 0) {
@@ -60,7 +60,7 @@ angular.module('ngWitravelApp')
     };
 
     var getDayNameForDateObj = function(objDate) {      
-      return weekday[objDate.getDay()];      
+      return weekdays[objDate.getDay()];      
     };
 
     var string2Num = function(str) {

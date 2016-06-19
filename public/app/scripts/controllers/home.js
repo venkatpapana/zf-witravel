@@ -12,11 +12,12 @@ angular.module('ngWitravelApp')
         function ($http, $state, $q, wiConfig, lowFareSearchService, hotelSearchService, geolocationService) {
 
             var vm = this;
+
             //console.log("home.js, geo=", geolocationService.getGeocoder());
             vm.origin = 'Loading...';
             vm.loading = true;
             geolocationService.getGeocoder().then(function(data){            
-                console.log('home.js, geo=', data);
+                // console.log('home.js, geo=', data);
                 vm.origin = data['city'];
                 vm.loading = false;
             }, function(data){

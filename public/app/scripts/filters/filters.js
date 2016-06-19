@@ -55,4 +55,14 @@ angular.module('ngWitravelApp')
         };
     }])
 
+    .filter('limit', function() {
+      return function(input, total) {
+        var output = [];
+        total = parseInt(total);
+        for (var i=0; i<total && i < input.length ; i++)
+          output.push(input[i]);
+        return output;
+      };
+    })  
+
     ;
