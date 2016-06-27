@@ -20,6 +20,11 @@ angular
         'ngMaterial',
         'angular-carousel'
     ])
+    .config(function($mdThemingProvider) {
+        $mdThemingProvider.theme('default')
+        .primaryPalette('indigo')
+        .accentPalette('orange');
+    })
     .config(function ($stateProvider, $urlRouterProvider) {
 
         /**

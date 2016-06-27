@@ -80,7 +80,7 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 banner_img_outer pad_none">
                 <div ng-repeat="hotel in hotels.hotels  track by $index ">
-                    <hotel-tile hotel=hotel on-selected="hotels.hotelSelected(hotel)"  goto-payment="hotels.redirectToPayment(hotel);"></hotel-tile>
+                    <hotel-tile hotel=hotel on-selected="hotels.hotelSelected(hotel)"  goto-payment="hotels.redirectToPayment(hotel);" show-details="hotels.showHotelDetails(hotel);"></hotel-tile>
                 </div>
 
             </div>

@@ -30,6 +30,14 @@ angular.module('ngWitravelApp')
       return false;
     }
 
+    function setSearchStatus(status) {
+      searchStatus = status;
+    }
+
+    function getSearchStatus() {
+      return searchStatus;
+    }
+    
     var getHotelImageResults = function(hotelCode) {
 
       // for (var i = respResults.length - 1; i >= 0; i--) {
@@ -74,6 +82,8 @@ angular.module('ngWitravelApp')
     };
 
     return {
+      setSearchStatus: setSearchStatus,
+      getSearchStatus: getSearchStatus,
       getHotelImageResults: getHotelImageResults,
       getCachedResults: getCachedResults,
       getCachedResultsForHotel: getCachedResultsForHotel

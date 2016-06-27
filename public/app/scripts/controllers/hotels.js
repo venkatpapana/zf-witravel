@@ -8,13 +8,14 @@
  * Controller of the ngWitravelApp
  */
 angular.module('ngWitravelApp')
-    .controller('HotelsCtrl', ['$http', '$state', '$q', 'wiConfig', 'lowFareSearchService', 'hotelSearchService', 'hotelImagesService', 'util', 'cityNamesService',
-        function ($http, $state, $q, wiConfig, lowFareSearchService, hotelSearchService, hotelImagesService, util, cityNamesService) {
+    .controller('HotelsCtrl', ['$http', '$state', '$q', '$mdDialog', '$mdMedia', 'wiConfig', 'util', 'cityNamesService', 
+            'lowFareSearchService', 'hotelSearchService', 'hotelImagesService', 'hotelDetailsService',
+        function ($http, $state, $q, $mdDialog, $mdMedia, wiConfig, util, cityNamesService,
+            lowFareSearchService, hotelSearchService, hotelImagesService, hotelDetailsService) {
 
             var vm = this;
-            vm.hotelImages = {};
 
-            var hotels = [];
+            vm.hotels = [];
 
             var hotelSelected = function (hotel) {
                 lowFareSearchService.setSelectedHotel(hotel);
@@ -25,6 +26,81 @@ angular.module('ngWitravelApp')
             var redirectToPayment = function(hotel) {
                 hotelSelected(hotel);
                 $state.go('payment');  
+            };
+
+            vm.showHotelDetails = function(hotel) {
+                console.log('hotel details', hotel);
+
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    controller: function($scope, $mdDialog) {
+                      // $scope.hide = function() {
+                      //   $mdDialog.hide();
+                      // };
+                      var vm = this; 
+                      vm.details = {};
+                      vm.hotel = hotel;
+
+                      vm.loading = true;
+
+                      hotelDetailsService.getHotelDetails(hotel['HotelCode'], function(response){
+                        vm.loading = false;
+                        vm.details = response;
+                        console.log('response', response);
+                        if(response === false) {
+                            $mdDialog.cancel();
+                        }
+                      }, function() {
+                        vm.loading = false;
+                        console.log('failureFunction');
+                        $mdDialog.cancel();
+                      });
+
+                      vm.cancel = function() {
+                        $mdDialog.cancel();
+                        return false;
+                      };
+                      // $scope.answer = function(answer) {
+                      //   $mdDialog.hide(answer);
+                      // };
+                    },
+                    templateUrl: 'partials/hotel_details.tpl.html',
+                    parent: angular.element(document.body),
+                    // targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen: useFullScreen,
+                    controllerAs: 'hoteldetails'
+                })
+                .then(function(answer) {
+                    // $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                    // $scope.status = 'You cancelled the dialog.';
+                });
+
+            };
+
+            vm.showHotelDetailsNonMaterial = function(hotel) {
+                console.log('showHotelDeatils', hotel);
+
+                var modalInstance = $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'partials/hotel_tile.html',
+                    // controller: 'HotelDetailsCtrl',
+                    size: size,
+                    resolve: {
+                        // items: function () {
+                        //   return $scope.items;
+                        // }
+                    }
+                });   
+
+                // modalInstance.result.then(function (selectedItem) {
+                //     $scope.selected = selectedItem;
+                // }, function () {
+                //     $log.info('Modal dismissed at: ' + new Date());
+                // });
+                               
+
             };
 
             vm.budgetChange = function() {
@@ -47,10 +123,10 @@ angular.module('ngWitravelApp')
                 // for (var j = hotelImages.length - 1; j >= 0; j--) {
                 //     hotelImages[hotelImages[j]['HotelCode']] = hotelImages[j];
                 // }
-                for (var i = hotels.length - 1; i >= 0; i--) {
-                    hotels[i]['images'] = hotelImagesService.getCachedResultsForHotel(hotels[i]['HotelCode']);
+                for (var i = vm.hotels.length - 1; i >= 0; i--) {
+                    vm.hotels[i]['images'] = hotelImagesService.getCachedResultsForHotel(vm.hotels[i]['HotelCode']);
                 }
-                vm.hotels = hotels;
+                // vm.hotels = hotels;
                 hotelSearchService.updateRelativePricings(vm.hotels);
 
             }
@@ -97,17 +173,17 @@ angular.module('ngWitravelApp')
                 
                 vm.selectedDestAirSegments = lowFareSearchService.getFlightsForDestination(vm.selectedDestination);
                 if(vm.selectedDestAirSegments) {
-                    hotels = vm.selectedDestAirSegments['hotels'];
+                    vm.hotels = vm.selectedDestAirSegments['hotels'];
                 }
 
                 //TODO:
 
                 var hotelImgPromises = []; 
                 vm.loading = true;
-                for (var i = hotels.length - 1; i >= 0; i--) {
-                    var hotel = hotels[i];
+                for (var i = vm.hotels.length - 1; i >= 0; i--) {
+                    // var hotel = vm.hotels[i];
                     
-                    hotelImgPromises.push(hotelImagesService.getHotelImageResults(hotel.HotelCode));
+                    hotelImgPromises.push(hotelImagesService.getHotelImageResults(vm.hotels[i].HotelCode));
 
                     // default hotel image
                     // hotel['carouselIndex'] = 0;

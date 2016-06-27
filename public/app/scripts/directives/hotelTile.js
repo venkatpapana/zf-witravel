@@ -6,9 +6,9 @@ angular.module('ngWitravelApp')
             restrict: 'E',
             scope: {
                 hotel: '=',
-                hotelImages: '=?',
                 'hotelSelected': '&onSelected',
                 'redirectToPayment': '&gotoPayment',
+                'showHotelDetails': '&showDetails'
             },
             templateUrl: 'partials/hotel_tile.html',
      //        controller: ['hotelSearchService', function(hotelSearchService) {
@@ -17,6 +17,6 @@ angular.module('ngWitravelApp')
 					// hotelSearchService.getHoltelReservationResult(hotel.HotelCode);
      //        	}
      //        }],
-           	controllerAs: "vm"           	
+           	// controllerAs: "vm"           	
         };
 });

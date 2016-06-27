@@ -115,7 +115,7 @@
             $strReqXml = str_replace("{CHECKIN_DATE}", $request->checkinDate, $strReqXml);
             $strReqXml = str_replace("{CHECKOUT_DATE}", $request->checkoutDate, $strReqXml);
             $strReqXml = str_replace("{HOTEL_CODE}", $request->hotelCode, $strReqXml);
-            $strReqXml = str_replace("{HOTEL_CHAIN}", $request->hotelChain, $strReqXml);
+            $strReqXml = str_replace("{HOTEL_CHAIN}", 'YX', $strReqXml);
 
 
             break;

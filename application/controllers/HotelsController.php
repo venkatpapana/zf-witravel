@@ -95,21 +95,26 @@ class HotelsController extends WiTravelBaseController
 
     public function hotelDetailsAction() {
         // $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
+        $request = Zend_Controller_Front::getInstance()->getRequest();
 
-        //TODO: read the req params
-        $search = new HotelDetailsCriteria();
-        $search->hotelCode = 53495;
-        $search->numAdults = 2;
-        $search->numChildren = 0;
-        $search->checkinDate = '2016-03-20';
-        $search->checkoutDate = '2016-03-22';
-        $search->numRooms = '1';
+        $results = [];
 
-        //send request
-        // $gds = GdsProvider::getGdsObj();
-        $this->gds->setRequest($search);
-        $results = $this->gds->getHotelDetails();
+        if($request->getParam('hotelCode')) {
+        //     //TODO: read the req params
+            $search = new HotelDetailsCriteria();
+            $search->hotelCode = $request->getParam('hotelCode');
+            $search->numAdults = $request->getParam('adults')?$request->getParam('adults'): 1;
+            $search->numChildren = 0;
+            $search->checkinDate = $request->getParam('startDate')? $request->getParam('startDate'): $this->getNextFriday();
+            $search->checkoutDate = $request->getParam('endDate')?$request->getParam('endDate'): $this->getNextSunday();
+            $search->numRooms = '1';
+            $search->hotelChain = 'YX';
 
+            //send request
+            // $gds = GdsProvider::getGdsObj();
+            $this->gds->setRequest($search);
+            $results = $this->gds->getHotelDetails();
+        }
         echo $results;
 
     }

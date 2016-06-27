@@ -1555,8 +1555,14 @@ input[type="checkbox"] {
 }
 .pop_left_img_outr img
 {
-	width:100%;
+	/*width:100%;*/
+	width: 224px;
+	height: 224px;
 	float:left;
+}
+.pop_img_open {
+	width: 600px;
+	height: 600px;
 }
 .eyes_img
 {
