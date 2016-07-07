@@ -2,11 +2,11 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
     <soapenv:Body>
         <AirCreateReservationReq xmlns="http://www.travelport.com/schema/universal_v33_0"
-                                 TraceId="53fd748c-f6a7-443e-9685-56cdbfcebfe8" AuthorizedBy="Chetan"
-                                 TargetBranch="P7030029" ProviderCode="1G" RetainReservation="Both">
+                                 TraceId="53fd748c-f6a7-443e-9685-56cdbfcebfe8" AuthorizedBy="{AUTHORIZED_BY}"
+                                 TargetBranch="{TARGET_BRANCH}" ProviderCode="1G" RetainReservation="Both">
             <BillingPointOfSaleInfo xmlns="http://www.travelport.com/schema/common_v33_0" OriginApplication="UAPI"/>
             <BookingTraveler xmlns="http://www.travelport.com/schema/common_v33_0" Key="WVNaRlJJQzVtUlUyNmw3eQ=="
-                             TravelerType="ADT" Age="40" DOB="1976-01-11" Gender="M" Nationality="US">
+                             TravelerType="{TRAVELLER_TYPE}" Age="{TRAVELLER_AGE}" DOB="{TRAVELLER_DOB}" Gender="{TRAVELLER_GENDER}" Nationality="{TRAVELLER_NATIONALITY}">
                 <BookingTravelerName Prefix="{TRAVELLER_PREFIX}" First="{TRAVELLER_FIRSTNAME}"
                                      Last="{TRAVELLER_LASTNAME}"/>
                 <DeliveryInfo>

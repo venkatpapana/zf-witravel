@@ -53,51 +53,91 @@ class FlightsController extends WiTravelBaseController {
 
     public function flightReservationAction() {
         // $wiconfig = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('wiconfig');
-        //
 
-        //TODO: read the req params
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+// echo "<pre>";
+// print_r($data);exit;        
+
         $reservation = new FlightReservationCriteria();
-        $reservation->hotelCode = 53495;
-        $reservation->numAdults = 2;
-        $reservation->checkinDate = Utils::getNextFriday();
-        $reservation->checkoutDate = Utils::getNextSunday();
-        $reservation->numRooms = '1';
+
+        $selectedHotel = $data['selectedHotel']?$data['selectedHotel']:'';
+
+        if(!empty($selectedHotel)) {            
+            $reservation->hotelCode     = $selectedHotel['HotelCode'];
+            $reservation->numAdults     = 2;
+            $reservation->checkinDate   = $data['startDateStr'];
+            $reservation->checkoutDate  = $data['endDateStr'];
+            $reservation->numRooms      = 1;
+        }
 
         //traveller
-        $traveller = new Traveller('Mr','John','Smith','40','1976-01-21','M','US','johnsmith@travelportuniversalapidemo.com');
-
-        //delivery address
-        $shippingAddr = new Address();
-        $shippingAddr->street = 'Via Augusta 59 5';
-        $shippingAddr->city = 'Madrid';
-        $shippingAddr->postalCode = '50156';
-        $traveller->shippingAddress = $shippingAddr;
+        $trvTitle       = $data['title']?$data['title']:'';
+        $trvFirstName   = $data['first_name']?$data['first_name']:'';
+        $trvLastName    = $data['last_name']?$data['last_name']:'';
+        $trvAge         = $data['age']?$data['age']:'';
+        $trvDob         = $data['dob']?$data['dob']:'';
+        $trvGender      = $data['gender']?$data['gender']:'';
+        $trvNationality = $data['nationality']?$data['nationality']:'';
+        $trvEmail       = $data['email']?$data['email']:'';
+        $traveller      = new Traveller($trvTitle, $trvFirstName, $trvLastName, $trvAge, $trvDob, $trvGender, $trvNationality, $trvEmail);
 
         //address
-        $addr = $shippingAddr;
-        $addr->name = 'DemoSiteAddress';
-        $addr->state = 'IA';
-        $addr->postalCode = '50156';
-        $addr->country = 'US';
+        $addrName       = $data['addr_name']?$data['addr_name']:'';
+        $addrState      = $data['addr_state']?$data['addr_state']:'';
+        $addrPostalCode = $data['addr_postalCode']?$data['addr_postalCode']:'';
+        $addrCountry    = $data['addr_country']?$data['addr_country']:'';
+        $addrStreet     = $data['addr_street']?$data['addr_street']:'';
+        $addrCity       = $data['addr_city']?$data['addr_city']:'';
+
+        $addr->name         = $addrName;
+        $addr->state        = $addrState;
+        $addr->postalCode   = $addrPostalCode;
+        $addr->country      = $addrCountry;
+        $addr->street       = $addrStreet;
+        $addr->city         = $addrCity;
         $traveller->address = $addr;
 
+        //delivery address
+        $shipPostalCode = $data['ship_addr_postalCode']?$data['ship_addr_postalCode']:'';
+        $shipStreet     = $data['ship_addr_street']?$data['ship_addr_street']:'';
+        $shipCity       = $data['ship_addr_city']?$data['ship_addr_city']:'';
+
+        $shippingAddr = new Address();
+        $shippingAddr->street       = $shipStreet;
+        $shippingAddr->city         = $shipCity;
+        $shippingAddr->postalCode   = $shipPostalCode;
+        $traveller->shippingAddress = $shippingAddr;
 
         //phone
-        $phone = new Phone('DEN', '1', '303', '123456789');
+        $phoneLocation      = $data['phone_location']?$data['phone_location']:'';
+        $phoneCountryCode   = $data['phone_countryCode']?$data['phone_countryCode']:'';
+        $phoneAreaCode      = $data['phone_areaCode']?$data['phone_areaCode']:'';
+        $phoneNumber        = $data['phone']?$data['phone']:'';
+
+        $phone = new Phone($phoneLocation, $phoneCountryCode, $phoneAreaCode, $phoneNumber);
         $traveller->phone = $phone;
 
         //credit card
-        $cc = new CreditCard('VI', '4444333322221111', '2016-12', '123');
+        $ccType     = $data['cc_type']?$data['cc_type']:'';        
+        $ccNum      = $data['cc_num']?$data['cc_num']:'';        
+        $ccExpYear  = $data['cc_exp_year']?$data['cc_exp_year']:'';
+        $ccExpMon   = $data['cc_exp_mon']?$data['cc_exp_mon']:'';
+        $ccCvv      = $data['cc_cvv']?$data['cc_cvv']:'';
+
+        $cc = new CreditCard($ccType, $ccNum, $ccExpYear.'-'.$ccExpMon, $ccCvv);
         $traveller->creditCard = $cc;
 
+//echo "<pre>";
+
         $reservation->traveller = $traveller;
-
-
+// print_r($reservation);exit;
         //send request
         // $gds = GdsProvider::getGdsObj();
         // $gds = new GdsProvider();
         // $gds = $gds->getGdsObj('TRAVELPORT');
-        $this->gds->setRequest($search);
+        $this->gds->setRequest($reservation);
+        
         $results = $this->gds->bookFlight();
 
         echo $results;

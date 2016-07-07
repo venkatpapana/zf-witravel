@@ -25,20 +25,20 @@
 <div class="col-md-12 col-sm-12 col-xs-12 bann_out_con">
     <div class="col-md-3 col-sm-4 col-xs-12">
         <div class="col-md-12 col-sm-12 col-xs-12 precio_final">
-            <h2>{{payment.selectedTotalPrice}}€</h2>
+            <h2>{{payment.data.selectedTotalPrice}}€</h2>
             <span>precio final</span>
         </div>
          <div class="col-md-12 col-sm-12 col-xs-12 viaj_txt tp_mrgn">
             <div class="col-md-11 col-sm-12 col-xs-12 sallda_outer pad_none">
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Salida</h2>
-                    <h3><span class="spn1">{{payment.startDate | date2DayName}}</span> <br>
-                    {{payment.startDate | convertDate2JsString}}</h3>
+                    <h3><span class="spn1">{{payment.data.startDate | date2DayName}}</span> <br>
+                    {{payment.data.startDate | convertDate2JsString}}</h3>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 sallda_outer_frst">
                     <h2>Vuelta</h2>
-                    <h3><span class="spn2">{{payment.endDate | date2DayName}}</span><br>
-                    {{payment.endDate | convertDate2JsString}}</h3>
+                    <h3><span class="spn2">{{payment.data.endDate | date2DayName}}</span><br>
+                    {{payment.data.endDate | convertDate2JsString}}</h3>
                 </div>
             </div>
          </div>
@@ -49,9 +49,9 @@
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12 tp_mrgn pad_none">
                 <div class="col-md-12 col-sm-12 col-xs-12" style="font-size: 12px">
-                    <div>Flight price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{payment.selectedAirSegment['TotalAirPrice'] | string2Num}} €</div>
-                    <div>Hotel price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{payment.selectedHotel['TotalMinAmountNum'] | string2Num}} €</div>
-                    <div>Booking charges : {{payment.bookingCharges | string2Num}} €</div><br>
+                    <div>Flight price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{payment.data.selectedAirSegment['TotalAirPrice'] | string2Num}} €</div>
+                    <div>Hotel price &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {{payment.data.selectedHotel['TotalMinAmountNum'] | string2Num}} €</div>
+                    <div>Booking charges : {{payment.data.bookingCharges | string2Num}} €</div><br>
                 </div>
             </div>
          </div>
@@ -68,18 +68,18 @@
                     <img src="images/plan2.png">
                 </div>
                 <div class="vueling_outer_btn">
-                    <img width="47" height="22" ng-src="images/airlines/{{payment.selectedAirSegment['onward']['!Carrier']}}_70_48.jpg"
+                    <img width="47" height="22" ng-src="images/airlines/{{payment.data.selectedAirSegment['onward']['!Carrier']}}_70_48.jpg"
                  alt="{{flight['onward']['!Carrier']}}">
                 </div>
                </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
-                    <h2>{{payment.selectedAirSegment['onward']['!DepartureTime'] | displayTime}}</h2>
-                    <span>{{payment.selectedAirSegment['onward']['!ArrivalTime'] | displayTime}}</span>
+                    <h2>{{payment.data.selectedAirSegment['onward']['!DepartureTime'] | displayTime}}</h2>
+                    <span>{{payment.data.selectedAirSegment['onward']['!ArrivalTime'] | displayTime}}</span>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
-                    <span>{{payment.selectedAirSegment['onward']['!Origin'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['onward']['!Origin']}}</strong></span>
+                    <span>{{payment.data.selectedAirSegment['onward']['!Origin'] | cityCode2Name}}, <strong>{{payment.data.selectedAirSegment['onward']['!Origin']}}</strong></span>
                     <i class="fa fa-arrow-right right_arrow_pagar"></i>
-                    <span>{{payment.selectedAirSegment['onward']['!Destination'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['onward']['!Destination']}}</strong></span>
+                    <span>{{payment.data.selectedAirSegment['onward']['!Destination'] | cityCode2Name}}, <strong>{{payment.data.selectedAirSegment['onward']['!Destination']}}</strong></span>
                 </div>
 
                   <div class="col-md-12 col-sm-12 col-xs-12 plain_main_otr">
@@ -87,18 +87,18 @@
                     <img src="images/plain_left.png">
                 </div>
                 <div class="vueling_outer_btn">
-                    <img width="47" height="22" ng-src="images/airlines/{{payment.selectedAirSegment['return']['!Carrier']}}_70_48.jpg"
+                    <img width="47" height="22" ng-src="images/airlines/{{payment.data.selectedAirSegment['return']['!Carrier']}}_70_48.jpg"
                  alt="{{flight['return']['!Carrier']}}">
                 </div>
                </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 vueling_txt">
-                    <h2>{{payment.selectedAirSegment['return']['!DepartureTime'] | displayTime}}</h2>
-                    <span>{{payment.selectedAirSegment['return']['!ArrivalTime'] | displayTime}}</span>
+                    <h2>{{payment.data.selectedAirSegment['return']['!DepartureTime'] | displayTime}}</h2>
+                    <span>{{payment.data.selectedAirSegment['return']['!ArrivalTime'] | displayTime}}</span>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12 barajas_txt">
-                    <span>{{payment.selectedAirSegment['return']['!Origin'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['return']['!Origin']}}</strong></span>
+                    <span>{{payment.data.selectedAirSegment['return']['!Origin'] | cityCode2Name}}, <strong>{{payment.data.selectedAirSegment['return']['!Origin']}}</strong></span>
                     <i class="fa fa-arrow-right right_arrow_pagar"></i>
-                    <span>{{payment.selectedAirSegment['return']['!Destination'] | cityCode2Name}}, <strong>{{payment.selectedAirSegment['return']['!Destination']}}</strong></span>
+                    <span>{{payment.data.selectedAirSegment['return']['!Destination'] | cityCode2Name}}, <strong>{{payment.data.selectedAirSegment['return']['!Destination']}}</strong></span>
                 </div>
             </div>
                         
@@ -107,7 +107,7 @@
              </div>
              
              <div class="col-md-8 col-sm-8 col-xs-8 radision_blue_txt">
-                <h2>{{payment.selectedHotel['Name']}}, <strong>{{payment.selectedHotel['Address']}}</strong></h2>
+                <h2>{{payment.data.selectedHotel['Name']}}, <strong>{{payment.data.selectedHotel['Address']}}</strong></h2>
             </div>
              <div class="col-md-4 col-sm-4 col-xs-4 radision_blue_star pad_none">
                 <i class="fa fa-star star_icon"></i>
@@ -171,19 +171,19 @@
         <div class="col-md-12 col-sm-12 col-xs-12 payment_fields_outer pad_none">
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>Tratamiento</h2>
-            <select class="payment_text_fields_innr inner-2 col-md-12 col-sm-12 col-xs-12" required="required" name="">
-    <option value="sr">Sr</option>
-    <option value="perder">Perder</option>
+            <select class="payment_text_fields_innr inner-2 col-md-12 col-sm-12 col-xs-12" required="required" name="" ng-model="payment.data.title">
+    <option value="Mr" >Sr</option>
+    <option value="Mrs">Perder</option>
    </select>    
             <!--<input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" name="">-->
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>Nombre</h2>
-            <input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][first_name]" ng-model="payment.first_name">
+            <input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][first_name]" ng-model="payment.data.first_name">
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>Apellido</h2>
-            <input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][last_name]"  ng-model="payment.last_name">
+            <input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][last_name]"  ng-model="payment.data.last_name">
         </div>
        </div>
 
@@ -201,11 +201,11 @@
         <div class="col-md-12 col-sm-12 col-xs-12 payment_fields_outer pad_none">
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>Mail</h2>
-            <input type="email" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][email]" ng-model="payment.email">
+            <input type="email" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][email]" ng-model="payment.data.email">
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>Telefono</h2>
-            <input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][phone]" ng-model="payment.phone">
+            <input type="text" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="transaction[customer][phone]" ng-model="payment.data.phone">
         </div>
        </div>
 
@@ -259,12 +259,12 @@
         <div class="col-md-12 col-sm-12 col-xs-12 payment_fields_outer pad_none">
         <div class="col-md-8 col-sm-8 col-xs-12 pad_none payment_text_fields payment_fields_lrg">
             <h2>Numero de tarjeta </h2>
-            <input type="text" class="payment_text_fields_large col-md-12 col-sm-12 col-xs-12" name="transaction[credit_card][number]" ng-model="payment.cc_num">
+            <input type="text" class="payment_text_fields_large col-md-12 col-sm-12 col-xs-12" name="transaction[credit_card][number]" ng-model="payment.data.cc_num">
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2> Tipo de tarjeta</h2>
-                <select class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="" ng-model="payment.cc_type">
-    <option value="visa">Visa</option>
+                <select class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" required="required" name="" ng-model="payment.data.cc_type">
+    <option value="VI">Visa</option>
     <option value="mastercard">Mastercard</option>
     <option value="maestro">Maestro</option>
     <option value="amex">Amex</option>
@@ -281,7 +281,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12 payment_fields_outer pad_none">
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>Caducidad</h2>
-                <select class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" id="month" required="required" name="month" ng-model="payment.cc_exp_mon">
+                <select class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" id="month" required="required" name="month" ng-model="payment.data.cc_exp_mon">
                                       <option value="01">1</option><option value="02">2</option><option value="03">3</option><option value="04">4</option><option value="05">5</option><option value="06">6</option><option value="07" selected>7</option><option value="08">8</option><option value="09">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option>
 
   </select>
@@ -289,25 +289,25 @@
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2>&nbsp;</h2>
-            <select class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" id="year" required="required" name="year" ng-model="payment.cc_exp_year">
-                <option value="s16">2016</option>
-                <option value="s17" >2017</option>
-                <option value="s18" >2018</option>
-                <option value="s19" >2019</option>
-                <option value="s20" >2020</option>
-                <option value="s21" >2021</option>
-                <option value="s22" >2022</option>
-                <option value="s23" >2023</option>
-                <option value="s24" >2024</option>
-                <option value="s25" >2025</option>
-                <option value="s26" >2026</option>
+            <select class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" id="year" required="required" name="year" ng-model="payment.data.cc_exp_year">
+                <option value="2016">2016</option>
+                <option value="2017" >2017</option>
+                <option value="2018" >2018</option>
+                <option value="2019" >2019</option>
+                <option value="2020" >2020</option>
+                <option value="2021" >2021</option>
+                <option value="2022" >2022</option>
+                <option value="2023" >2023</option>
+                <option value="2024" >2024</option>
+                <option value="2025" >2025</option>
+                <option value="2026" >2026</option>
             </select>
                 <input type="hidden" name="transaction[credit_card][expiration_date]" id="expiry">
             <!--<input type="text" placeholder="Ano" class="payment_text_fields_innr col-md-12 col-sm-12 col-xs-12" name="">-->
         </div>
         <div class="col-md-4 col-sm-4 col-xs-12 pad_none payment_text_fields">
             <h2> Codigo de seguridad</h2>
-            <input type="text" placeholder="CVV" required="required" class="payment_text_fields_innr col-md-8 col-sm-8 col-xs-8" name="transaction[credit_card][cvv]" ng-model="payment.cc_cvv">
+            <input type="text" placeholder="CVV" required="required" class="payment_text_fields_innr col-md-8 col-sm-8 col-xs-8" name="transaction[credit_card][cvv]" ng-model="payment.data.cc_cvv">
               <p class="cvv_code"> Que es esto?</p>        
         </div>
 </div>
@@ -315,7 +315,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12 payment_fields_outer pad_none">
         <div class="col-md-8 col-sm-8 col-xs-12 pad_none payment_text_fields payment_fields_lrg">
             <h2>Nombre del titular</h2>
-            <input type="text" placeholder="Mes" required="required" class="payment_text_fields_large col-md-12 col-sm-12 col-xs-12" name="" ng-model="payment.first_name">
+            <input type="text" placeholder="Mes" required="required" class="payment_text_fields_large col-md-12 col-sm-12 col-xs-12" name="" ng-model="payment.data.first_name">
         </div>
 </div>
 
