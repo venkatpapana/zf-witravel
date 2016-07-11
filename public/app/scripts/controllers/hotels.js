@@ -171,31 +171,38 @@ angular.module('ngWitravelApp')
                 // util.sortObjects(vm.hotels, 'TotalMinAmountNum');
                 vm.hotels = [];
                 
-                vm.selectedDestAirSegments = lowFareSearchService.getFlightsForDestination(vm.selectedDestination);
-                if(vm.selectedDestAirSegments) {
-                    vm.hotels = vm.selectedDestAirSegments['hotels'];
-                }
+                // vm.selectedDestAirSegments = lowFareSearchService.getFlightsForDestination(vm.selectedDestination);
+
+                // if(vm.selectedDestAirSegments) {
+                //     vm.hotels = vm.selectedDestAirSegments['hotels'];
+                // }
+
+                hotelSearchService.getHotelSearchResults(vm.selectedDestination).then(function(response){
+                    if(response) {
+                        vm.hotels = hotelSearchService.getHotels();
+                        util.sortObjects(vm.hotels, 'TotalMinAmountNum');
+                    }
+                    var hotelImgPromises = []; 
+                    vm.loading = true;
+                    for (var i = vm.hotels.length - 1; i >= 0; i--) {
+                        // var hotel = vm.hotels[i];
+                        
+                        hotelImgPromises.push(hotelImagesService.getHotelImageResults(vm.hotels[i].HotelCode));
+
+                        // default hotel image
+                        // hotel['carouselIndex'] = 0;
+                        // hotel['images'] = [
+                        //     {'!url': 'https://d2whcypojkzby.cloudfront.net/imageRepo/2/0/48/294/890/044546_SHR_Amsterdam_Airport_rooms_Senator__J.jpg'},
+                        //     {'!url': 'https://d2whcypojkzby.cloudfront.net/imageRepo/2/0/48/294/890/044546_SHR_Amsterdam_Airport_rooms_Senator__J.jpg'}
+                        // ];
+                        // vm.hotels[i] = hotel;
+                    };
+                    $q.all(hotelImgPromises).then(successFunction, failureFunction);
+                }, failureFunction);                
 
                 //TODO:
 
-                var hotelImgPromises = []; 
-                vm.loading = true;
-                for (var i = vm.hotels.length - 1; i >= 0; i--) {
-                    // var hotel = vm.hotels[i];
-                    
-                    hotelImgPromises.push(hotelImagesService.getHotelImageResults(vm.hotels[i].HotelCode));
-
-                    // default hotel image
-                    // hotel['carouselIndex'] = 0;
-                    // hotel['images'] = [
-                    //     {'!url': 'https://d2whcypojkzby.cloudfront.net/imageRepo/2/0/48/294/890/044546_SHR_Amsterdam_Airport_rooms_Senator__J.jpg'},
-                    //     {'!url': 'https://d2whcypojkzby.cloudfront.net/imageRepo/2/0/48/294/890/044546_SHR_Amsterdam_Airport_rooms_Senator__J.jpg'}
-                    // ];
-                    // vm.hotels[i] = hotel;
-                };
-                $q.all(hotelImgPromises).then(successFunction, failureFunction);
-
-
+                
                 
             };
 
@@ -212,8 +219,20 @@ angular.module('ngWitravelApp')
             vm.selectedDestination = lowFareSearchService.getSelectedDestination();
             vm.selectedAirSegment = lowFareSearchService.getSelectedAirSegment();
             vm.selectedTotalPrice = lowFareSearchService.getSelectedTotalPrice();
-            // vm.loading = true;
-            // hotelSearchService.getHotelSearchResults(selectedDestination).then(successFunction, failureFunction);
+            vm.loading = true;
+
+            hotelSearchService.setStartDate(lowFareSearchService.getStartDate());
+            hotelSearchService.setEndDate(lowFareSearchService.getEndDate());
+
+            // hotelSearchService.getHotelSearchResults(vm.selectedDestination).then(function(response){
+            //     if(response) {
+            //         var thisDestHotels = hotelSearchService.getHotels();
+            //     }
+            //     refreshHotels();
+            //     if(!lowFareSearchService.getSelectedHotel() && vm.hotels && vm.hotels.length > 0) {
+            //         hotelSelected(vm.hotels[0]);
+            //     }                
+            // }, failureFunction);
             // var cached = hotelSearchService.getParsedCacheResults()
             // vm.hotels = cached[cityNamesService.getCityCodeAlias(vm.selectedDestination)];
             // console.log("cache.hotels", vm.hotels);

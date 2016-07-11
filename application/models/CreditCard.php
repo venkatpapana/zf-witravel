@@ -7,9 +7,10 @@
  * Time: 11:15 PM
  */
 class CreditCard {
-    public $type, $number, $expDate, $cvv;
+    public $name, $type, $number, $expDate, $cvv;
 
-    public function __construct($type, $number, $expDate, $cvv) {
+    public function __construct($name, $type, $number, $expDate, $cvv) {
+    	$this->name = $name;
         $this->type = $type;
         $this->number = $number;
         $this->expDate = $expDate;

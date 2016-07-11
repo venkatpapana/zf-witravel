@@ -10,6 +10,7 @@
 angular.module('ngWitravelApp')
     .service('hotelSearchService', ['$http', '$q', 'wiConfig', 'util', function ($http, $q, wiConfig, util) {
         var budget = 200, numTravellers = 2, twoWay = true;
+        var startDate, endDate;
         var searchStatus = false, searchResults = null;
         var respResults = [];
         var cacheResults=[], cacheParsedResults = [];
@@ -33,12 +34,30 @@ angular.module('ngWitravelApp')
         };
 
 
+        var setStartDate = function (d) {
+            startDate = d;
+        }
+
+        var getStartDate = function () {
+            return startDate;
+        };  
+
+        var setEndDate = function (d) {
+            endDate = d;
+        }
+
+        var getEndDate = function () {
+            return endDate;
+        };               
+
+
         var getHotelSearchResults = function (location) {
             return $http({
                 method: 'GET',
-                url: wiConfig.serviceURL + '/hotels/hotel-search/location/' + location + '/adults/' + getNumTravellers() + '/startDate/' + '' + '/endDate/'
+                url: wiConfig.serviceURL + '/hotels/hotel-search/location/' + location + '/adults/' + getNumTravellers() + '/startDate/' + util.convertDate2PhpString(getStartDate()) + '/endDate/' + util.convertDate2PhpString(getEndDate())
             }).then(function successFunction(response) {
                 searchResults = response.data;
+                parseHotels();
                 searchStatus = true;
                 return searchStatus;
             }, function failureFunction(response) {
@@ -261,6 +280,8 @@ angular.module('ngWitravelApp')
         return {
             setBudget: setBudget,
             getBudget: getBudget,
+            setStartDate: setStartDate,
+            setEndDate: setEndDate,
             setNumTravellers: setNumTravellers,
             getNumTravellers: getNumTravellers,
             getHotelSearchResults: getHotelSearchResults,

@@ -1,0 +1,6 @@
+<AirSegment Key="{FLIGHT_KEY}" OptionalServicesIndicator="false"
+            AvailabilityDisplayType="Fare Specific Fare Quote Unbooked" Group="{FLIGHT_GROUP}" Carrier="{CARRIER}"
+            FlightNumber="{FLIGHT_NUMBER}" Origin="{ORIGIN}" Destination="{DESTINATION}"
+            DepartureTime="{DEPARTURE_TIME}" ArrivalTime="{ARRIVAL_TIME}"
+            FlightTime="{FLIGHT_TIME}" TravelTime="{TRAVEL_TIME}" Distance="{DISTANCE}" ProviderCode="1G"
+            ClassOfService="{CLASS}"/>

@@ -1,0 +1,1 @@
+{"faultcode":"Server.Data","faultstring":"Atleast one host segment is required specific to ACH AirPricing","detail":{"ErrorInfo":{"Code":"3101","Service":"WEBSVC","Type":"Data","Description":"Invalid input data. Generic data validation failure message.","TransactionId":"D58BFAA50A0764779ADC3933B4F7DF04","TraceId":"53fd748c-f6a7-443e-9685-56cdbfcebfe8"}}}

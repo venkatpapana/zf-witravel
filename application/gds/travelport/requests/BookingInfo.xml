@@ -1,0 +1,2 @@
+<BookingInfo BookingCode="{BookingCode}" CabinClass="{CabinClass}" FareInfoRef="{FareInfoRef}"
+                                 SegmentRef="{SegmentRef}"/>

@@ -26,6 +26,7 @@ angular.module('ngWitravelApp')
             vm.data.selectedTotalPrice  = lowFareSearchService.getSelectedTotalPrice();
             vm.data.bookingCharges      = lowFareSearchService.getBookingCharges();
 
+
             vm.data.transid     = randomString(6);
             vm.data.status      = 'authorized';
             vm.data.amount      = '395.00';
@@ -35,6 +36,7 @@ angular.module('ngWitravelApp')
             vm.data.email       = 'Chetan@gmail.com';
             vm.data.phone       = '000012345';
 
+            vm.data.cc_name     = 'Chetan Kumar';
             vm.data.maskedcc    = '411111******1111';  
             vm.data.cc_num      = '4111111111111111';
             vm.data.cc_type     = 'VI';

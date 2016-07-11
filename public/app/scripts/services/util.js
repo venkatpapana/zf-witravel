@@ -65,7 +65,7 @@ angular.module('ngWitravelApp')
 
     var string2Num = function(str) {
       if(str) {
-        str = str.toString().replace(/,/g, '');
+        str = str.toString().replace(/[a-z,]/ig, '');
         
       }
       return parseInt(str, 10);

@@ -1,0 +1,7 @@
+<FareInfo PromotionalFare="false" FareFamily="{FareFamily}" Amount="{Amount}" DepartureDate="{DepartureDate}"
+                              EffectiveDate="{EffectiveDate}" Destination="{Destination}" Origin="{Origin}"
+                              PassengerTypeCode="{PassengerTypeCode}" FareBasis="{FareBasis}" Key="{Key}">
+    <FareRuleKey FareInfoRef="{FareInfoRef}" ProviderCode="{ProviderCode}">
+        {FareRuleKey}
+    </FareRuleKey>
+</FareInfo>

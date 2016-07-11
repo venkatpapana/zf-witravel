@@ -184,6 +184,8 @@ angular.module('ngWitravelApp')
             return airSegment;
         };
 
+
+
         var getAllFlights = function () {
             //clear prev. results, if any  
             respResults = [];          
@@ -243,6 +245,52 @@ angular.module('ngWitravelApp')
 
         };
 
+
+        var getBookingInfo = function(AirPricingInfo, segKey) {
+
+            var BookingInfo = null;
+            if (AirPricingInfo && segKey) {
+                if(AirPricingInfo['BookingInfo']['!SegmentRef'] == segKey) {
+                    BookingInfo = AirPricingInfo['BookingInfo'];                                            
+                }else{
+                    for (var i = 0; i < AirPricingInfo['BookingInfo'].length; i++) {
+                        if (AirPricingInfo['BookingInfo'][i]['!SegmentRef'] == segKey) {
+                            BookingInfo = AirPricingInfo['BookingInfo'][i];
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return BookingInfo;
+        };
+
+        var getFareInfo = function (FareInfoList, FareInfoRefKey) {
+            var FareInfo = null;
+            if (FareInfoList && FareInfoRefKey) {
+                for (var i = 0; i < FareInfoList.length; i++) {
+                    if (FareInfoList[i]['!Key'] == FareInfoRefKey) {
+                        FareInfo = FareInfoList[i];
+                        break;
+                    }
+                }
+            }
+            return FareInfo;
+        };
+
+        var getTravelTime = function (FlightDetails, FlightDetailsRef) {
+            var TravelTime = null;
+            if (FlightDetails && FlightDetailsRef) {
+                for (var i = 0; i < FlightDetails.length; i++) {
+                    if (FlightDetails[i]['!Key'] == FlightDetailsRef) {
+                        TravelTime = FlightDetails[i]['!TravelTime'];
+                        break;
+                    }
+                }
+            }
+            return TravelTime;
+        };
+
         var parseFlights = function (searchResults) {
             //console.log("parseFlights(): ENTER --> resAirSegments = ", resAirSegments);
             //var resAirSegments = {}, arrDestinations = [];
@@ -269,7 +317,30 @@ angular.module('ngWitravelApp')
 
                         var arrFlights = {};
                         arrFlights['TotalAirPrice'] = thisTotalPrice;
-                        var airSegmentKey1, airSegmentKey2;
+
+                        arrFlights['AirPricingSolution'] = {
+                            'TotalPrice'            : thisAirPricing['!TotalPrice'],
+                            'BasePrice'             : thisAirPricing['!BasePrice'],
+                            'ApproximateTotalPrice' : thisAirPricing['!ApproximateTotalPrice'],
+                            'ApproximateBasePrice'  : thisAirPricing['!ApproximateBasePrice'],
+                            'Taxes'                 : thisAirPricing['!Taxes'],
+                            'ApproximateTaxes'      : thisAirPricing['!ApproximateTaxes'],
+
+                        };
+
+                        arrFlights['AirPricingInfo'] = {
+                            'PricingMethod'         : thisAirPricing['AirPricingInfo']['!PricingMethod'],
+                            'Key'                   : thisAirPricing['AirPricingInfo']['!Key'],
+                            'TotalPrice'            : thisAirPricing['AirPricingInfo']['!TotalPrice'],
+                            'BasePrice'             : thisAirPricing['AirPricingInfo']['!BasePrice'],
+                            'ApproximateTotalPrice' : thisAirPricing['AirPricingInfo']['!ApproximateTotalPrice'],
+                            'ApproximateBasePrice'  : thisAirPricing['AirPricingInfo']['!ApproximateBasePrice'],
+                            'Taxes'                 : thisAirPricing['AirPricingInfo']['!Taxes'],
+                            'ApproximateTaxes'      : thisAirPricing['AirPricingInfo']['!ApproximateTaxes'],
+                            'ProviderCode'          : thisAirPricing['AirPricingInfo']['!ProviderCode'],
+                        };
+
+                        var airSegmentKey1 = null, airSegmentKey2 = null;
                         if (thisAirPricing['Journey'][0] != undefined) { //!twoWay && 
                             airSegmentKey1 = thisAirPricing['Journey'][0]['AirSegmentRef']['!Key'];
                             airSegmentKey2 = thisAirPricing['Journey'][1]['AirSegmentRef']['!Key'];
@@ -277,9 +348,18 @@ angular.module('ngWitravelApp')
                             airSegmentKey1 = thisAirPricing['Journey']['AirSegmentRef']['!Key'];
                         }
 
-                        var airSegment1 = getAirSegment(searchResults, airSegmentKey1);
 
-                        if (airSegment1 != null) {
+                        if (airSegmentKey1) {
+
+                            var airSegment1 = getAirSegment(searchResults, airSegmentKey1);
+
+
+                            airSegment1['BookingInfo'] = getBookingInfo(thisAirPricing['AirPricingInfo'], airSegmentKey1);
+                            // console.log('BookingInfo1', airSegmentKey1, airSegment1['BookingInfo']);
+                            airSegment1['FareInfo'] = getFareInfo(searchResults['FareInfoList']['FareInfo'], airSegment1['BookingInfo']['!FareInfoRef']);
+                            airSegment1['TravelTime'] = getTravelTime(searchResults['FlightDetailsList']['FlightDetails'], airSegment1['FlightDetailsRef']['!Key']);
+
+
                             // airSegment1['TotalPrice'] = thisTotalPrice;
                             // arrFlights['TotalAirPrice'] += airSegment1['TotalPrice'];
                             airSegment1['DestinationDisplay'] = cityNamesService.getCityNameForCode(airSegment1['!Destination']);
@@ -287,20 +367,26 @@ angular.module('ngWitravelApp')
                             arrFlights['onward'] = airSegment1;
                             
                             // resAirSegments.push(airSegment1);
-                        }
+                        
 
-                        if (airSegmentKey2) { //!twoWay && 
-                            var airSegment2 = getAirSegment(searchResults, airSegmentKey2);
-                            if (airSegment2 != null) {
-                                // airSegment2['TotalPrice'] = thisTotalPrice;
-                                // arrFlights['TotalAirPrice'] += airSegment2['TotalPrice'];
-                                airSegment2['DestinationDisplay'] = cityNamesService.getCityNameForCode(airSegment2['!Destination']);
-                                arrFlights['return'] = airSegment2;                                
-                                // resAirSegments.push(airSegment2);
+                            if (airSegmentKey2) { //!twoWay && 
+                                var airSegment2 = getAirSegment(searchResults, airSegmentKey2);
+                                if (airSegment2 != null) {
+                                    // airSegment2['TotalPrice'] = thisTotalPrice;
+                                    // arrFlights['TotalAirPrice'] += airSegment2['TotalPrice'];
+                                    airSegment2['DestinationDisplay'] = cityNamesService.getCityNameForCode(airSegment2['!Destination']);
+
+                                    airSegment2['BookingInfo'] = getBookingInfo(thisAirPricing['AirPricingInfo'], airSegmentKey2); 
+                                    // console.log('BookingInfo2', airSegmentKey2, airSegment2['BookingInfo']);
+                                    airSegment2['FareInfo'] = getFareInfo(searchResults['FareInfoList']['FareInfo'], airSegment2['BookingInfo']['!FareInfoRef']);
+                                    airSegment2['TravelTime'] = getTravelTime(searchResults['FlightDetailsList']['FlightDetails'], airSegment2['FlightDetailsRef']['!Key']);
+
+                                    arrFlights['return'] = airSegment2;                                
+                                    // resAirSegments.push(airSegment2);
+                                }
                             }
-                        }
 
-                        if (airSegment1 != null) {
+                        
                             // if (arrDestinations.indexOf(airSegment1['!Destination']) < 0) {
                             //     arrDestinations.push(airSegment1['!Destination']);
                             //     resAirSegments[airSegment1['!Destination']] = [];
@@ -314,6 +400,7 @@ angular.module('ngWitravelApp')
                             //console.log('destination ----> '+airSegment1['!Destination']);
                             resAirSegments[airSegment1['!Destination']].push(arrFlights);
                         }
+
                     }//for
                 } //have AirPricingSolutions
             } //have SearchResults

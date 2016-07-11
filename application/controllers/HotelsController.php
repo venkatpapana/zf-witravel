@@ -210,13 +210,14 @@ class HotelsController extends WiTravelBaseController
         $traveller->phone = $phone;
 
         //credit card
+        $ccName     = $data['cc_name']?$data['cc_name']:''; 
         $ccType     = $data['cc_type']?$data['cc_type']:'';        
         $ccNum      = $data['cc_num']?$data['cc_num']:'';        
         $ccExpYear  = $data['cc_exp_year']?$data['cc_exp_year']:'';
         $ccExpMon   = $data['cc_exp_mon']?$data['cc_exp_mon']:'';
         $ccCvv      = $data['cc_cvv']?$data['cc_cvv']:'';
 
-        $cc = new CreditCard($ccType, $ccNum, $ccExpYear.'-'.$ccExpMon, $ccCvv);
+        $cc = new CreditCard($ccName, $ccType, $ccNum, $ccExpYear.'-'.$ccExpMon, $ccCvv);
         $traveller->creditCard = $cc;
 
         $reservation->traveller = $traveller;
